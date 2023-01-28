@@ -17,7 +17,9 @@
     --fs-nav: 4rem;
     --fs-nav-order: 0.85rem;
     --fs-h1: 3.5rem;
+    --fs-h2: 3rem;
     --fs-med: 1.25rem;
+    --fw-thick: 600;
   }
 
     html{
@@ -37,15 +39,23 @@
         font-family: 'Fog68',Serif;
         font-size: var(--fs-med);
     }
+    .fw-thick{
+      font-weight: var(--fw-thick);
+    }
     h1{
         font-size: var(--fs-h1);
-        margin: 5rem 0 1rem 0;
+        margin: 6rem 0 1rem 0;
+    }
+    h2{
+      font-size: var(--fs-h2);
+      /* margin: 5rem 0 1rem 0; *
     }
     a{
         cursor: none;
     }
     section{
         padding: 1rem;
+ 
     }
   .menu-btn {
     position: fixed;
@@ -169,7 +179,6 @@
         width: 10%;
         /* opacity: 0.7; */
     }
-
     50%{
         width: 100%;
         transform: rotate(45deg)
@@ -196,36 +205,73 @@
     text-decoration: none;
     z-index: 2;
 }
-
+.grid-split-2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
   @media (min-width: 45em) {
     :root{
         --fs-nav: 2.75rem;
     --fs-nav-order: 1rem;
     --fs-h1:5rem;
+    --fs-h2: 3rem;
     }
+    h2{
+ 
+      margin: 0rem 0 1rem 0;
+    }
+    section{
+      margin-right: clamp(16rem,30vw,20rem);;
+    }
+  section:not(:nth-child(2)) {
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 2rem 1rem;
+    
+  }
+  section:nth-child(2){
+    border-left: 2px solid rgb(1, 1, 1);
+    border-top: 2px solid rgb(2, 2, 2);
+    border-bottom: 0;
+    /* background-color: rgb(187, 187, 187); */
 
+    /* mix-blend-mode: difference; */
+    
+  }
+  /* section:nth-child(3){
+    background-color: rgb(206, 206, 206);
+  } */
+  section:nth-child(2)>div,
+  section:nth-child(2)>p,
+  section:nth-child(2)>a{
+    font-weight: 700;
+    /* background-color: rgb(244, 244, 244); */
+  }
 .primary-navigation{
     position: fixed;
     inset: auto 0 auto auto;
     width: clamp(16rem,30vw,20rem);
-    background-color: rgb(0, 0, 0);
-    border-left: 1px solid white;
+    background-color: rgb(242, 242, 242);
+    border: 2px solid white;
+  
     mix-blend-mode: difference;
 }
 .primary-navigation::before{
-    display: none;
-    width:20%;
-    height: 100%;
-
+    /* display: none; */
+    width:1rem;
+    height: 150%;
+  background-color: rgb(0, 0, 0);
     /* transform: rotate(45deg); */
-    animation: none;
-    left:4rem;
+    /* animation: none; */
+    top:-25%;
+    left:0.75rem;
 }
 
- /* .menu-btn{
+ .menu-btn{
         display: none;
-  } */
+  }
   .tabs-orders{
     position: relative;
     height: 100%;
@@ -233,7 +279,7 @@
   }
   .tabs-menu{
     padding-bottom: 2rem;
-    margin: 0 0 0 2rem;
+    margin: 0 0 0 1rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -263,8 +309,33 @@
     transform: translateX(0);
   }
   .primary-navigation[data-open='false']{
-    transform: translateX(100%);
+    transform: translateX(0);
   }
+
+  .biography-sect2{
+    padding: 1rem;
+    height: 100%;
+    /* background-color: rgb(209, 209, 209); */
+  }
+ 
+  .biography-sect2>div{
+  
+  }
+  @keyframes expand-shrink {
+    0%{
+        width: 1.25rem;
+        /* opacity: 0.7; */
+    }
+    50%{
+        width: 100%;
+        transform: rotate(45deg) scale(3);
+        /* opacity: 0.3; */
+    }
+    100%{
+        width: 1.25rem;
+        /* opacity: 0.7; */
+    }
+}
 }
 .inner-cursor{
     position:absolute;
@@ -287,7 +358,7 @@
     z-index: 9999;
     transition: width 2s, height 2s, opacity 0.2s,  background-color 0.2s; 
     /* transform: scale(1); */
-    transition: left 0.3s, top 0.3s, transform 0.03s, width 0.2s, height 0.2s;
+    transition: left 0.3s, top 0.3s, transform 0.0s, width 0.2s, height 0.2s;
 }
 
 .inner-cursor.grow{
@@ -295,7 +366,7 @@
     left:-50px;
     width:100px;
     height:100px;
-    transition: left 0.3s, top 0.3s, transform 0.03s, width 0.2s, height 0.2s;
+    transition: left 0.3s, top 0.3s, transform 0.0s, width 0.2s, height 0.2s;
     /* transform: scale(5); */
 
 
@@ -345,7 +416,7 @@
     :root{
         --fs-nav: 2.75rem;
     --fs-nav-order: 0.85rem;
-    --fs-h1: 6rem;
+    --fs-h1: 7rem;
     }
 }
 @media (hover: hover) and (pointer: fine) {
@@ -362,3 +433,5 @@
     display: none;
     }
   }
+.text-center{text-align: center;}
+.text-right{text-align: right;}
