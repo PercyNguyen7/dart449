@@ -105,10 +105,10 @@
         height: clamp(40rem,40vw,70rem);
         }
         .result-wrapper{
-            border: 25px solid rgba(2, 2, 2, 0.89);
+            border: 25px solid rgba(34, 34, 34, 0.89);
         }
         .result-area{
-            outline: 25px solid rgba(15, 15, 15, 0.973);
+            /* outline: 25px solid rgba(15, 15, 15, 0.973); */
         }
     }
    
