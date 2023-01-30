@@ -27,18 +27,20 @@ const getRandomInt =()=> {
 let number;
 let interactable = true;
 ball.addEventListener("click", ()=>{
-    ball.classList.toggle('turn-animation');
+    // ball.classList.toggle('turn-animation');
     // ball.classList.toggle('turn-animation');
     // console.log( smallCircle.classList.toggle('turn-animation'));
  
     
-    if (ball.classList.contains('turn-animation')
+    // if (ball.classList.contains('turn-animation')
     //  && interactable ==true
-     ){
+    //  ){
         rollSFX.currentTime=0;
         rollSFX.play();
         
-        getRandomInt();   
+        getRandomInt();  
+        reset_animation();
+        resultText.innerHTML = foods[orderNumber]; 
         // if (orderNumber <= 9){
         //     number= Math.floor(Math.random() * 10);
         //     setTimeout(()=>{
@@ -68,18 +70,17 @@ ball.addEventListener("click", ()=>{
 
 
         // setTimeout(()=>{
-                    smallCircleWrapper.classList.add('turn-animation2');
-                    resultText.classList.add('fade-in');
-                    resultText.innerHTML = foods[orderNumber];
+                    // 
+         
                 // }, 1000);
         
-    }
-    else if (!ball.classList.contains('turn-animation')){
-        smallCircleWrapper.classList.remove('turn-animation2');
-        resultText.classList.remove('fade-in');
-        resultText.innerHTML = 'FFS';
-        // smallCircle.classList.add('turn-animation');
-    }
+    // }
+    // else if (!ball.classList.contains('turn-animation')){
+    //     smallCircleWrapper.classList.remove('turn-animation2');
+    //     resultText.classList.remove('fade-in');
+    //     resultText.innerHTML = 'FFS';
+    //     // smallCircle.classList.add('turn-animation');
+    // }
 
 
 
@@ -88,34 +89,57 @@ ball.addEventListener("click", ()=>{
     // console.log(answers[0].yes[0]);
    
 });
+// reset animation for the ball
+function reset_animation() {
+   
+    ball.style.animation = 'none';
+    ball.offsetHeight; /* trigger reflow */
+    ball.style.animation = null; 
+
+    smallCircleWrapper.style.animation = 'none';
+    smallCircleWrapper.offsetHeight; /* trigger reflow */
+    smallCircleWrapper.style.animation = null; 
+
+    resultText.style.animation = 'none';
+    resultText.offsetHeight; /* trigger reflow */
+    resultText.style.animation = null; 
+
+    
+  }
 
 document.querySelector('body').addEventListener('keydown', shakeBall);
 
 function shakeBall(e) {
-    if (e.which == 32) {
-        ball.classList.toggle('turn-animation');
-    // ball.classList.toggle('turn-animation');
-    // console.log( smallCircle.classList.toggle('turn-animation'));
- 
-    
-    if (ball.classList.contains('turn-animation')
-    //  && interactable ==true
-     ){
+    if (e.which == 13) {
         rollSFX.currentTime=0;
         rollSFX.play();
         
-        getRandomInt(); 
-        smallCircleWrapper.classList.add('turn-animation2');
-           resultText.classList.add('fade-in');
-            resultText.innerHTML = foods[orderNumber];
-                // }, 1000);
+        getRandomInt();  
+        reset_animation();
+        resultText.innerHTML = foods[orderNumber]; 
+    //     ball.classList.toggle('turn-animation');
+    // // ball.classList.toggle('turn-animation');
+    // // console.log( smallCircle.classList.toggle('turn-animation'));
+ 
+    
+    // if (ball.classList.contains('turn-animation')
+    // //  && interactable ==true
+    //  ){
+    //     rollSFX.currentTime=0;
+    //     rollSFX.play();
         
-    }
-    else if (!ball.classList.contains('turn-animation')){
-        smallCircleWrapper.classList.remove('turn-animation2');
-        resultText.classList.remove('fade-in');
-        resultText.innerHTML = 'FFS';
-        // smallCircle.classList.add('turn-animation');
-    }
+    //     getRandomInt(); 
+    //     smallCircleWrapper.classList.add('turn-animation2');
+    //        resultText.classList.add('fade-in');
+    //         resultText.innerHTML = foods[orderNumber];
+    //             // }, 1000);
+        
+    // }
+    // else if (!ball.classList.contains('turn-animation')){
+    //     smallCircleWrapper.classList.remove('turn-animation2');
+    //     resultText.classList.remove('fade-in');
+    //     resultText.innerHTML = 'FFS';
+    //     // smallCircle.classList.add('turn-animation');
+    // }
     } 
 }
