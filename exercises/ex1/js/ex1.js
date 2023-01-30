@@ -77,7 +77,7 @@ ball.addEventListener("click", ()=>{
     else if (!ball.classList.contains('turn-animation')){
         smallCircleWrapper.classList.remove('turn-animation2');
         resultText.classList.remove('fade-in');
-        resultText.innerHTML = '';
+        resultText.innerHTML = 'FFS';
         // smallCircle.classList.add('turn-animation');
     }
 
@@ -114,11 +114,8 @@ function shakeBall(e) {
     else if (!ball.classList.contains('turn-animation')){
         smallCircleWrapper.classList.remove('turn-animation2');
         resultText.classList.remove('fade-in');
-        resultText.innerHTML = '';
+        resultText.innerHTML = 'FFS';
         // smallCircle.classList.add('turn-animation');
     }
     } 
-}
-function funny(){
-    console.log('funny');
 }

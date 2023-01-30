@@ -54,8 +54,8 @@
     } */
     #ball{
         background-color: rgb(10, 10, 10);
-        width: clamp(25rem,40vw,70rem);
-        height: clamp(25rem,40vw,70rem);
+        width: clamp(22rem,40vw,40rem);
+        height: clamp(22rem,40vw,40rem);
         border: 1px solid rgb(15, 15, 15);
         box-shadow: 50px 50px 15px 10px rgba(0, 0, 0, 0.3);
         aspect-ratio: 1;
@@ -127,10 +127,10 @@
        
     } */
     .turn-animation{
-        animation: turn 1s ease-in-out;
+        animation: turn 1.5s ease-in-out;
     }
     .turn-animation2{
-        animation: turn2 1s ease-in-out;
+        animation: turn2 1.5s ease-in-out;
     }
     .fade-in{
         animation: fade-in 2s ease-in-out;
@@ -149,7 +149,7 @@
         align-items: center;
         align-content: center;
         animation: rotate 50s linear infinite;
-        opacity: 0.8;
+        opacity: 0.7;
     }
     #result-text{
         font-size:clamp(1rem,40vw,1.5rem);
@@ -172,7 +172,6 @@
             /* opacity: 0.3; */
         }
         100%{
-      
             transform: rotate(0deg)
             /* opacity: 0.3; */
         }
@@ -180,7 +179,6 @@
     }
 @keyframes fade-in{
     0%{
-    
         opacity: 0;
     } 100%{
         opacity: 1;
@@ -191,17 +189,21 @@
         0%{
             transform:perspective(1000px) translate(0,0%) rotateX(0deg);
             /* opacity: 0.7; */
-        } 33%{
-            transform:perspective(1000px) translate(-20%,-2%) rotateY(-4deg);
+        } 25%{
+            transform:perspective(1000px) translate(-30%,-2%) rotateY(-7deg);
     
             /* opacity: 0.3; */
         }
         /* 40%{
             transform:perspective(1000px) translate(0%,-20%) rotateX(10deg);
-           
         } */
-        66%{
+        50%{
             transform:perspective(1000px) translate(20%,2%) rotateY(9deg);
+            opacity: 0.9;
+          
+        }
+        75%{
+            transform:perspective(1000px) translate(-7%,2%) rotateY(-3deg);
             opacity: 0.9;
           
         }
@@ -218,8 +220,8 @@
         0%{
             transform:perspective(1000px) translate(0,0%) rotateX(0deg);
       
-        } 33%{
-            transform:perspective(1000px) translate(-28%,-2%) rotateY(-14deg);
+        } 25%{
+            transform:perspective(1000px) translate(-38%,-2%) rotateY(-14deg);
     
             /* opacity: 0.3; */
         }
@@ -227,15 +229,15 @@
             transform:perspective(1000px) translate(0%,-20%) rotateX(10deg);
            
         } */
-        66%{
-            transform:perspective(1000px) translate(37%,2%) rotateY(20deg);
+        50%{
+            transform:perspective(1000px) translate(57%,2%) rotateY(20deg);
 
           
         }
-        /* 80%{
-            transform:perspective(1000px) translate(0%,20%) rotateX(10deg);
+        76%{
+            transform:perspective(1000px) translate(-15%,-5%) rotateY(-10deg);
       
-        }  */
+        } 
         100%{
             transform:perspective(1000px) translate(0,0%) rotateX(0deg);
     
