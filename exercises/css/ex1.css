@@ -10,8 +10,8 @@
   }
 
   body{
-    background-color: rgb(20, 22, 44);
-    background: linear-gradient(rgb(43, 32, 22), rgb(56, 56, 92))
+    background-color: rgb(192, 192, 192);
+    background: linear-gradient(rgb(32, 32, 32), rgb(37, 40, 63))
 
   }
   section{
@@ -22,13 +22,14 @@
     align-content: center;
     padding: 1rem;
     height: 100vh;
+    min-height: 100vh;
   }
 
   h1{
     font-size: 2rem;
     font-family:'Fog7', Tahoma, Geneva, Verdana, sans-serif;
     margin: 3rem 0;
-    color:rgb(81, 132, 226);
+    color:rgb(191, 192, 194);
     user-select: none;
   }
     p{
@@ -46,8 +47,8 @@
     } */
     #ball{
         background-color: rgb(10, 10, 10);
-        width: clamp(40rem,40vw,70rem);
-        height: clamp(40rem,40vw,70rem);
+        width: clamp(25rem,40vw,70rem);
+        height: clamp(25rem,40vw,70rem);
         border: 1px solid rgb(15, 15, 15);
         box-shadow: 50px 50px 15px 10px rgba(0, 0, 0, 0.3);
         aspect-ratio: 1;
@@ -58,48 +59,78 @@
         align-content: center;
         cursor: pointer;
     }
+    .result-wrapper{
+        display: flex;
+        justify-content: center;
+       
+        align-items: center;
+        align-content: center;
+        width: 50%;
+        height: 50%;
+        aspect-ratio: 1;
+        /* border: 10px solid rgba(180, 180, 180, 0.267); */
+        border-radius: 50%;
+        /* background-color: red; */
+        box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.651);
+    }
     .result-area{
         position: relative;
-        width: clamp(17rem,20vw,23rem);
-        height: clamp(17rem,20vw,23rem);
+        width: 100%;
+        height: 100%;
         aspect-ratio: 1;
-        background-color: rgb(8, 8, 8);
-        outline: 25px solid rgba(182, 193, 216, 0.267);
+        background-color: rgb(4, 4, 4);
+        border: 3px solid rgba(0, 0, 0, 0.911);
+        /* outline: 10px solid rgba(5, 5, 5, 0.781); */
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         align-content: center;
-        /* overflow: hidden; */
-        z-index: 1;
-        /* box-shadow: 0px 0px 50px 120px rgba(10, 10, 10, 0.137); */
+        overflow: hidden;
+        
     }
-    .result-area:before{
+    @media (min-width:45em){
+        #ball{
+        width: clamp(40rem,40vw,70rem);
+        height: clamp(40rem,40vw,70rem);
+        }
+        .result-wrapper{
+            border: 20px solid rgba(75, 75, 75, 0.267);
+        }
+        .result-area{
+            outline: 15px solid rgba(5, 5, 5, 0.781);
+        }
+    }
+   
+    /* .result-area:before{
         content:'';
         position: absolute;
         width: clamp(17rem,20vw,23rem);
         height: clamp(17rem,20vw,23rem);
         aspect-ratio: 1;
-        
-        outline: 15px solid rgb(7, 7, 7);
+        z-index: 99;
+        outline: 15px solid rgb(223, 215, 215);
+
         border-radius: 50%;
         transform: scale(1.03);
         
       
-        /* background-color: red; */
-    }
+       
+    } */
     .turn-animation{
         animation: turn 1s ease-in-out;
     }
+    .fade-in{
+        animation: fade-in 2s ease-in-out;
+    }
     .blue-triangle{
         position: relative;
-        /* top:clamp(1rem,30vw,1rem); */
-        width: clamp(12rem,25vw,15rem);
-        height:clamp(12rem,25vw,15rem);
+        top:clamp(1rem,30vw,1rem);
+        width: 80%;
+        height:80%;
         aspect-ratio: 1;
         background: url(../assets/images/triangle.png)center center / contain no-repeat;
         /* background-color: red; */
-        
         /* padding: 6rem; */
         display: flex;
         justify-content: center;
@@ -110,9 +141,10 @@
     }
     #result-text{
         font-size:clamp(1rem,20vw,1.5rem);
+        max-width: 10rem;
         text-align: center;
         position: relative;
-        bottom:clamp(0.5rem,30vw,3rem);
+        bottom:clamp(0.5rem,30vw,2rem);
     }
     @keyframes rotate {
         0%{
@@ -134,6 +166,15 @@
         }
       
     }
+@keyframes fade-in{
+    0%{
+    
+        opacity: 0;
+    } 100%{
+        opacity: 1;
+    }
+}
+
     @keyframes turn {
         0%{
             transform:perspective(1000px) translate(0,0%) rotateX(0deg);
@@ -148,7 +189,7 @@
            
         } */
         66%{
-            transform:perspective(1000px) translate(20%,2%) rotateY(8deg);
+            transform:perspective(1000px) translate(20%,2%) rotateY(9deg);
             opacity: 0.9;
           
         }
