@@ -1,5 +1,7 @@
 const ball = document.querySelector('#ball');
-const smallCircle = document.querySelector('.result-area')
+const smallCircle = document.querySelector('.result-area');
+const smallCircleWrapper = document.querySelector('.result-wrapper');
+
 const resultText = document.querySelector('#result-text');
 
 const rollSFX = new Audio('./assets/sounds/ball-roll.mp3');
@@ -66,18 +68,19 @@ ball.addEventListener("click", ()=>{
 
 
         // setTimeout(()=>{
-          
+                    smallCircleWrapper.classList.add('turn-animation2');
                     resultText.classList.add('fade-in');
                     resultText.innerHTML = foods[orderNumber];
                 // }, 1000);
         
     }
     else if (!ball.classList.contains('turn-animation')){
+        smallCircleWrapper.classList.remove('turn-animation2');
         resultText.classList.remove('fade-in');
         resultText.innerHTML = '';
         // smallCircle.classList.add('turn-animation');
-        
     }
+
 
 
    
@@ -85,6 +88,37 @@ ball.addEventListener("click", ()=>{
     // console.log(answers[0].yes[0]);
    
 });
+
+document.querySelector('body').addEventListener('keydown', shakeBall);
+
+function shakeBall(e) {
+    if (e.which == 32) {
+        ball.classList.toggle('turn-animation');
+    // ball.classList.toggle('turn-animation');
+    // console.log( smallCircle.classList.toggle('turn-animation'));
+ 
+    
+    if (ball.classList.contains('turn-animation')
+    //  && interactable ==true
+     ){
+        rollSFX.currentTime=0;
+        rollSFX.play();
+        
+        getRandomInt(); 
+        smallCircleWrapper.classList.add('turn-animation2');
+           resultText.classList.add('fade-in');
+            resultText.innerHTML = foods[orderNumber];
+                // }, 1000);
+        
+    }
+    else if (!ball.classList.contains('turn-animation')){
+        smallCircleWrapper.classList.remove('turn-animation2');
+        resultText.classList.remove('fade-in');
+        resultText.innerHTML = '';
+        // smallCircle.classList.add('turn-animation');
+    }
+    } 
+}
 function funny(){
     console.log('funny');
 }
