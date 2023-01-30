@@ -10,6 +10,7 @@
   }
 
   body{
+    overflow-y: scroll;
     background-color: rgb(192, 192, 192);
     background: linear-gradient(rgb(32, 32, 32), rgb(37, 40, 63))
 
@@ -17,11 +18,11 @@
   section{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     align-content: center;
     padding: 1rem;
-    height: 100vh;
+    height: 120vh;
     min-height: 100vh;
   }
 
@@ -190,7 +191,7 @@
             transform:perspective(1000px) translate(0,0%) rotateX(0deg);
             /* opacity: 0.7; */
         } 25%{
-            transform:perspective(1000px) translate(-30%,-2%) rotateY(-7deg);
+            transform:perspective(1000px) translate(-30%,-6%) rotateY(-7deg);
     
             /* opacity: 0.3; */
         }
@@ -198,13 +199,13 @@
             transform:perspective(1000px) translate(0%,-20%) rotateX(10deg);
         } */
         50%{
-            transform:perspective(1000px) translate(20%,2%) rotateY(9deg);
+            transform:perspective(1000px) translate(20%,6%) rotateY(9deg);
             opacity: 0.9;
           
         }
         75%{
-            transform:perspective(1000px) translate(-7%,2%) rotateY(-3deg);
-            opacity: 0.9;
+            transform:perspective(1000px) translate(-10%,-2%) rotateY(-8deg);
+         
           
         }
         /* 80%{
@@ -235,7 +236,7 @@
           
         }
         76%{
-            transform:perspective(1000px) translate(-15%,-5%) rotateY(-10deg);
+            transform:perspective(1000px) translate(-15%,-5%) rotateY(-6deg);
       
         } 
         100%{
