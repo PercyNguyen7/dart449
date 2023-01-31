@@ -3,6 +3,7 @@ const smallCircle = document.querySelector('.result-area');
 const smallCircleWrapper = document.querySelector('.result-wrapper');
 
 const resultText = document.querySelector('#result-text');
+const resultArea = document.querySelector('#result-area');
 
 const rollSFX = new Audio('./assets/sounds/ball-roll.mp3');
 answers = [
@@ -92,17 +93,17 @@ ball.addEventListener("click", ()=>{
 // reset animation for the ball
 function reset_animation() {
    
-    ball.style.animation = 'none';
-    ball.offsetHeight; /* trigger reflow */
-    ball.style.animation = null; 
+    resultArea.style.animation = 'none';
+    resultArea.offsetHeight; /* trigger reflow */
+    resultArea.style.animation = null; 
 
     smallCircleWrapper.style.animation = 'none';
     smallCircleWrapper.offsetHeight; /* trigger reflow */
     smallCircleWrapper.style.animation = null; 
 
-    resultText.style.animation = 'none';
-    resultText.offsetHeight; /* trigger reflow */
-    resultText.style.animation = null; 
+    resultArea.style.animation = 'none';
+    resultArea.offsetHeight; /* trigger reflow */
+    resultArea.style.animation = null; 
 
     
   }
