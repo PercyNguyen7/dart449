@@ -28,6 +28,7 @@
 
   h1{
     font-size: 2rem;
+    text-align: center;
     font-family:'Fog7', Tahoma, Geneva, Verdana, sans-serif;
     margin: 1rem 0;
     color:rgb(38, 38, 38);
@@ -35,6 +36,7 @@
   }
   h2{
     font-size: 1.5rem;
+    text-align: center;
     margin: 0 0 2rem 0;
     font-family:'Fog7', Tahoma, Geneva, Verdana, sans-serif;
     color:rgb(32, 32, 32);
@@ -118,6 +120,7 @@
     }
     #result-text{
         font-size:clamp(1rem,5vw,1.5rem);
+        text-align: center;
         max-width: 10rem;
         text-align: center;
         position: relative;
