@@ -15,8 +15,8 @@
   :root{
     --fs-nav: 3.25rem;
     --fs-nav-order: 0.85rem;
-    --fs-h1: clamp(2.5rem,12vw,4.25rem);
-    --fs-h2: clamp(2.25rem,12vw,2.75rem);
+    --fs-h1: clamp(2.75rem,12vw,4.25rem);
+    --fs-h2: clamp(1.75rem,12vw,2.25rem);
     --fs-med: 1.125rem;
     --fw-thick: 600;
   }
@@ -244,7 +244,7 @@
   content: '';
   position: absolute;
   top:-0.25rem;
-  left:-0.35rem;
+  left:-0.5rem;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -349,6 +349,15 @@ li{
 .footer-tabs:hover::after{
   transform: translateY(0);
   opacity: 1;
+}
+.footer-wrapper{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  /* align-items: space-between; */
+  justify-content: space-between;
+  align-content: space-between;
+  gap:1.5rem;
 }
 /* .footer-tabs-wrapper{
   display: flex;
@@ -536,15 +545,13 @@ li{
     background-color: rgb(247, 247, 247);
 
     mix-blend-mode: difference;
-    border: 1px solid rgb(233, 233, 233);
-    /* background-color: transparent; */
+    /* border: 1px solid rgb(233, 233, 233); */
+   
     border-radius: 50%;
     pointer-events:none;
     /* transition: width 0.2s, height 0.2s, opacity 0.2s,   background-color 0.2s;  */
-    /* opacity: 0; */
     z-index: 9999;
     transition: width 2s, height 2s, opacity 0.2s,  background-color 0.2s; 
-    /* transform: scale(1); */
     transition: left 0.3s, top 0.3s, transform 0.0s, width 0.2s, height 0.2s;
 }
 
