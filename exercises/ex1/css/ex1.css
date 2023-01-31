@@ -100,6 +100,31 @@
         align-content: center;
         overflow: hidden;
     }
+    .blue-triangle{
+        position: relative;
+      
+        width: 80%;
+        height:80%;
+        aspect-ratio: 1;
+        background: url(../assets/images/triangle.png)center center / contain no-repeat;
+        /* background-color: red; */
+        /* padding: 6rem; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        animation: rotate 50s linear infinite;
+        opacity: 0.8;
+    }
+    #result-text{
+        font-size:clamp(1rem,5vw,1.5rem);
+        max-width: 10rem;
+        text-align: center;
+        position: relative;
+        animation: fade-in 2s ease-in-out;
+        bottom:1rem;
+
+    }
     @media (min-width:45em){
         #ball{
         width: clamp(40rem,40vw,70rem);
@@ -110,6 +135,13 @@
         }
         .result-area{
             border: 10px solid rgba(0, 0, 0, 0.973);
+        }
+        #result-text{
+            font-size: 2rem;
+            bottom:clamp(0.5rem,30vw,2rem);
+        }
+        .blue-triangle{
+            top:1rem;
         }
     }
    
@@ -137,31 +169,7 @@
     .fade-in{
         animation: fade-in 2s ease-in-out;
     }
-    .blue-triangle{
-        position: relative;
-        top:clamp(1rem,30vw,1rem);
-        width: 80%;
-        height:80%;
-        aspect-ratio: 1;
-        background: url(../assets/images/triangle.png)center center / contain no-repeat;
-        /* background-color: red; */
-        /* padding: 6rem; */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        animation: rotate 50s linear infinite;
-        opacity: 0.8;
-    }
-    #result-text{
-        font-size:clamp(1rem,40vw,1.5rem);
-        max-width: 10rem;
-        text-align: center;
-        position: relative;
-        bottom:clamp(0.5rem,30vw,2rem);
-        animation: fade-in 2s ease-in-out;
 
-    }
     @keyframes rotate {
         0%{
             transform: rotate(0deg);
