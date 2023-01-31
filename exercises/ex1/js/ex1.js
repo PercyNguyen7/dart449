@@ -1,9 +1,11 @@
 const ball = document.querySelector('#ball');
-const smallCircle = document.querySelector('.result-area');
-const smallCircleWrapper = document.querySelector('.result-wrapper');
 
+const resultWrapper = document.querySelector('.result-wrapper');
+const blueTriangle = document.querySelector('#blue-triangle');
 const resultText = document.querySelector('#result-text');
 const resultArea = document.querySelector('#result-area');
+
+const animationEls = document.querySelectorAll('.animations');
 
 const rollSFX = new Audio('./assets/sounds/ball-roll.mp3');
 answers = [
@@ -13,14 +15,16 @@ answers = [
     }
 ]
 // answers = ['us,uk,']
-// foods = [
+// cuisines = [
 //     {yes:['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian'],
 //     neutral:['Vietnamese', 'Turkish', 'Pakistani','Starve','Irish'],
 //     no:[`Korean`, `Mediterranean`, `British`,`Filipino`,`German`] 
 //     }
 // ]
-foods = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Starve','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`]
+cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Starve','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`]
 
+
+console.log(animationEls);
 let orderNumber;
 const getRandomInt =()=> {
     orderNumber = Math.floor(Math.random() * 20);
@@ -29,9 +33,6 @@ let number;
 let interactable = true;
 ball.addEventListener("click", ()=>{
     // ball.classList.toggle('turn-animation');
-    // ball.classList.toggle('turn-animation');
-    // console.log( smallCircle.classList.toggle('turn-animation'));
- 
     
     // if (ball.classList.contains('turn-animation')
     //  && interactable ==true
@@ -41,7 +42,7 @@ ball.addEventListener("click", ()=>{
         
         getRandomInt();  
         reset_animation();
-        resultText.innerHTML = foods[orderNumber]; 
+        resultText.innerHTML = cuisines[orderNumber]; 
         // if (orderNumber <= 9){
         //     number= Math.floor(Math.random() * 10);
         //     setTimeout(()=>{
@@ -77,35 +78,23 @@ ball.addEventListener("click", ()=>{
         
     // }
     // else if (!ball.classList.contains('turn-animation')){
-    //     smallCircleWrapper.classList.remove('turn-animation2');
+    //     resultWrapper.classList.remove('turn-animation2');
     //     resultText.classList.remove('fade-in');
     //     resultText.innerHTML = 'FFS';
     //     // smallCircle.classList.add('turn-animation');
     // }
 
-
-
-   
-
     // console.log(answers[0].yes[0]);
    
 });
-// reset animation for the ball
+// reset animation for all animating elements
 function reset_animation() {
-   
-    resultArea.style.animation = 'none';
-    resultArea.offsetHeight; /* trigger reflow */
-    resultArea.style.animation = null; 
+    for (let i = 0; i < animationEls.length; i++){
+        animationEls[i].style.animation = 'none';
+        animationEls[i].offsetHeight; /* trigger reflow */
+        animationEls[i].style.animation = null; 
+    }
 
-    smallCircleWrapper.style.animation = 'none';
-    smallCircleWrapper.offsetHeight; /* trigger reflow */
-    smallCircleWrapper.style.animation = null; 
-
-    resultArea.style.animation = 'none';
-    resultArea.offsetHeight; /* trigger reflow */
-    resultArea.style.animation = null; 
-
-    
   }
 
 document.querySelector('body').addEventListener('keydown', shakeBall);
@@ -117,7 +106,7 @@ function shakeBall(e) {
         
         getRandomInt();  
         reset_animation();
-        resultText.innerHTML = foods[orderNumber]; 
+        resultText.innerHTML = cuisines[orderNumber]; 
     //     ball.classList.toggle('turn-animation');
     // // ball.classList.toggle('turn-animation');
     // // console.log( smallCircle.classList.toggle('turn-animation'));
@@ -130,14 +119,14 @@ function shakeBall(e) {
     //     rollSFX.play();
         
     //     getRandomInt(); 
-    //     smallCircleWrapper.classList.add('turn-animation2');
+    //     resultWrapper.classList.add('turn-animation2');
     //        resultText.classList.add('fade-in');
-    //         resultText.innerHTML = foods[orderNumber];
+    //         resultText.innerHTML = cuisines[orderNumber];
     //             // }, 1000);
         
     // }
     // else if (!ball.classList.contains('turn-animation')){
-    //     smallCircleWrapper.classList.remove('turn-animation2');
+    //     resultWrapper.classList.remove('turn-animation2');
     //     resultText.classList.remove('fade-in');
     //     resultText.innerHTML = 'FFS';
     //     // smallCircle.classList.add('turn-animation');
