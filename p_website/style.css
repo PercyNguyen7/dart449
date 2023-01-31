@@ -15,8 +15,8 @@
   :root{
     --fs-nav: 3.25rem;
     --fs-nav-order: 0.85rem;
-    --fs-h1: clamp(2.5rem,12vw,4rem);
-    --fs-h2: clamp(2.25rem,12vw,3.25rem);
+    --fs-h1: clamp(2.5rem,12vw,4.25rem);
+    --fs-h2: clamp(2.25rem,12vw,2.75rem);
     --fs-med: 1.125rem;
     --fw-thick: 600;
   }
@@ -147,8 +147,8 @@
     /* justify-content: flex-end;*/
   }
   .nav-logo{
-    width: clamp(8rem,23vw,12rem);
-    height:clamp(8rem,23vw,12rem);
+    width: clamp(4rem,23vw,6rem);
+    height:clamp(4rem,23vw,6rem);
     aspect-ratio: 1;
     background:url(./assets/images/icons/percy-logo-01.svg) center center / contain no-repeat;
     align-self: flex-start;
@@ -361,7 +361,12 @@ li{
   aspect-ratio: 1;
   background-color: red;
 } */
-
+@media (max-width: 44.99em){
+  section{
+    text-align: center;
+    padding:0 3rem;
+  }
+}
   @media (min-width: 35em){
     .grid-split-2{
       grid-template-columns: 1fr 1fr;
@@ -371,8 +376,8 @@ li{
     :root{
     --fs-nav: 1.75rem;
     --fs-nav-order: 1rem;
-    --fs-h1:4rem;
-    --fs-h2: 4rem;
+    --fs-h1:5rem;
+    --fs-h2: 3rem;
     --fs-med: 1.25rem;
     }
     h2{
@@ -397,9 +402,9 @@ li{
     /* border-left: 2px solid rgb(1, 1, 1); */
     /* border-top: 2px solid rgb(2, 2, 2); */
     border-bottom: 2px solid black;
-    text-align: center;
     /* background-color: rgb(187, 187, 187); */
-
+    background-color: rgb(218, 218, 218);
+    color:rgb(20, 20, 20);
     /* mix-blend-mode: difference; */
     
   }
@@ -510,7 +515,7 @@ li{
     :root{
         --fs-nav: 2.5rem;
     --fs-nav-order: 0.85rem;
-    --fs-h1: 6rem;
+    --fs-h1: 7rem;
     }
     .grid-split-2{
       grid-gap:2rem;
