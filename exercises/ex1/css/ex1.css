@@ -1,21 +1,25 @@
-
-@font-face {
-    font-family: "Fog7";
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
+/* @font-face {
+    font-family: "Rajdhani";
     src: url(../assets/fonts/Foglihten-068.otf) format('opentype');  
-}  
+}   */
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
   }
 :root{
     --fs-btn:1rem;
     --fs-h1:2rem;
+    --fs-h2:1.25rem;
 }
   body{
     overflow-y: scroll;
     background-color: rgb(29, 29, 29);
-    background: linear-gradient(rgb(236, 236, 236), rgb(158, 158, 158))
+    background: linear-gradient(rgb(215, 215, 215), rgb(169, 168, 231));
 
   }
   section{
@@ -32,26 +36,34 @@
   h1{
     font-size: var(--fs-h1);
     text-align: center;
-    font-family:'Fog7', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Rajdhani', Tahoma, Geneva, Verdana, sans-serif;
     margin: 1rem 0;
-    color:rgb(38, 38, 38);
+    /* color:rgb(38, 38, 38); */
     user-select: none;
-    text-shadow: 10px 5px 2px rgba(166, 166, 166, 0.371);
+    /* text-shadow: 10px 5px 2px rgba(166, 166, 166, 0.371); */
   }
   h2{
     font-size: 1.5rem;
     text-align: center;
     margin: 0 0 1rem 0;
-    font-family:'Fog7', Tahoma, Geneva, Verdana, sans-serif;
-    color:rgb(32, 32, 32);
+    font-family:'Rajdhani', Tahoma, Geneva, Verdana, sans-serif;
+    /* color:rgb(32, 32, 32); */
     user-select: none;
-    text-shadow: 10px 5px 2px rgba(166, 166, 166, 0.397);
+    /* text-shadow: 10px 5px 2px rgba(166, 166, 166, 0.397); */
   }
     p{
         user-select: none;
-        font-family: 'Fog7', 'Arial Narrow', Arial, sans-serif;
-        color: rgb(231, 231, 231);
-       
+        font-family: 'Rajdhani', 'Arial Narrow', Arial, sans-serif;
+    }
+    .title{
+        background-color: rgb(235, 235, 235);
+        padding: 1rem;
+        margin:3rem 1rem;
+        border-radius: 10px;
+        color: rgb(105, 105, 105);
+        box-shadow: 15px 15px 20px 5px rgba(55, 57, 66, 0.3);
+        /* border:2px solid rgba(255,255,255,255); */
+        
     }
     /* button{
         font-size: 2rem;
@@ -60,6 +72,7 @@
         color: wheat;
         margin: 1rem;
     } */
+
     #ball{
         background-color: rgb(10, 10, 10);
         /* width: clamp(32rem,3vh,65rem); */
@@ -129,9 +142,12 @@
     }
     #result-text{
         text-align: center;
+        color: rgb(217, 217, 217);
+        font-family: 'Rajdhani', sans-serif;
         font-size:clamp(1rem,5vw,1.5rem);
+        text-transform: uppercase;
         text-align: center;
-        max-width: 10rem;
+        max-width: 20ch;
         text-align: center;
         position: relative;
         animation: fade-in 4s ease-in-out;
@@ -145,25 +161,28 @@
         gap:1rem;
         /* border: rgb(0, 0, 0) 1px solid; */
         justify-content: center;
-        margin-bottom: 2rem;
+        margin: 0 1rem 2rem;
         cursor: pointer;
     }
  
     .cuisines-button,
     .all-cuisines-btn{
-        font-family: sans-serif,'Fog7', 'Arial Narrow', Arial, sans-serif;
+        font-family: sans-serif,'Rajdhani', 'Arial Narrow', Arial, sans-serif;
         font-size: var(--fs-btn);
-        border: 1px solid rgb(12, 12, 12);
+        /* border: 1px solid rgb(12, 12, 12); */
+        color:rgb(71, 71, 71);
         border-radius: 5px;
         padding: 0.5rem;
         background-color: rgb(235, 235, 235);
         z-index: 1;
         box-shadow: 5px 5px 4px 0px rgb(166, 166, 166);
+        font-family: 'Rajdhani', 'Arial Narrow', Arial, sans-serif;
+        font-weight: 600;
     }
     .cuisines-button.active,
     .all-cuisines-btn.active{
-        background-color: rgb(22, 69, 134);
-        color: white;
+        background-color: rgba(23,28,153,255);
+        color: rgb(217, 217, 217);
     }
     .result{
         width: 100%;
@@ -177,6 +196,9 @@
             --fs-btn:1.25rem;
             --fs-h1:2.5rem;
         }
+        .title{
+            width: auto;
+        }
         #ball{
         width: clamp(40rem,40vw,50rem);
         height: clamp(40rem,40vw,50rem);
@@ -184,7 +206,7 @@
         height: 50%; */
         }
         .result-wrapper{
-            border: 20px solid rgba(34, 34, 34, 0.89);
+            border: 20px solid rgba(61, 61, 61, 0.89);
         }
         #result-area{
             /* border: 10px solid rgba(0, 0, 0, 0.973); */
@@ -200,6 +222,10 @@
             width: 80%;
             height: 80%;
             top:1rem;
+        }
+        .buttons-area{
+           max-width: 50rem;
+           
         }
     }
    @media (min-width:65em){

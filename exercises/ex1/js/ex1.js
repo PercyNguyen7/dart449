@@ -23,8 +23,15 @@ answers = [
 //     }
 // ]
 cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`];
-cuisines = [];
 
+window.addEventListener("load", () => {
+    for (let n = 0; n < buttons.length; n++){
+        if (!buttons[n].classList.contains('active')){
+               buttons[n].classList.add('active');     
+        }
+    }
+    checkAllBtn();
+  });
 
 
 console.log(animationEls);
@@ -182,7 +189,12 @@ function shakeBall(e) {
         
         getRandomInt();  
         reset_animation();
-        resultText.innerHTML = cuisines[orderNumber]; 
+        // lo
+        resultText.innerHTML = cuisines[orderNumber];
+
+        if(cuisines.length ===0){
+            resultText.innerHTML = 'Bite The Dust';
+        } 
     //     ball.classList.toggle('turn-animation');
     // // ball.classList.toggle('turn-animation');
     // // console.log( smallCircle.classList.toggle('turn-animation'));

@@ -28,7 +28,7 @@
     body{
       overflow: scroll; /* Show scrollbars */
         overflow-x: hidden;
-        background-color: rgb(230, 230, 230);
+        background-color: rgb(242, 242, 242);
         /* border: 2px solid black; */
     }
     header{
