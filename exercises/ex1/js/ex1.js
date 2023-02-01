@@ -1,10 +1,11 @@
 const ball = document.querySelector('#ball');
-const buttons = document.querySelectorAll('.buttons');
+
 const resultWrapper = document.querySelector('.result-wrapper');
 const blueTriangle = document.querySelector('#blue-triangle');
 const resultText = document.querySelector('#result-text');
 const resultArea = document.querySelector('#result-area');
-
+const buttons = document.querySelectorAll('.cuisines-button');
+const allBtn = document.querySelector('.all-cuisines-btn');
 const animationEls = document.querySelectorAll('.animations');
 
 const rollSFX = new Audio('./assets/sounds/ball-roll.mp3');
@@ -21,7 +22,8 @@ answers = [
 //     no:[`Korean`, `Mediterranean`, `British`,`Filipino`,`German`] 
 //     }
 // ]
-cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Starve','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`];
+cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`];
+cuisines = [];
 
 
 
@@ -33,11 +35,68 @@ const getRandomInt =()=> {
 // let number;
 // let interactable = true;
 
-
-buttons[0].addEventListener('click',()=>{
-    // buttons[0].classList.toggle('button');
-    console.log('hello');
+allBtn.addEventListener("click",()=>{
+    allBtn.classList.toggle('active');
+    // if allBtn is on,
+    if (allBtn.classList.contains('active')){
+        for (let n = 0; n < buttons.length; n++){
+            if (!buttons[n].classList.contains('active')){
+                   buttons[n].classList.add('active');
+                      
+            }
+           //  else {
+           //     buttons[n].classList.remove('active');
+           //  }
+       }
+       cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`];  
+       console.log(cuisines);  
+    }
+    // if allBtn is off
+    else if (!allBtn.classList.contains('active')){
+        for (let n = 0; n < buttons.length; n++){
+            if (buttons[n].classList.contains('active')){
+                   buttons[n].classList.remove('active');     
+            }
+           //  else {
+           //     buttons[n].classList.remove('active');
+           //  }
+       }
+        cuisines = [];
+        console.log(cuisines);  
+    }
+   
 });
+
+for (let n = 0; n < buttons.length; n++){
+    buttons[n].addEventListener('click',()=>{
+        buttons[n].classList.toggle('active');
+        checkAllBtn();
+        if (buttons[n].classList.contains('active')){
+            cuisines.push(buttons[n].innerHTML);
+            console.log(cuisines);
+    }
+        else{
+            // search for index of the el that matches this value
+            const index = cuisines.indexOf(buttons[n].innerHTML);
+            cuisines.splice(index,1);
+            console.log(cuisines);
+        }
+    
+    });
+}
+const buttonsActive = document.getElementsByClassName('active cuisines-button');
+function checkAllBtn(){
+    console.log(buttonsActive.length);
+    for (let n = 0; n < buttons.length; n++){
+        if (buttonsActive.length === 19 && !allBtn.classList.contains('active')){
+            allBtn.classList.toggle('active');
+        }
+        else if (buttonsActive.length < 19 && allBtn.classList.contains('active')){
+            
+            allBtn.classList.remove('active');
+        }
+    }
+}
 
 ball.addEventListener("click", ()=>{
     // ball.classList.toggle('turn-animation');
@@ -46,14 +105,20 @@ ball.addEventListener("click", ()=>{
     //  && interactable ==true
     //  ){
  
-        cuisines.push(resultText.innerHTML);
+       
        
         rollSFX.currentTime=0;
         rollSFX.play();
         
         getRandomInt();  
         reset_animation();
-        resultText.innerHTML = cuisines[orderNumber]; 
+        // lo
+        resultText.innerHTML = cuisines[orderNumber];
+
+        if(cuisines.length ===0){
+            resultText.innerHTML = 'Bite The Dust';
+        } 
+      
         // if (orderNumber <= 9){
         //     number= Math.floor(Math.random() * 10);
         //     setTimeout(()=>{

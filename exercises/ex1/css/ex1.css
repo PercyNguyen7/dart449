@@ -8,7 +8,10 @@
     padding: 0;
     box-sizing: border-box;
   }
-
+:root{
+    --fs-btn:1rem;
+    --fs-h1:2rem;
+}
   body{
     overflow-y: scroll;
     background-color: rgb(29, 29, 29);
@@ -27,20 +30,22 @@
   }
 
   h1{
-    font-size: 2rem;
+    font-size: var(--fs-h1);
     text-align: center;
     font-family:'Fog7', Tahoma, Geneva, Verdana, sans-serif;
     margin: 1rem 0;
     color:rgb(38, 38, 38);
     user-select: none;
+    text-shadow: 10px 5px 2px rgba(166, 166, 166, 0.371);
   }
   h2{
     font-size: 1.5rem;
     text-align: center;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1rem 0;
     font-family:'Fog7', Tahoma, Geneva, Verdana, sans-serif;
     color:rgb(32, 32, 32);
     user-select: none;
+    text-shadow: 10px 5px 2px rgba(166, 166, 166, 0.397);
   }
     p{
         user-select: none;
@@ -70,6 +75,8 @@
         align-content: center;
         cursor: pointer;
         animation: turn 1.5s ease-in-out;
+        margin:0 0 3rem 0;
+
         z-index: 10;
     }
     .result-wrapper{
@@ -133,18 +140,30 @@
     }
     .buttons-area{
         display: flex;
+        flex-wrap: wrap;
         width: 100%;
-        border: red 1px solid;
-        justify-content: space-around;
-        margin-top: 2rem;
+        gap:1rem;
+        /* border: rgb(0, 0, 0) 1px solid; */
+        justify-content: center;
+        margin-bottom: 2rem;
+        cursor: pointer;
     }
-    .buttons{
-        font-family: 'Fog7', 'Arial Narrow', Arial, sans-serif;
-        font-size: 2rem;
-        border: 1px solid black;
-        padding: 1rem;
-        background-color: rgb(220, 220, 220);
-        z-index: -1;
+ 
+    .cuisines-button,
+    .all-cuisines-btn{
+        font-family: sans-serif,'Fog7', 'Arial Narrow', Arial, sans-serif;
+        font-size: var(--fs-btn);
+        border: 1px solid rgb(12, 12, 12);
+        border-radius: 5px;
+        padding: 0.5rem;
+        background-color: rgb(235, 235, 235);
+        z-index: 1;
+        box-shadow: 5px 5px 4px 0px rgb(166, 166, 166);
+    }
+    .cuisines-button.active,
+    .all-cuisines-btn.active{
+        background-color: rgb(22, 69, 134);
+        color: white;
     }
     .result{
         width: 100%;
@@ -154,12 +173,15 @@
         position: relative;
     }
     @media (min-width:45em){
+        :root{
+            --fs-btn:1.25rem;
+            --fs-h1:2.5rem;
+        }
         #ball{
-        width: clamp(40rem,40vw,70rem);
-        height: clamp(40rem,40vw,70rem);
-
-        width: 50%;
-        height: 50%;
+        width: clamp(40rem,40vw,50rem);
+        height: clamp(40rem,40vw,50rem);
+        /* width: 50%;
+        height: 50%; */
         }
         .result-wrapper{
             border: 20px solid rgba(34, 34, 34, 0.89);
@@ -180,7 +202,11 @@
             top:1rem;
         }
     }
-   
+   @media (min-width:65em){
+    :root{
+        /* --fs-btn:1.25rem; */
+    }
+   }
     /* #result-area:before{
         content:'';
         position: absolute;
