@@ -28,7 +28,7 @@
     body{
       overflow: scroll; /* Show scrollbars */
         overflow-x: hidden;
-        background-color: rgb(214, 214, 214);
+        background-color: rgb(230, 230, 230);
         /* border: 2px solid black; */
     }
     header{
@@ -412,7 +412,7 @@ li{
     /* border-top: 2px solid rgb(2, 2, 2); */
     border-bottom: 2px solid black;
     /* background-color: rgb(187, 187, 187); */
-    background-color: rgb(218, 218, 218);
+    /* background-color: rgb(218, 218, 218); */
     color:rgb(20, 20, 20);
     /* mix-blend-mode: difference; */
     

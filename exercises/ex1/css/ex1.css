@@ -22,7 +22,7 @@
     align-items: center;
     align-content: center;
     padding: 1rem;
-    height: 120vh;
+
     min-height: 100vh;
   }
 
@@ -57,7 +57,7 @@
     } */
     #ball{
         background-color: rgb(10, 10, 10);
-        width: clamp(32rem,3vh,65rem);
+        /* width: clamp(32rem,3vh,65rem); */
         width: 90%;
         /* height: clamp(32rem,3vh,65rem); */
         /* border: 1px solid rgb(31, 31, 31); */
@@ -70,6 +70,7 @@
         align-content: center;
         cursor: pointer;
         animation: turn 1.5s ease-in-out;
+        z-index: 10;
     }
     .result-wrapper{
         display: flex;
@@ -101,7 +102,7 @@
         align-items: center;
         align-content: center;
         overflow: hidden;
-        opacity: 0.8;
+        opacity: 0.9;
         animation: fade-in 2s ease-in-out;
     }
     #blue-triangle{
@@ -117,7 +118,7 @@
         align-items: center;
         align-content: center;
         animation: rotate 50s ease-in-out infinite;
-        opacity: 0.8;
+        opacity: 0.9;
     }
     #result-text{
         text-align: center;
@@ -128,8 +129,22 @@
         position: relative;
         animation: fade-in 4s ease-in-out;
         bottom:1rem;
-        opacity: 0.8;
-   
+        opacity: 0.9;
+    }
+    .buttons-area{
+        display: flex;
+        width: 100%;
+        border: red 1px solid;
+        justify-content: space-around;
+        margin-top: 2rem;
+    }
+    .buttons{
+        font-family: 'Fog7', 'Arial Narrow', Arial, sans-serif;
+        font-size: 2rem;
+        border: 1px solid black;
+        padding: 1rem;
+        background-color: rgb(220, 220, 220);
+        z-index: -1;
     }
     .result{
         width: 100%;
@@ -142,6 +157,9 @@
         #ball{
         width: clamp(40rem,40vw,70rem);
         height: clamp(40rem,40vw,70rem);
+
+        width: 50%;
+        height: 50%;
         }
         .result-wrapper{
             border: 20px solid rgba(34, 34, 34, 0.89);
@@ -211,7 +229,7 @@
     0%{
         opacity: 0;
     } 100%{
-        opacity: 0.8;
+        opacity: 0.9;
     }
 }
 

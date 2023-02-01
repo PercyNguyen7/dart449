@@ -1,5 +1,5 @@
 const ball = document.querySelector('#ball');
-
+const buttons = document.querySelectorAll('.buttons');
 const resultWrapper = document.querySelector('.result-wrapper');
 const blueTriangle = document.querySelector('#blue-triangle');
 const resultText = document.querySelector('#result-text');
@@ -21,22 +21,33 @@ answers = [
 //     no:[`Korean`, `Mediterranean`, `British`,`Filipino`,`German`] 
 //     }
 // ]
-cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Starve','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`]
+cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Starve','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`];
+
 
 
 console.log(animationEls);
 let orderNumber;
 const getRandomInt =()=> {
-    orderNumber = Math.floor(Math.random() * 20);
-  }
-let number;
-let interactable = true;
+    orderNumber = Math.floor(Math.random() * cuisines.length);
+  };
+// let number;
+// let interactable = true;
+
+
+buttons[0].addEventListener('click',()=>{
+    // buttons[0].classList.toggle('button');
+    console.log('hello');
+});
+
 ball.addEventListener("click", ()=>{
     // ball.classList.toggle('turn-animation');
     
     // if (ball.classList.contains('turn-animation')
     //  && interactable ==true
     //  ){
+ 
+        cuisines.push(resultText.innerHTML);
+       
         rollSFX.currentTime=0;
         rollSFX.play();
         
