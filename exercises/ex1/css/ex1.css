@@ -72,7 +72,7 @@
         color: wheat;
         margin: 1rem;
     } */
-
+  
     #ball{
         background-color: rgb(10, 10, 10);
         /* width: clamp(32rem,3vh,65rem); */
@@ -86,9 +86,11 @@
         justify-content: center;
         align-items: center;
         align-content: center;
+
+
         cursor: pointer;
         animation: turn 1.5s ease-in-out;
-        margin:0 0 3rem 0;
+        margin:0 auto 3rem;
 
         z-index: 10;
     }
@@ -227,11 +229,30 @@
            max-width: 50rem;
            
         }
+      
     }
    @media (min-width:65em){
     :root{
         /* --fs-btn:1.25rem; */
     }
+    .grid-half{
+        display: grid;
+        grid-template-columns: 1fr 1.25fr;
+    }
+    .buttons-area{
+        width: 90%;
+        justify-content: flex-start;
+        align-items: flex-end;
+        align-content: center;
+        justify-self: flex-end;
+    }
+    .buttons-area>*{
+        height: min-content;
+    }
+    #ball{
+        margin-left:2rem
+    }
+
    }
     /* #result-area:before{
         content:'';

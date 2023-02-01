@@ -170,14 +170,13 @@ ball.addEventListener("click", ()=>{
     // console.log(answers[0].yes[0]);
    
 });
-// reset animation for all animating elements
+// reset animation for all animated elements
 function reset_animation() {
     for (let i = 0; i < animationEls.length; i++){
         animationEls[i].style.animation = 'none';
         animationEls[i].offsetHeight; /* trigger reflow */
         animationEls[i].style.animation = null; 
     }
-
   }
 
 document.querySelector('body').addEventListener('keydown', shakeBall);
