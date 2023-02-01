@@ -12,7 +12,7 @@
     user-select: none;
   }
 :root{
-    --fs-btn:1rem;
+    --fs-btn:1.1rem;
     --fs-h1:2rem;
     --fs-h2:1.25rem;
 }
@@ -163,7 +163,7 @@
         gap:1rem;
         /* border: rgb(0, 0, 0) 1px solid; */
         justify-content: center;
-        margin: 0 1rem 2rem;
+        margin: 0 0 2rem;
         cursor: pointer;
     }
  
@@ -195,7 +195,7 @@
     }
     @media (min-width:45em){
         :root{
-            --fs-btn:1.25rem;
+            --fs-btn:1.35rem;
             --fs-h1:2.5rem;
         }
         .title{
