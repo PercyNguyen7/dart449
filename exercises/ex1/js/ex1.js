@@ -36,6 +36,8 @@ window.addEventListener("load", () => {
 
 console.log(animationEls);
 let orderNumber;
+
+// get random number from the array
 const getRandomInt =()=> {
     orderNumber = Math.floor(Math.random() * cuisines.length);
   };
@@ -44,9 +46,10 @@ const getRandomInt =()=> {
 
 allBtn.addEventListener("click",()=>{
     allBtn.classList.toggle('active');
-    // if allBtn is on,
+    // if allBtn is on, 
     if (allBtn.classList.contains('active')){
         for (let n = 0; n < buttons.length; n++){
+            // if all buttons are not active, then make all btns active
             if (!buttons[n].classList.contains('active')){
                    buttons[n].classList.add('active');
                       
@@ -58,7 +61,7 @@ allBtn.addEventListener("click",()=>{
        cuisines = ['Murican','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Turkish', 'Pakistani','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`];  
        console.log(cuisines);  
     }
-    // if allBtn is off
+    // else if allBtn is off then remove active from all btns
     else if (!allBtn.classList.contains('active')){
         for (let n = 0; n < buttons.length; n++){
             if (buttons[n].classList.contains('active')){
@@ -181,6 +184,7 @@ function reset_animation() {
 
 document.querySelector('body').addEventListener('keydown', shakeBall);
 
+// when press enter, 
 function shakeBall(e) {
     if (e.which == 13) {
         rollSFX.currentTime=0;

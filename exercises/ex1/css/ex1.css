@@ -156,15 +156,24 @@
         bottom:1rem;
         opacity: 0.9;
     }
+    .instruction-area{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* background-color: red; */
+    }
     .buttons-area{
         display: flex;
         flex-wrap: wrap;
         width: 100%;
         gap:1rem;
-        /* border: rgb(0, 0, 0) 1px solid; */
+        
+        /* height: min-content; */
+       
         justify-content: center;
-        margin: 0 0 2rem;
-        cursor: pointer;
+        margin: 1rem 1rem 2rem;
+     
     }
  
     .cuisines-button,
@@ -180,6 +189,7 @@
         box-shadow: 5px 5px 4px 0px rgb(166, 166, 166);
         font-family: 'Rajdhani', 'Arial Narrow', Arial, sans-serif;
         font-weight: 600;
+        cursor: pointer;
     }
     .cuisines-button.active,
     .all-cuisines-btn.active{
@@ -213,6 +223,7 @@
         #result-area{
             /* border: 10px solid rgba(0, 0, 0, 0.973); */
         }
+       
         .result{
             border: 10px solid rgba(0, 0, 0, 0.973);
         }
@@ -225,10 +236,7 @@
             height: 80%;
             top:1rem;
         }
-        .buttons-area{
-           max-width: 50rem;
-           
-        }
+    
       
     }
    @media (min-width:65em){
@@ -237,17 +245,26 @@
     }
     .grid-half{
         display: grid;
-        grid-template-columns: 1fr 1.25fr;
+        grid-template-columns: 1fr 1.5fr;
+    }
+    .instruction-area{
+        padding: 1rem;
+        height: min-content;
+        max-width: 25rem;
+        border: rgb(236, 236, 236) 5px solid;
+        background-color: rgba(221, 221, 221, 0.438);
     }
     .buttons-area{
-        width: 90%;
-        justify-content: flex-start;
-        align-items: flex-end;
+     
+        justify-content: center;
+        /* align-items: center; */
         align-content: center;
-        justify-self: flex-end;
+        /* justify-self: flex-start; */
+        
     }
-    .buttons-area>*{
+    .buttons-area>*:not(:last-child){
         height: min-content;
+        flex:1;
     }
     #ball{
         margin-left:2rem
