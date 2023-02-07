@@ -25,7 +25,22 @@ submit.addEventListener('click', function(e){
 
 async function fetchResults(url) {
   fetch(url)
-  .then(response=>response.json()
+  .then(
+    // response=>response.json()
+
+    response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Something went wrong');
+      // console.log('nope');
+      // else{
+      //   console.log('sad')
+      //  alert('try another one');
+      // }
+    }
+
+
     // function(response) {
     // document.querySelector('.content').innerHTML = 'Fetching results';
     // return response.json();
@@ -38,6 +53,10 @@ async function fetchResults(url) {
     renderResults(json);
     // console.log(myJson);
   
+  })
+  .catch((error) => {
+    console.log(error);
+    alert('try another one');
   });
 }
 
@@ -100,3 +119,4 @@ function renderResults(json) {
   
 //   document.querySelector('.content').innerHTML = html;
 // }
+
