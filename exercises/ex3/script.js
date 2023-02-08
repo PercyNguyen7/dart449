@@ -1,6 +1,6 @@
 // code inspired by https://codepen.io/jacobhernandez08/pen/XwGqZw
 
-fetchResults(`https://www.reddit.com/r/aiArt/hot/.json?limit=100`,`https://www.reddit.com/r/DigitalArt/hot/.json?limit=100`);
+fetchResults(`https://www.reddit.com/r/aiArt/new/.json?limit=90`,`https://www.reddit.com/r/DigitalArt/new/.json?limit=90`);
 let maxRandomizedArts=75;
 let totalArtLimit;
 let eachArtLimit = 5;
@@ -56,8 +56,16 @@ artTypesBtn[i].addEventListener('click',()=>{
   });
 }
 submitBtn.addEventListener('click',()=>{
+  const amountInput = document.querySelector(`.guessAmount`).value;
+// if null input, return 5, else return as requested
+  if(amountInput == null || amountInput.length < 1) {
+    eachArtLimit = 5;
+  }
+  else {
+    eachArtLimit = amountInput;
+  }
   playTime = true;
-  fetchResults(`https://www.reddit.com/r/aiArt/${aiType}/.json?limit=100`,`https://www.reddit.com/r/DigitalArt/${artType}/.json?limit=100`);
+  fetchResults(`https://www.reddit.com/r/aiArt/${aiType}/.json?limit=75`,`https://www.reddit.com/r/DigitalArt/${artType}/.json?limit=75`);
 })
 // fetchResults();
 async function fetchResults(aiURL,artURL) {
@@ -90,6 +98,8 @@ async function fetchResults(aiURL,artURL) {
   });
 }
   function renderResults(AI,arts){
+    let haveIt = [];
+    let haveIt2 = [];
     if (document.getElementById(`parent-div`)){
       document.getElementById('parent-div').remove();
     }
@@ -327,7 +337,7 @@ function errorHandler(){
             elWrappers[n].classList.remove('selected');
             selectedAmount--;
           }
-          else if (!elWrappers[n].classList.contains('selected') && selectedAmount <5 && playTime===true){
+          else if (!elWrappers[n].classList.contains('selected') && selectedAmount <eachArtLimit && playTime===true){
             elWrappers[n].classList.add('selected');
             selectedAmount++;
           }
@@ -379,13 +389,13 @@ function errorHandler(){
         selectedWrappers[n].classList.remove('selected');
       }
         if (score <3){
-        instructionText.innerHTML=`${score} points... What are you? A bot? Press  Play and try again u bot`;
+        instructionText.innerHTML=`${score} points... What are you? A bot? Press  Refresh and try again u bot`;
         }
         else if(score ===3 ){
-          instructionText.innerHTML=`${score} points... Preeeeetty average. Heh jk press  Play to try again!`;
+          instructionText.innerHTML=`${score} points... Preeeeetty average. Heh jk press  Refresh to try again!`;
         }
         else if(score ===4){
-          instructionText.innerHTML=`${score} points yeah? That's pretty good, though still low for asian standard. Press play to Try again!`;
+          instructionText.innerHTML=`${score} points yeah? That's pretty good, though still low for asian standard. Press Refresh to Try again!`;
         }
         else if(score ===5){
           instructionText.innerHTML=`SHEEEESH ${score} pts! Homerun!`;

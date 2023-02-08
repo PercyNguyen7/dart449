@@ -50,7 +50,7 @@ h1{
   /* border:5px solid rgb(255, 0, 0); */
 }
 .marked{
- color: rgb(26, 129, 48);
+ color: rgb(39, 107, 30);
 }
 .selected{
   border:20px solid rgb(197, 197, 197);
@@ -80,11 +80,13 @@ h1{
 .el-wrapper:hover{
   filter: brightness(1.2);
 }
-.subreddit, .button, .result-button {
+.guessAmount, .button, .result-button {
   padding: 10px 20px;
   font-size: 20px;
 }
-
+.guessAmount{
+  min-width: 9rem;
+}
 .button {
   text-decoration: none;
   background-color: rgb(228, 228, 228);
