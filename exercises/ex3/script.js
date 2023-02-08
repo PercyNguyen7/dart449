@@ -84,7 +84,7 @@ async function fetchResults(aiURL,artURL) {
   ).then(([AI,arts]) =>{
     console.log(AI.data.children);
     console.log(arts.data.children);
-    instructionText.innerHTML=`5 of these arts are made by AI! Choose them then tap Result!`;
+    instructionText.innerHTML=`Guess which ${eachArtLimit} of these arts are made by AI, then tap Result!`;
     renderResults(AI,arts);
     replaceBrokenAI();
     replaceBrokenArt();
