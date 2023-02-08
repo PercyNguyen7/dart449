@@ -343,10 +343,12 @@ function errorHandler(){
     
     const resultBtn = document.querySelector(`.result-button`);
     
-if (playTime === true){
+
       resultBtn.addEventListener('click',()=>{
-        console.log('result btn pressed');
-        playTime = false;
+        // console.log('result btn pressed');
+        if (playTime){
+      
+        console.log(playTime);
         let score = 0;
         const aiWrappers = document.querySelectorAll(`.ai`);
         const selectedWrappers = document.querySelectorAll('.selected');
@@ -377,9 +379,11 @@ if (playTime === true){
         selectedWrappers[n].classList.remove('selected');
       }
       instructionText.innerHTML=`You scored ${score} points! Press Play to try again!`;
-      // alert(`You scored ${score} points!`);
+      }
+      
+      playTime = false;
       });
-    }
+
 
   // resultBtn.addEventListener('click',()=>{
   
