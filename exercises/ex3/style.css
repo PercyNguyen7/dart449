@@ -62,7 +62,7 @@ h1{
   gap:2rem;
 
   grid-template-columns: repeat(2,1fr);
-  /* grid-template-rows: repeat(2,400px); */
+  grid-template-rows: repeat(auto-fill,100px);
   padding:1rem 2rem;
   /* display: flex;
   justify-content: center;
@@ -73,6 +73,7 @@ h1{
   #parent-div{
     /* background-color: red; */
     grid-template-columns: repeat(auto-fit,minmax(275px,1fr));
+      grid-template-rows: repeat(auto-fill,300px);
   }
 }
 .el-wrapper{
@@ -91,14 +92,14 @@ h1{
 
 .button {
   text-decoration: none;
-  background-color: rgb(22, 22, 22);
-  color: white;
+  background-color: rgb(228, 228, 228);
+  color: rgb(31, 31, 31);
   border: none;
   border-radius: 4px;
 }
 .result-button {
   text-decoration: none;
-  background-color: rgb(87, 87, 87);
+  background-color: rgb(72, 128, 211);
   color: white;
   border: none;
   border-radius: 4px;
@@ -164,9 +165,12 @@ ol li {
   display: block;
 }
 
-.dropdown-content span:hover {background-color: #2e2e2e;}
+.dropdown-content span:hover,
+.dropdown-content span:focus
+ {background-color: #2e2e2e;}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content,
+.dropdown:focus .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #050505;}
 /* @media (min-width: 750px) {
