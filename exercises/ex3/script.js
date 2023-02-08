@@ -388,18 +388,19 @@ function errorHandler(){
      
         selectedWrappers[n].classList.remove('selected');
       }
-        if (score <3){
-        instructionText.innerHTML=`${score} points... What are you? A bot? Press  Refresh and try again u bot`;
-        }
-        else if(score ===3 ){
-          instructionText.innerHTML=`${score} points... Preeeeetty average. Heh jk press  Refresh to try again!`;
-        }
-        else if(score ===4){
-          instructionText.innerHTML=`${score} points yeah? That's pretty good, though still low for asian standard. Press Refresh to Try again!`;
-        }
-        else if(score ===5){
-          instructionText.innerHTML=`SHEEEESH ${score} pts! Homerun!`;
-        }
+      instructionText.innerHTML=`${score} points! Refresh to try again!`;
+        // if (score <3){
+        // instructionText.innerHTML=`${score} points... What are you? A bot? Press  Refresh and try again u bot`;
+        // }
+        // else if(score ===3 ){
+        //   instructionText.innerHTML=`${score} points... Preeeeetty average. Heh jk press  Refresh to try again!`;
+        // }
+        // else if(score ===4){
+        //   instructionText.innerHTML=`${score} points yeah? That's pretty good, though still low for asian standard. Press Refresh to Try again!`;
+        // }
+        // else if(score ===5){
+        //   instructionText.innerHTML=`SHEEEESH ${score} pts! Homerun!`;
+        // }
       }
       playTime = false;
       });
