@@ -21,6 +21,7 @@ let RisingType = `rising`;
 
 const aiBtn = document.querySelector(`#ai-drop-btn`);
 const artBtn = document.querySelector(`#art-drop-btn`);
+const instructionText= document.querySelector(`#instruction`);
 
 const aiTypesBtn = document.querySelectorAll(`.ai-types`);
 const artTypesBtn = document.querySelectorAll(`.art-types`);
@@ -75,6 +76,7 @@ async function fetchResults(aiURL,artURL) {
   ).then(([AI,arts]) =>{
     console.log(AI.data.children);
     console.log(arts.data.children);
+    instructionText.innerHTML=`5 of these arts are made by AI! Choose them then tap Result!`;
     renderResults(AI,arts);
     replaceBrokenAI();
     replaceBrokenArt();
@@ -341,32 +343,43 @@ function errorHandler(){
     
     const resultBtn = document.querySelector(`.result-button`);
     
-
+if (playTime === true){
       resultBtn.addEventListener('click',()=>{
         console.log('result btn pressed');
         playTime = false;
         let score = 0;
-      
+        const aiWrappers = document.querySelectorAll(`.ai`);
         const selectedWrappers = document.querySelectorAll('.selected');
         for(let n = 0; n< selectedWrappers.length; n++){
  
           if (selectedWrappers[n].classList.contains(`ai`)){
             score++;
+            selectedWrappers[n].style.border = "10px solid rgb(39, 107, 30)";
           }
+          
+          else{
+            selectedWrappers[n].style.border = "10px solid rgb(170, 2, 2)";
+          }
+          
         }
        console.log('score:'+score);
 
-       const aiWrappers = document.querySelectorAll(`.ai`);
+      
        for(let n = 0; n< aiWrappers.length; n++){
-        aiWrappers[n].style.outline = "5px solid green";
+        if (!aiWrappers[n].classList.contains(`selected`)){
+          console.log('wth');
+        aiWrappers[n].style.border = "10px solid  rgb(30, 66, 107)";
+        }
       }
+      
        for(let n = 0; n< selectedWrappers.length; n++){
      
         selectedWrappers[n].classList.remove('selected');
       }
-      alert(`You scored ${score} points!`);
+      instructionText.innerHTML=`You scored ${score} points! Press Play to try again!`;
+      // alert(`You scored ${score} points!`);
       });
-     
+    }
 
   // resultBtn.addEventListener('click',()=>{
   

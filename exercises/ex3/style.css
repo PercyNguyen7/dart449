@@ -25,9 +25,12 @@ nav{
   justify-content: space-around;
   align-items: center;
 }
-h1{
-  background-color: black;
+section.top{
+  background-color: rgb(0, 0, 0);
   color: white;
+}
+h1{
+
   text-align: center;
   padding: 2rem ;
 
@@ -46,9 +49,11 @@ h1{
   /* border:2px red solid; */
   /* border:5px solid rgb(255, 0, 0); */
 }
-
+.marked{
+ color: rgb(26, 129, 48);
+}
 .selected{
-  border:5px dashed white;
+  border:20px solid rgb(197, 197, 197);
 }
 #parent-div{
   background-color: rgb(0, 0, 0);
