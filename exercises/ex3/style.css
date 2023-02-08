@@ -86,8 +86,9 @@ h1{
   font-size: 20px;
 }
 .guessAmount{
-  min-width: 9rem;
+  display: none;
 }
+
 .button {
   text-decoration: none;
   background-color: rgb(228, 228, 228);
@@ -174,14 +175,18 @@ ol li {
 .dropdown:hover .dropbtn {background-color: #050505;}
 @media(min-width: 35em){
   #parent-div{
-    grid-template-columns: repeat(2,minmax(300px,1fr));
+    grid-template-columns: repeat(2,minmax(250px,1fr));
 }
 }
 @media (min-width: 44.99em){
+  .guessAmount{
+    min-width: 9rem;
+    display: block;
+  }
   #parent-div{
     /* background-color: red; */
-    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-      grid-template-rows: repeat(auto-fill,auto);
+     grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      /* grid-template-rows: repeat(auto-fill,auto);  */
   }
   .dropdown-tab{
     display: flex;

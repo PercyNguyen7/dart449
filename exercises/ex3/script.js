@@ -1,13 +1,17 @@
 // code inspired by https://codepen.io/jacobhernandez08/pen/XwGqZw
 
-fetchResults(`https://www.reddit.com/r/aiArt/new/.json?limit=90`,`https://www.reddit.com/r/DigitalArt/new/.json?limit=90`);
-let maxRandomizedArts=75;
+fetchResults(`https://www.reddit.com/r/aiArt/new/.json?limit=30`,`https://www.reddit.com/r/DigitalArt/new/.json?limit=30`);
+let maxRandomizedArts=15;
+let maxFetched =25;
 let totalArtLimit;
 let eachArtLimit = 5;
 let failedAI = 0;
 let failedArt = 0;
 let aiUpvoteType;
 let artUpvoteType;
+
+let artOrder = 0;
+let aiOrder = 0;
 
 let aiType =`new`;
 let artType =`new`;
@@ -28,7 +32,8 @@ const artTypesBtn = document.querySelectorAll(`.art-types`);
 const submitBtn = document.querySelector('.button');
 // const resultBtn = document.querySelector(`.result-button`);
 console.log(submitBtn);
-
+let aiAfter;
+let artAfter;
 
 const parentDiv = document.querySelector('#parent-div');
 
@@ -57,6 +62,8 @@ artTypesBtn[i].addEventListener('click',()=>{
 }
 submitBtn.addEventListener('click',()=>{
   const amountInput = document.querySelector(`.guessAmount`).value;
+  aiOrder = 0;
+  artOrder = 0;
 // if null input, return 5, else return as requested
   if(amountInput == null || amountInput.length < 1) {
     eachArtLimit = 5;
@@ -65,7 +72,7 @@ submitBtn.addEventListener('click',()=>{
     eachArtLimit = amountInput;
   }
   playTime = true;
-  fetchResults(`https://www.reddit.com/r/aiArt/${aiType}/.json?limit=75`,`https://www.reddit.com/r/DigitalArt/${artType}/.json?limit=75`);
+  fetchResults(`https://www.reddit.com/r/aiArt/${aiType}/.json?limit=30&after=${aiAfter}`,`https://www.reddit.com/r/DigitalArt/${artType}/.json?limit=30&after=${artAfter}`);
 })
 // fetchResults();
 async function fetchResults(aiURL,artURL) {
@@ -81,13 +88,17 @@ async function fetchResults(aiURL,artURL) {
       // throw new Error('Something went wrong');
 
   }
-  ).then(([AI,arts]) =>{
+  ).then(([AI,art]) =>{
+    console.log(art.data.children);
     console.log(AI.data.children);
-    console.log(arts.data.children);
-    instructionText.innerHTML=`Guess which ${eachArtLimit} of these arts are made by AI, then tap Result!`;
-    renderResults(AI,arts);
-    replaceBrokenAI();
-    replaceBrokenArt();
+    aiAfter = AI.data.after;
+    artAfter = art.data.after;
+    instructionText.innerHTML=`Guess which ${eachArtLimit} of these art are made by AI, then tap Result!`;
+    renderResults(AI,art);
+   
+   
+    // replaceBrokenAI();
+    // replaceBrokenArt();
     shuffle();
     selectArt();
     // checkResult();
@@ -97,117 +108,171 @@ async function fetchResults(aiURL,artURL) {
     // alert('try another one');
   });
 }
-  function renderResults(AI,arts){
+  function renderResults(AI,art){
     let haveIt = [];
     let haveIt2 = [];
+ 
     if (document.getElementById(`parent-div`)){
       document.getElementById('parent-div').remove();
+      console.log()
     }
-    
+ 
     // render 
-    artPosts = arts.data.children;
+    artPosts = art.data.children;
     // console.log(AI);
     // console.log(arts);
     
     // if (document.getElementById(`parent-div`)){
     //   document.getElementById('parent-div').remove();
     // }
-
+    
         let parentDiv = document.createElement('div');
         parentDiv.id ='parent-div';
-    for (let i = 0; i <  eachArtLimit; i++){
-      const randomNumber = generateUniqueRandom2(maxRandomizedArts);
-      if (artPosts[randomNumber].data.post_hint === `image`){
-      let ElWrapper = document.createElement('div');
-      ElWrapper.classList.add(`el-wrapper`);
-      ElWrapper.classList.add(`art-wrappers`);
+    // for (let i = 0; i <  eachArtLimit; i++){
+      const randomNumber = generateUniqueRandom(maxRandomizedArts);
+      // if (artPosts[randomNumber].data.post_hint === `image`){
+      //   console.log('hey!');
 
-      let figure = document.createElement('figure');
-      let image = document.createElement('img');
-      if (artPosts[randomNumber].data.post_hint === `null`){
-      }
-      image.src = artPosts[randomNumber].data.url_overridden_by_dest;
-      // console.log(image.src);
-      figure.appendChild(image);
-      ElWrapper.appendChild(figure);
-      parentDiv.appendChild(ElWrapper);
-      // console.log('test');
-      }
-      else{
+ for (let i = 0; i < maxFetched; i++){
+ if (artPosts[i].data.post_hint === `image`){
+  console.log('test')
+    if(artOrder < eachArtLimit){
+          artOrder++
         let ElWrapper = document.createElement('div');
         ElWrapper.classList.add(`el-wrapper`);
         ElWrapper.classList.add(`art-wrappers`);
+
         let figure = document.createElement('figure');
         let image = document.createElement('img');
-        if (artPosts[i].data.post_hint === `null`){
-        }
-        image.src = artPosts[i].data.thumbnail;
+      
+        image.src = artPosts[i].data.url_overridden_by_dest;
         // console.log(image.src);
         figure.appendChild(image);
         ElWrapper.appendChild(figure);
         parentDiv.appendChild(ElWrapper);
-        console.log();
+
+        image.addEventListener("error", () => {
+          console.log('busted ai');
+          image.src = artPosts[i].data.thumbnail;
+        });
+
       }
-    
-      // document.body.appendChild(parentDiv);
     }
 
-    aiPosts = AI.data.children;
-    // console.log(AI);
-    // console.log(arts);
+  
+  }
+  console.log(artOrder);
+      // else{
+      //   let ElWrapper = document.createElement('div');
+      //   ElWrapper.classList.add(`el-wrapper`);
+      //   ElWrapper.classList.add(`art-wrappers`);
+      //   let figure = document.createElement('figure');
+      //   let image = document.createElement('img');
+      //   if (artPosts[i].data.post_hint === `null`){
+      //   }
+      //   image.src = artPosts[i].data.url;
+      //   // console.log(image.src);
+      //   figure.appendChild(image);
+      //   ElWrapper.appendChild(figure);
+      //   parentDiv.appendChild(ElWrapper);
+      //   console.log();
+      // }
     
-    // if (document.getElementById(`parent-div`)){
-    //   document.getElementById('parent-div').remove();
+      // document.body.appendChild(parentDiv);
     // }
-    for (let i = 0; i < eachArtLimit; i++){
-      // randomNumber =  Math.floor(Math.random() * 50);
-      const randomNumber = generateUniqueRandom(maxRandomizedArts);
-      // console.log(randomNumber);
-      if (aiPosts[randomNumber].data.post_hint === `image`){
-      let ElWrapper = document.createElement('div');
-      ElWrapper.classList.add(`el-wrapper`);
-      ElWrapper.classList.add(`ai`);
-      let figure = document.createElement('figure');
-      let image = document.createElement('img');
-      ElWrapper.classList.add(`ai-wrappers`);
-      image.src = aiPosts[randomNumber].data.url_overridden_by_dest;
-      
-      // image.classList.add(`fuck`);
-      // console.log(image.src);
-      figure.appendChild(image);
-      ElWrapper.appendChild(figure);
-      parentDiv.appendChild(ElWrapper);
 
-      }
-      else{
+    aiPosts = AI.data.children;
+  
+    const randomNumber2 = generateUniqueRandom2(maxRandomizedArts);
+    // console.log(randomNumber);
+    
+     for (let i = 0; i < maxFetched; i++){
+      if (aiPosts[i].data.post_hint === `image`){
+        console.log(`all i ran thru:`+i);
+        
+       
+        if(aiOrder < eachArtLimit ){
+          aiOrder++;
         let ElWrapper = document.createElement('div');
         ElWrapper.classList.add(`el-wrapper`);
         ElWrapper.classList.add(`ai`);
         let figure = document.createElement('figure');
         let image = document.createElement('img');
         ElWrapper.classList.add(`ai-wrappers`);
-        // if (aiPosts[i].data.post_hint === `null`){
-        // }
-        image.src = aiPosts[randomNumber].data.thumbnail;
-     
-        // console.log(riskyWrappers);
+        image.src = aiPosts[i].data.url_overridden_by_dest;
       
+        // image.classList.add(`fuck`);
         // console.log(image.src);
-        
         figure.appendChild(image);
         ElWrapper.appendChild(figure);
         parentDiv.appendChild(ElWrapper);
-       
+        console.log(parentDiv);
+        
+        image.addEventListener("error", () => {
+          console.log('busted ai');
+          image.src = aiPosts[i].data.thumbnail;
+        });
+        }
+        
       }
-      // document.body.appendChild(parentDiv);
- 
-    }
-    document.body.appendChild(parentDiv);
-    // replaceBrokenArts();
-   
+
+
   }
 
+    // console.log(AI);
+    // console.log(arts);
+    
+    // if (document.getElementById(`parent-div`)){
+    //   document.getElementById('parent-div').remove();
+    // }
+    // for (let i = 0; i < eachArtLimit; i++){
+    //   // randomNumber =  Math.floor(Math.random() * 50);
+    //   const randomNumber = generateUniqueRandom(maxRandomizedArts);
+    //   // console.log(randomNumber);
+    //   if (aiPosts[randomNumber].data.post_hint === `image`){
+    //   let ElWrapper = document.createElement('div');
+    //   ElWrapper.classList.add(`el-wrapper`);
+    //   ElWrapper.classList.add(`ai`);
+    //   let figure = document.createElement('figure');
+    //   let image = document.createElement('img');
+    //   ElWrapper.classList.add(`ai-wrappers`);
+    //   image.src = aiPosts[randomNumber].data.url_overridden_by_dest;
+      
+    //   // image.classList.add(`fuck`);
+    //   // console.log(image.src);
+    //   figure.appendChild(image);
+    //   ElWrapper.appendChild(figure);
+    //   parentDiv.appendChild(ElWrapper);
 
+    //   }
+    // }
+    //   // else{
+    //   //   let ElWrapper = document.createElement('div');
+    //   //   ElWrapper.classList.add(`el-wrapper`);
+    //   //   ElWrapper.classList.add(`ai`);
+    //   //   let figure = document.createElement('figure');
+    //   //   let image = document.createElement('img');
+    //   //   ElWrapper.classList.add(`ai-wrappers`);
+    //   //   // if (aiPosts[i].data.post_hint === `null`){
+    //   //   // }
+    //   //   image.src = aiPosts[randomNumber].data.url;
+     
+    //   //   // console.log(riskyWrappers);
+      
+    //   //   // console.log(image.src);
+        
+    //   //   figure.appendChild(image);
+    //   //   ElWrapper.appendChild(figure);
+    //   //   parentDiv.appendChild(ElWrapper);
+       
+    //   // }
+      // document.body.appendChild(parentDiv);
+ 
+    // }
+  
+    // replaceBrokenArts();
+    document.body.appendChild(parentDiv);
+  }
 
   function replaceBrokenAI(){
     const riskyWrappers = document.querySelectorAll('.ai-wrappers');
@@ -216,7 +281,9 @@ async function fetchResults(aiURL,artURL) {
       riskyWrappers[n].children[0].children[0].addEventListener("error", () => {
        console.log('AI BROKEN SPOTTED')
        failedAI++;
-       riskyWrappers[n].children[0].children[0].src=aiPosts[eachArtLimit+failedAI].data.thumbnail;
+       riskyWrappers[n].children[0].children[0].src= aiPosts[n].data.thumbnail;
+       
+      //  aiPosts[eachArtLimit].data.thumbnail;
        replaceBrokenAI();
         // riskyWrappers[n].remove();
         
@@ -286,7 +353,7 @@ async function fetchResults(aiURL,artURL) {
       riskyWrappers[n].children[0].children[0].addEventListener("error", () => {
        console.log('west');
        failedArt++;
-       riskyWrappers[n].children[0].children[0].src=artPosts[eachArtLimit+failedArt].data.thumbnail;
+       riskyWrappers[n].children[0].children[0].src=artPosts[n].data.thumbnail;
        console.log(failedArt);
 
       });
@@ -307,7 +374,7 @@ async function fetchResults(aiURL,artURL) {
 
 
 
-  let count = 0;
+
 function errorHandler(){
   count++;
   console.log('sad');
@@ -453,13 +520,13 @@ function generateUniqueRandom2(maxNr) {
       haveIt2.push(random);
 
       
-      console.log(haveIt);
+      console.log(haveIt2);
       return random;
   } else {
       if(haveIt2.length < maxNr) {
         //Recursively generate number
       
-       return  generateUniqueRandom(maxNr);
+       return  generateUniqueRandom2(maxNr);
       } else {
         console.log('No more numbers available.')
         return false;
