@@ -378,9 +378,19 @@ function errorHandler(){
      
         selectedWrappers[n].classList.remove('selected');
       }
-      instructionText.innerHTML=`You scored ${score} points! Press Play to try again!`;
+        if (score <3){
+        instructionText.innerHTML=`${score} points... What are you? A bot? Press  Play and try again u bot`;
+        }
+        else if(score ===3 ){
+          instructionText.innerHTML=`${score} points... Preeeeetty average. Heh jk press  Play to try again!`;
+        }
+        else if(score ===4){
+          instructionText.innerHTML=`${score} points yeah? That's pretty good, though still low for asian standard. Press play to Try again!`;
+        }
+        else if(score ===5){
+          instructionText.innerHTML=`SHEEEESH ${score} pts! Homerun!`;
+        }
       }
-      
       playTime = false;
       });
 
