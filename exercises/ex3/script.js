@@ -1,6 +1,6 @@
 // code inspired by https://codepen.io/jacobhernandez08/pen/XwGqZw
 
-fetchResults(`https://www.reddit.com/r/aiArt/new/.json?limit=30`,`https://www.reddit.com/r/DigitalArt/new/.json?limit=30`);
+fetchResults(`https://www.reddit.com/r/aiArt/new/.json?limit=25`,`https://www.reddit.com/r/DigitalArt/new/.json?limit=25`);
 let maxRandomizedArts=15;
 let maxFetched =25;
 let totalArtLimit;
@@ -72,7 +72,7 @@ submitBtn.addEventListener('click',()=>{
     eachArtLimit = amountInput;
   }
   playTime = true;
-  fetchResults(`https://www.reddit.com/r/aiArt/${aiType}/.json?limit=30&after=${aiAfter}`,`https://www.reddit.com/r/DigitalArt/${artType}/.json?limit=30&after=${artAfter}`);
+  fetchResults(`https://www.reddit.com/r/aiArt/${aiType}/.json?limit=${maxFetched}&after=${aiAfter}`,`https://www.reddit.com/r/DigitalArt/${artType}/.json?limit=${maxFetched}&after=${artAfter}`);
 })
 // fetchResults();
 async function fetchResults(aiURL,artURL) {
@@ -135,7 +135,7 @@ async function fetchResults(aiURL,artURL) {
 
  for (let i = 0; i < maxFetched; i++){
  if (artPosts[i].data.post_hint === `image`){
-  console.log('test')
+  console.log('test');
     if(artOrder < eachArtLimit){
           artOrder++
         let ElWrapper = document.createElement('div');
@@ -152,7 +152,7 @@ async function fetchResults(aiURL,artURL) {
         parentDiv.appendChild(ElWrapper);
 
         image.addEventListener("error", () => {
-          console.log('busted ai');
+          console.log('busted artwork');
           image.src = artPosts[i].data.thumbnail;
         });
 
@@ -186,7 +186,7 @@ async function fetchResults(aiURL,artURL) {
     const randomNumber2 = generateUniqueRandom2(maxRandomizedArts);
     // console.log(randomNumber);
     
-     for (let i = 0; i < maxFetched; i++){
+     for (let i = 0; i < 20; i++){
       if (aiPosts[i].data.post_hint === `image`){
         console.log(`all i ran thru:`+i);
         
