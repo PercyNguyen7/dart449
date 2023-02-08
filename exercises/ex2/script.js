@@ -100,20 +100,47 @@ function renderResults(json) {
     parentDiv.appendChild(ElWrapper);
     }
     else if (posts[i].data.post_hint === `rich:video`){
-      let ElWrapper = document.createElement('div');
+    // let ElWrapper = document.createElement('div');
+    // // ElWrapper.classList.add(`el-wrapper`);
+    // let figure = document.createElement('figure');
+    // let video = document.createElement('video');
+    // video.setAttribute("controls","controls")
+    // // video.src = posts[i].data.secure_media_embed.media_domain_url;
+    // video.src=`https://www.redditmedia.com/mediaembed/10wjdzs`;
+    // // https://www.redditmedia.com/mediaembed/10wjdzs
+
+    // figure.appendChild(video);
+    // ElWrapper.appendChild(figure);
+    // parentDiv.appendChild(ElWrapper);
+    let ElWrapper = document.createElement('div');
     // ElWrapper.classList.add(`el-wrapper`);
     let figure = document.createElement('figure');
-    let video = document.createElement('video');
-    video.setAttribute("controls","controls")
-    video.src = "https://www.redgifs.com/watch/lightheartedsympatheticboilweevil";
-    
-
-    figure.appendChild(video);
+    let image = document.createElement('img');
+    if (posts[i].data.post_hint === `null`){
+    }
+    image.src = posts[i].data.thumbnail;
+    console.log(image.src);
+    figure.appendChild(image);
     ElWrapper.appendChild(figure);
     parentDiv.appendChild(ElWrapper);
+    console.log();
     }
+    else if (posts[i].data.post_hint === `link`){
+      let ElWrapper = document.createElement('div');
+      // ElWrapper.classList.add(`el-wrapper`);
+      let figure = document.createElement('figure');
+      let image = document.createElement('img');
+      if (posts[i].data.post_hint === `null`){
+      }
+      image.src = posts[i].data.thumbnail;
+      console.log(image.src);
+      figure.appendChild(image);
+      ElWrapper.appendChild(figure);
+      parentDiv.appendChild(ElWrapper);
+      console.log();
   }
   document.body.appendChild(parentDiv);
+}
 }
 
 
