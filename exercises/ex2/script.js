@@ -54,10 +54,10 @@ async function fetchResults(url) {
     // console.log(myJson);
   
   })
-  .catch((error) => {
-    console.log(error);
-    alert('try another one');
-  });
+  // .catch((error) => {
+  //   console.log(error);
+  //   alert('try another one');
+  // });
 }
 
 function renderResults(json) {
@@ -93,6 +93,19 @@ function renderResults(json) {
     let video = document.createElement('video');
     video.setAttribute("controls","controls")
     video.src = posts[i].data.secure_media.reddit_video.fallback_url;
+    
+
+    figure.appendChild(video);
+    ElWrapper.appendChild(figure);
+    parentDiv.appendChild(ElWrapper);
+    }
+    else if (posts[i].data.post_hint === `rich:video`){
+      let ElWrapper = document.createElement('div');
+    // ElWrapper.classList.add(`el-wrapper`);
+    let figure = document.createElement('figure');
+    let video = document.createElement('video');
+    video.setAttribute("controls","controls")
+    video.src = "https://www.redgifs.com/watch/lightheartedsympatheticboilweevil";
     
 
     figure.appendChild(video);
