@@ -106,7 +106,7 @@ function renderResults(json) {
     // let video = document.createElement('video');
     // video.setAttribute("controls","controls")
     // // video.src = posts[i].data.secure_media_embed.media_domain_url;
-    // video.src=`https://www.redditmedia.com/mediaembed/10wjdzs`;
+    // video.src=`https://www.redditmedia.com/mediaembed/10wmdrs`;
     // // https://www.redditmedia.com/mediaembed/10wjdzs
 
     // figure.appendChild(video);
@@ -123,7 +123,7 @@ function renderResults(json) {
     figure.appendChild(image);
     ElWrapper.appendChild(figure);
     parentDiv.appendChild(ElWrapper);
-    console.log();
+    // console.log();
     }
     else if (posts[i].data.post_hint === `link`){
       let ElWrapper = document.createElement('div');
