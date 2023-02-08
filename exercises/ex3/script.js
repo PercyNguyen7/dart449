@@ -388,7 +388,11 @@ function errorHandler(){
      
         selectedWrappers[n].classList.remove('selected');
       }
-      instructionText.innerHTML=`${score} points! Refresh to try again!`;
+      let points = `points`;
+      if (score===1 || score ===0){
+        points = `point`;
+      }
+      instructionText.innerHTML=`${score} ${points}! Refresh to try again!`;
         // if (score <3){
         // instructionText.innerHTML=`${score} points... What are you? A bot? Press  Refresh and try again u bot`;
         // }
