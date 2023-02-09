@@ -1,6 +1,6 @@
 // code inspired by https://codepen.io/jacobhernandez08/pen/XwGqZw
 
-fetchResults(`https://www.reddit.com/r/aiArt/top/.json?limit=30`,`https://www.reddit.com/r/DigitalArt/top/.json?limit=30`);
+fetchResults(`https://www.reddit.com/r/aiArt/hot/.json?limit=30`,`https://www.reddit.com/r/DigitalArt/hot/.json?limit=30`);
 // let maxRandomizedArts=50;
 let maxFetched =25;
 let totalArtLimit;
@@ -18,10 +18,10 @@ let artType =`new`;
 
 let playTime = true;
 
-let TopType = `top`;
-let HotType = 'hot';
-let NewType = `new`;
-let RisingType = `rising`;
+// let TopType = `top`;
+// let HotType = 'hot';
+// let NewType = `new`;
+// let RisingType = `rising`;
 
 const aiBtn = document.querySelector(`#ai-drop-btn`);
 const artBtn = document.querySelector(`#art-drop-btn`);
@@ -81,10 +81,10 @@ async function fetchResults(aiURL,artURL) {
     fetch(aiURL),fetch(artURL)]).then(
       
     responses =>{
-      // if (Promise.all(responses.ok)) {
+      if (Promise.all(responses.ok)) {
         return Promise.all(responses.map(r =>r.json()));
-      // }
-      // throw new Error('Something went wrong');
+      }
+      throw new Error('Something went wrong');
 
   }
   ).then(([AI,art]) =>{
@@ -137,21 +137,22 @@ async function fetchResults(aiURL,artURL) {
 
         let figure = document.createElement('figure');
         let image = document.createElement('img');
-        if (artPosts[i].data.url_overridden_by_dest !=`undefined`){
+        console.log(artPosts[i].data.url_overridden_by_dest);
+        if (artPosts[i].data.url_overridden_by_dest !=undefined){
           image.src = artPosts[i].data.url_overridden_by_dest;
         }
-        else if (artPosts[i].data.thumbnail != `undefined`){
+        else if (artPosts[i].data.thumbnail != undefined){
           image.src = artPosts[i].data.thumbnail;
         }
        
-        console.log(artPosts[i].data.url_overridden_by_dest);
+      
         figure.appendChild(image);
         ElWrapper.appendChild(figure);
         parentDiv.appendChild(ElWrapper);
 
         image.addEventListener("error", () => {
           console.log('busted artwork');
-          if (artPosts[i].data.thumbnail != `undefined`){
+          if (artPosts[i].data.thumbnail != undefined){
           image.src = artPosts[i].data.thumbnail;}
         });
       }
@@ -165,7 +166,7 @@ async function fetchResults(aiURL,artURL) {
     // const randomNumber2 = generateUniqueRandom2(maxRandomizedArts);
     // console.log(randomNumber);
     
-     for (let i = 0; i < 20; i++){
+     for (let i = 0; i < maxFetched; i++){
       if (aiPosts[i].data.post_hint === `image`){
         console.log(`ai posts chosen:`+i);
         
@@ -179,13 +180,14 @@ async function fetchResults(aiURL,artURL) {
         let figure = document.createElement('figure');
         let image = document.createElement('img');
         ElWrapper.classList.add(`ai-wrappers`);
-        if (aiPosts[i].data.url_overridden_by_dest !=`undefined`){
+        console.log(aiPosts[i].data.url_overridden_by_dest);
+        if (aiPosts[i].data.url_overridden_by_dest !=undefined){
           image.src = aiPosts[i].data.url_overridden_by_dest;
         }
-        else if (aiPosts[i].data.thumbnail != `undefined`){
+        else if (aiPosts[i].data.thumbnail != undefined){
           image.src = aiPosts[i].data.thumbnail;
         }
-        console.log(aiPosts[i].data.url_overridden_by_dest);
+ 
         // image.classList.add(`fuck`);
         // console.log(image.src);
         figure.appendChild(image);
@@ -195,7 +197,7 @@ async function fetchResults(aiURL,artURL) {
         
         image.addEventListener("error", () => {
           console.log('busted ai');
-          if (aiPosts[i].data.thumbnail != `undefined`){
+          if (aiPosts[i].data.thumbnail != undefined){
             image.src = aiPosts[i].data.thumbnail;}
         });
        
