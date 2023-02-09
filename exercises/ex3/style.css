@@ -62,7 +62,7 @@ h1{
   display: grid;
   gap:1rem;
 
-  grid-template-columns: repeat(1,minmax(300px,1fr));
+  /* grid-template-columns: repeat(1,minmax(300px,1fr)); */
   grid-template-rows: repeat(auto-fill,400px);
   padding:1rem 1rem;
   /* display: flex;
@@ -173,12 +173,12 @@ ol li {
 .dropdown:focus .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #050505;}
-@media(min-width: 35em){
+@media(max-width: 44.99em){
   #parent-div{
     grid-template-columns: repeat(2,minmax(250px,1fr));
 }
 }
-@media (min-width: 44.99em){
+@media (min-width: 45em){
   .guessAmount{
     min-width: 9rem;
     display: block;

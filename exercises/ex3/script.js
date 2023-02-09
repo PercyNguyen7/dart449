@@ -1,7 +1,7 @@
 // code inspired by https://codepen.io/jacobhernandez08/pen/XwGqZw
 
-fetchResults(`https://www.reddit.com/r/aiArt/new/.json?limit=25`,`https://www.reddit.com/r/DigitalArt/new/.json?limit=25`);
-let maxRandomizedArts=15;
+fetchResults(`https://www.reddit.com/r/aiArt/top/.json?limit=30`,`https://www.reddit.com/r/DigitalArt/top/.json?limit=30`);
+// let maxRandomizedArts=50;
 let maxFetched =25;
 let totalArtLimit;
 let eachArtLimit = 5;
@@ -76,7 +76,6 @@ submitBtn.addEventListener('click',()=>{
 })
 // fetchResults();
 async function fetchResults(aiURL,artURL) {
- 
 
   Promise.all([
     fetch(aiURL),fetch(artURL)]).then(
@@ -109,33 +108,27 @@ async function fetchResults(aiURL,artURL) {
   });
 }
   function renderResults(AI,art){
-    let haveIt = [];
-    let haveIt2 = [];
+    // let haveIt = [];
+    // let haveIt2 = [];
  
-    if (document.getElementById(`parent-div`)){
-      document.getElementById('parent-div').remove();
-      console.log()
-    }
  
     // render 
     artPosts = art.data.children;
-    // console.log(AI);
-    // console.log(arts);
     
-    // if (document.getElementById(`parent-div`)){
-    //   document.getElementById('parent-div').remove();
-    // }
+    if (document.getElementById(`parent-div`)){
+      document.getElementById('parent-div').remove();
+    }
     
         let parentDiv = document.createElement('div');
         parentDiv.id ='parent-div';
     // for (let i = 0; i <  eachArtLimit; i++){
-      const randomNumber = generateUniqueRandom(maxRandomizedArts);
+      
       // if (artPosts[randomNumber].data.post_hint === `image`){
       //   console.log('hey!');
 
  for (let i = 0; i < maxFetched; i++){
- if (artPosts[i].data.post_hint === `image`){
-  console.log('test');
+  if (artPosts[i].data.post_hint === `image`){
+    console.log(`art posts chosen:`+i);
     if(artOrder < eachArtLimit){
           artOrder++
         let ElWrapper = document.createElement('div');
@@ -144,54 +137,41 @@ async function fetchResults(aiURL,artURL) {
 
         let figure = document.createElement('figure');
         let image = document.createElement('img');
-      
-        image.src = artPosts[i].data.url_overridden_by_dest;
-        // console.log(image.src);
+        if (artPosts[i].data.url_overridden_by_dest !=`undefined`){
+          image.src = artPosts[i].data.url_overridden_by_dest;
+        }
+        else if (artPosts[i].data.thumbnail != `undefined`){
+          image.src = artPosts[i].data.thumbnail;
+        }
+       
+        console.log(artPosts[i].data.url_overridden_by_dest);
         figure.appendChild(image);
         ElWrapper.appendChild(figure);
         parentDiv.appendChild(ElWrapper);
 
         image.addEventListener("error", () => {
           console.log('busted artwork');
-          image.src = artPosts[i].data.thumbnail;
+          if (artPosts[i].data.thumbnail != `undefined`){
+          image.src = artPosts[i].data.thumbnail;}
         });
-
       }
     }
-
-  
+    else{
+      console.log('IMG skipping')
+    }
   }
-  console.log(artOrder);
-      // else{
-      //   let ElWrapper = document.createElement('div');
-      //   ElWrapper.classList.add(`el-wrapper`);
-      //   ElWrapper.classList.add(`art-wrappers`);
-      //   let figure = document.createElement('figure');
-      //   let image = document.createElement('img');
-      //   if (artPosts[i].data.post_hint === `null`){
-      //   }
-      //   image.src = artPosts[i].data.url;
-      //   // console.log(image.src);
-      //   figure.appendChild(image);
-      //   ElWrapper.appendChild(figure);
-      //   parentDiv.appendChild(ElWrapper);
-      //   console.log();
-      // }
-    
-      // document.body.appendChild(parentDiv);
-    // }
-
     aiPosts = AI.data.children;
   
-    const randomNumber2 = generateUniqueRandom2(maxRandomizedArts);
+    // const randomNumber2 = generateUniqueRandom2(maxRandomizedArts);
     // console.log(randomNumber);
     
      for (let i = 0; i < 20; i++){
       if (aiPosts[i].data.post_hint === `image`){
-        console.log(`all i ran thru:`+i);
+        console.log(`ai posts chosen:`+i);
         
        
         if(aiOrder < eachArtLimit ){
+   
           aiOrder++;
         let ElWrapper = document.createElement('div');
         ElWrapper.classList.add(`el-wrapper`);
@@ -199,24 +179,32 @@ async function fetchResults(aiURL,artURL) {
         let figure = document.createElement('figure');
         let image = document.createElement('img');
         ElWrapper.classList.add(`ai-wrappers`);
-        image.src = aiPosts[i].data.url_overridden_by_dest;
-      
+        if (aiPosts[i].data.url_overridden_by_dest !=`undefined`){
+          image.src = aiPosts[i].data.url_overridden_by_dest;
+        }
+        else if (aiPosts[i].data.thumbnail != `undefined`){
+          image.src = aiPosts[i].data.thumbnail;
+        }
+        console.log(aiPosts[i].data.url_overridden_by_dest);
         // image.classList.add(`fuck`);
         // console.log(image.src);
         figure.appendChild(image);
         ElWrapper.appendChild(figure);
         parentDiv.appendChild(ElWrapper);
-        console.log(parentDiv);
+     
         
         image.addEventListener("error", () => {
           console.log('busted ai');
-          image.src = aiPosts[i].data.thumbnail;
+          if (aiPosts[i].data.thumbnail != `undefined`){
+            image.src = aiPosts[i].data.thumbnail;}
         });
-        }
+       
+      }
         
       }
-
-
+      else{
+        console.log('AI skipping')
+      }
   }
 
     // console.log(AI);
@@ -390,25 +378,35 @@ function errorHandler(){
       let randomPos = Math.floor(Math.random() * cardWrappers.length);
       card.style.order = randomPos;
     });
-    console.log('once')
+
   }
   function selectArt(){
     let selectedAmount = 0;
     const elWrappers = document.querySelectorAll('.el-wrapper');
+console.log(eachArtLimit);
 
-  
       for(let n = 0; n< elWrappers.length; n++){
         elWrappers[n].addEventListener('click',()=>{
           
-          if (elWrappers[n].classList.contains('selected')  && playTime===true){
+          if(!elWrappers[n].classList.contains('selected') && eachArtLimit==1 && playTime === true){
+            for(let i = 0; i< elWrappers.length; i++){
+              elWrappers[i].classList.remove('selected');
+            }
+            elWrappers[n].classList.add('selected');
+            console.log('adnpand')
+          }
+
+          else if (elWrappers[n].classList.contains('selected')  && playTime===true && eachArtLimit!=1){
             elWrappers[n].classList.remove('selected');
             selectedAmount--;
           }
-          else if (!elWrappers[n].classList.contains('selected') && selectedAmount <eachArtLimit && playTime===true){
+          
+          else if (!elWrappers[n].classList.contains('selected') && selectedAmount <eachArtLimit && playTime===true && eachArtLimit!=1){
             elWrappers[n].classList.add('selected');
             selectedAmount++;
           }
-          console.log(`selecting ${(selectedAmount)}`);
+          
+   
         });
       }
  
@@ -416,11 +414,8 @@ function errorHandler(){
   }
 
 
-
-    
     const resultBtn = document.querySelector(`.result-button`);
     
-
       resultBtn.addEventListener('click',()=>{
         // console.log('result btn pressed');
         if (playTime){
@@ -443,7 +438,6 @@ function errorHandler(){
         }
        console.log('score:'+score);
 
-      
        for(let n = 0; n< aiWrappers.length; n++){
         if (!aiWrappers[n].classList.contains(`selected`)){
           console.log('wth');
@@ -452,7 +446,6 @@ function errorHandler(){
       }
       
        for(let n = 0; n< selectedWrappers.length; n++){
-     
         selectedWrappers[n].classList.remove('selected');
       }
       let points = `points`;
@@ -496,7 +489,7 @@ function generateUniqueRandom(maxNr) {
         haveIt.push(random);
 
         
-        console.log(haveIt);
+        // console.log(haveIt);
         return random;
     } else {
         if(haveIt.length < maxNr) {
@@ -504,7 +497,7 @@ function generateUniqueRandom(maxNr) {
         
          return  generateUniqueRandom(maxNr);
         } else {
-          console.log('No more numbers available.')
+          // // console.log('No more numbers available.')
           return false;
         }
     }
@@ -520,7 +513,7 @@ function generateUniqueRandom2(maxNr) {
       haveIt2.push(random);
 
       
-      console.log(haveIt2);
+      // console.log(haveIt2);
       return random;
   } else {
       if(haveIt2.length < maxNr) {
