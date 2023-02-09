@@ -1,6 +1,6 @@
 // code inspired by https://codepen.io/jacobhernandez08/pen/XwGqZw
 
-fetchResults(`https://www.reddit.com/r/aiArt/hot/.json?limit=30`,`https://www.reddit.com/r/DigitalArt/hot/.json?limit=30`);
+fetchResults(`https://www.reddit.com/r/aiArt/hot/.json?limit=30`,`https://www.reddit.com/r/DigitalArt/hot/.json?limit=25`);
 // let maxRandomizedArts=50;
 let maxFetched =25;
 let totalArtLimit;
