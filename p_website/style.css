@@ -19,6 +19,7 @@
     --fs-h2: clamp(1.75rem,12vw,2.25rem);
     --fs-med: 1.125rem;
     --fw-thick: 600;
+    --clr-white: rgb(225,225,225);
   }
 
     html{
@@ -28,7 +29,7 @@
     body{
       overflow: scroll; /* Show scrollbars */
         overflow-x: hidden;
-        background-color: rgb(211, 211, 211);
+        background-color: var(--clr-white);
         /* border: 2px solid black; */
     }
     header{
@@ -153,7 +154,7 @@
     background:url(./assets/images/icons/percy-logo-01.svg) center center / contain no-repeat;
     align-self: flex-start;
     /* filter: invert(62%) sepia(47%) saturate(502%) hue-rotate(2deg) brightness(99%) contrast(89%); */
-    filter:grayscale(1) brightness(1000%);
+    filter:grayscale(1) brightness(-1000%);
   }
   /* .nav-logo:hover{
     filter: invert(14%) sepia(42%) saturate(4852%) hue-rotate(215deg) brightness(100%) contrast(100%);
@@ -377,9 +378,7 @@ li{
   }
 }
   @media (min-width: 35em){
-    .grid-split-2{
-      grid-template-columns: 1fr 1fr;
-    }
+   
   }
   @media (min-width: 45em) {
     :root{
@@ -390,17 +389,10 @@ li{
     --fs-med: 1.25rem;
     }
     h2{
- 
       margin: 1rem 0;
     }
-    section:not(.panning-sect),footer{
-      margin-right: clamp(13rem,27vw,28rem);
-      padding: 2rem 2rem;
-      /* background-color: red; */
-    }
-    .panning-sect{
-      margin-right: clamp(13rem,27vw,28rem);
-    }
+
+
   section:not(:nth-child(2)){
 
     border-bottom: 2px solid black;
@@ -426,17 +418,41 @@ li{
     font-weight: 700;
     /* background-color: rgb(244, 244, 244); */
   }
-.primary-navigation{
+
+  .biography-sect2{
+    padding: 1rem;
+    height: 100%;
+    /* background-color: rgb(209, 209, 209); */
+  }
+  .footer-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* align-items: space-between; */
+    justify-content: space-between;
+    align-content: space-between;
+    gap:1.5rem;
+  }
+
+   .grid-split-2{
+      grid-template-columns: 1fr 1fr;
+    }
+}
+@media (min-width: 55em) {
+    :root{
+      --fs-nav: 2rem;
+  }
+  .primary-navigation{
     position: fixed;
     padding: 1rem;
     inset: auto 0 auto auto;
     width: clamp(13rem,27vw,28rem);
-    background-color: rgb(0, 0, 0);
-    border-left: 2px solid white;
-    mix-blend-mode: difference;
+    background-color: var(--clr-white);
+    border-left: 2px solid rgb(0, 0, 0);
     /* mix-blend-mode: difference; */
-}
-.primary-navigation::before{
+    /* mix-blend-mode: difference; */
+  }
+  .primary-navigation::before{
     /* display: none; */
     width:1.35rem;
     height: 150%;
@@ -445,11 +461,11 @@ li{
     /* animation: none; */
     top:-25%;
     left:0.8rem
-}
-
- .menu-btn{
-        display: none;
   }
+
+  /* .menu-btn{
+        display: none;
+  } */
   .tabs-orders{
     position: relative;
     height: 100%;
@@ -462,7 +478,7 @@ li{
     justify-content: space-between;
     align-items: flex-start;
         /* background-color: ; */
-}
+  }
   .tabs-menu::after{
     content:'';
     position: absolute;
@@ -472,7 +488,6 @@ li{
     height:4rem;
     background-color: rgb(212, 212, 212);
     display: none;
- 
   }
 
 
@@ -489,22 +504,7 @@ li{
     transform: translateX(0);
   }
   .primary-navigation[data-open='false']{
-    transform: translateX(0);
-  }
-
-  .biography-sect2{
-    padding: 1rem;
-    height: 100%;
-    /* background-color: rgb(209, 209, 209); */
-  }
-  .footer-wrapper{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    /* align-items: space-between; */
-    justify-content: space-between;
-    align-content: space-between;
-    gap:1.5rem;
+    transform: translateX(100%);
   }
   .primary-navigation[data-open='true'],.primary-navigation[data-open='false']{
     /* transform: translateY(0); */
@@ -513,11 +513,13 @@ li{
   .nav-logo{
     align-self: flex-end;
   }
-}
-@media (min-width: 55em) {
-  :root{
-    --fs-nav: 2rem;
-}
+  /* section:not(.panning-sect),footer{
+    margin-right: clamp(13rem,27vw,28rem);
+    padding: 2rem 2rem;
+  } */
+  /* .panning-sect{
+    margin-right: clamp(13rem,27vw,28rem);
+  } */
 }
 
 @media (min-width: 65em) {
