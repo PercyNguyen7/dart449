@@ -66,7 +66,7 @@
     }
    
     section{
-      padding: 1rem;
+      padding: 1rem 4rem;
     }
   .menu-btn {
     position: fixed;
@@ -376,6 +376,9 @@ li{
     text-align: center;
     padding:0 3rem;
   }
+  section:not(:nth-child(2)):not(.panning-sect){
+    padding: 2em 1rem;
+  }
 }
   @media (min-width: 35em){
    
@@ -394,9 +397,12 @@ li{
 
 
   section:not(:nth-child(2)){
-
+/* background-color: red; */
     border-bottom: 2px solid black;
-    /* padding: 2rem 5rem; */
+    /* padding: 1rem 5rem; */
+  }
+  section:not(:nth-child(2)):not(.panning-sect){
+    padding: 5em 1rem;
   }
   /* first box  */
   section:nth-child(2){
@@ -432,6 +438,7 @@ li{
     justify-content: space-between;
     align-content: space-between;
     gap:1.5rem;
+    margin: 1rem 0;
   }
 
    .grid-split-2{
