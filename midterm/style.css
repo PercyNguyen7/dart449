@@ -128,8 +128,8 @@ h1 {
     text-align: center;
     text-transform: uppercase;
     margin: 4rem 0;
-    color:#662b31a9;
-    -webkit-text-stroke: 1px rgb(136, 136, 136);
+    color:#a03b45a9;
+    -webkit-text-stroke: 1px rgb(146, 138, 138);
 }
 
 h2 {
@@ -169,7 +169,7 @@ nav {
 
 @supports (backdrop-filter: blur(1rem)) {
     nav {
-        background-color: #662b31a9;
+        background-color: #a03b45a9;
         backdrop-filter: blur(0.6rem);
     }
 }

@@ -95,7 +95,6 @@ async function fetchResults(aiURL,artURL) {
     instructionText.innerHTML=`Guess which ${eachArtLimit} of these art are made by AI, then tap Result!`;
     renderResults(AI,art);
    
-   
     // replaceBrokenAI();
     // replaceBrokenArt();
     shuffle();
