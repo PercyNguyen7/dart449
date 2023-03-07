@@ -66,7 +66,7 @@ picture {
     font-family: var(--ff-title-bold);
     letter-spacing: 3px;
     /* -webkit-text-stroke: 1px rgb(153, 153, 153); */
-    /* line-height: 10rem; */
+    line-height: 5rem;
 }
 
 /* .ff-title-reg {
@@ -279,8 +279,16 @@ p {
     gap:2rem;
 }
 
-
-
+.proposal>h3{
+    text-align: left;
+    margin-top:3rem;
+    text-indent: 2rem;
+}
+.proposal>p,li{
+    color: rgb(202, 202, 202);
+    line-height: 2rem;
+    font-weight: 50;
+}
 
 @media (max-width:34.99em) {
     .content-wrapper {
