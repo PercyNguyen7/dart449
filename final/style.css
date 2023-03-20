@@ -1,0 +1,342 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @font-face {
+    font-family: 'Pixeloid';
+    src: url(./assets/fonts/PixeloidSans.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'PixeloidBold';
+    src: url(./assets/fonts/PixeloidSans-Bold.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'm12';
+    src: url(./assets/fonts/m12.TTF) format('truetype');
+}
+
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    min-height: 100vh;
+    background-color: #534037;
+
+}
+
+main{
+    width: 100%;
+    /* min-height: 100vh; */
+    background-color: #534037;
+   
+}
+h1,h2,h3{
+    font-family: 'm12';
+    letter-spacing: 0.2rem;
+    line-height: 2rem;
+}
+.passport-infos span:nth-child(1),
+.work-infos span:nth-child(1){
+    font-family: 'PixeloidBold';
+}
+
+h4{
+    font-family: 'PixeloidBold';
+  
+}
+p, ul, li, span{
+    font-family: 'Pixeloid';
+}
+
+
+.game-wrapper{
+    position: relative;
+    background-color: #C3B6B3;
+    max-width: 68rem;
+    margin: auto;
+    /* border: red 2px solid; */
+}
+
+.glass-wrapper{
+    position: relative;
+    width: 100%;
+    height: 30rem;
+    /* background: url(./assets/images/glass.png) center center / cover no-repeat; */
+}
+.glass{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: url(./assets/images/glass.png) center center / cover no-repeat;
+    z-index: 5;
+}
+
+.person{
+    position: absolute;
+    bottom: -3rem;
+    left: 25%;
+    width: 30rem;
+    height: 100%;
+
+    background: url(./assets/images/Man.png) center center / contain no-repeat;
+    /* background-color: red; */
+    
+}
+
+.table{
+    position: relative;
+    /* position: relative;
+    bottom: 0; */
+    background-color: #9A7767;
+    width: 100%;
+    height: 20rem;
+    z-index: 10;
+}
+
+.passport-down{
+    position: absolute;
+    top:-3rem;
+    left: 40%;
+    width: 10rem;
+    height: 10rem;
+    background: url(./assets/images/passport.png) center center / contain no-repeat;
+    /* background-color: red; */
+    margin: auto;
+    transition: transform 0.4s;
+    cursor: pointer;
+}
+.passport-down:hover{
+    transform: scale(1.2) translateY(1rem);
+}
+.ipad{
+    position: absolute;
+    bottom:0rem;
+    left: -1rem;
+    width: clamp(16rem,50vw,27rem);
+    height: 35rem;
+    background-color: white;
+    z-index: 100;
+    padding: 1rem;
+    border-radius: 20px;
+    border: 1rem rgb(26, 24, 24) solid;  
+    transition: all 0.3s ease-out;
+}
+
+.ipad[data-used='false']{
+    transform: perspective(1000px) rotateX(60deg) rotateZ(-3deg)translateY(10rem) scale(0.7);
+    box-shadow: -10px -15px 5px rgba(2, 2, 2, 0.377);
+}
+.ipad[data-used='false']:hover{
+    transform: rotateX(0deg) rotateZ(-3deg) translateY(0rem) scale(1);
+    box-shadow: 0 0 0  rgba(2, 2, 2, 0.377);
+}
+.ipad h2{
+    margin: 2rem 0 1rem;
+    padding: 1rem;
+    color: white;
+    background-color: rgb(26, 24, 24);
+}
+.ipad .info-sect{
+    padding: 1rem;
+    /* background-color: red; */
+}
+.ipad h4{
+    margin-top: 1rem;
+}
+.ipad li{
+    /* list-style */
+    margin-left:1rem;
+}
+.ipad span{
+    font-weight: 600;
+}
+
+.passport-opened h3{
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.passport-opened{
+    color:#601515;
+    position: absolute;
+    top: 1rem;
+    right:4rem;
+    width: 26rem;
+    height: 32rem;
+    border: 3px solid #601515;
+    border-radius: 15px;
+    background-color: #E3C5C7;
+    z-index: 1000;
+}
+.passport-info-wrapper{
+    transform-style: preserve-3d;
+}
+.passport-content{
+    width: 100%;
+    height: 100%;
+    position:relative;
+    /* border:2px blue solid; */
+}
+.passport-top{
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    height: 50%;
+    background-color: #E0BABD;
+    border-bottom: 3px solid #601515;
+}
+.passport-bottom{
+    height: 50%;
+    position: relative;
+    transform-origin: top center;
+    transform-style: preserve-3d;
+    transition: transform 0.2s;
+    /* border:2px green solid; */
+}
+.passport-bottom-front,
+.passport-bottom-back{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap:1rem;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 95%;
+    
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+
+    /* border: 1px solid red; */
+    transform-origin: top center;
+}
+
+
+.fourth-page{
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* height: 100%; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:2rem
+}
+.accept-btn,.deny-btn{
+    font-family: 'PixeloidBold';
+    font-size:1.5rem;
+    background-color: whitesmoke;
+    border:3px solid #601515;
+    height: min-content;
+    padding: 1rem 2rem;
+    cursor: pointer;
+}
+.passport-bottom-front{
+    background-color: #E0BABD;
+    border-radius:0px 0px 15px 15px ;
+    border-bottom: 3px solid #601515;
+}
+
+.passport-bottom-back{
+    color: #191919;
+    border-radius: 15px 15px 0px 0px;
+    background-color: rgb(231, 231, 231);
+    transform: rotateX(.5turn) translateY(-100%);
+    border-top: 3px solid #601515;
+    border-bottom: 3px solid #601515;
+}
+.passport-content:hover .passport-bottom{
+    transform: rotateX(0.5turn);
+  }
+.profile-img{
+    background-color: rgb(233, 233, 233);
+    width: 8rem;
+    height: 8rem;
+    border: 3px solid #601515;
+}
+.passport-bottom-back .profile-img{
+    border: 3px solid #191919;
+}
+.passport-close-btn{
+    position: absolute;
+    background: url(./assets/images/close.png) center center / contain no-repeat;
+    top:0.5rem;
+    right:0.5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tv{
+    width: 20rem;
+    height: 12rem;
+    position: absolute;
+    background-color: #424242;
+    border:#191919 solid 6px;
+    border-radius: 5px;
+    top:2rem;
+    left:2rem;
+   padding:1rem;
+}
+.tv-screen{
+    height: 100%;
+    position: relative;
+}
+.tv-subtitles{
+    position: absolute;
+    bottom:0;
+    font-family: 'Pixeloid';
+    color: whitesmoke;    
+}
+.work-permit{
+    position: absolute;
+    background-color: whitesmoke;
+    top:1rem;
+    right:0.5rem;
+    width: 27rem;
+    height: 40rem;
+    z-index: 100;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+.work-permit:hover{
+    color: #601515;
+    z-index: 9999;
+}
+.work-permit h2{
+    margin-bottom: 2rem;
+}
+.work-permit[data-focus='false']{
+    z-index: 100;
+}
+.work-info-wrapper{
+    margin: 1rem 0 4rem;
+}
+.line{
+    width: 100%;
+    height: 0.5rem;
+    background-color: #601515;
+}
+.current-date{
+    font-family: 'Pixeloid';
+    color: whitesmoke;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1000;
+}
