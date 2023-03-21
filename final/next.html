@@ -48,7 +48,7 @@
                 <div class="passport-down"></div>
             </div>
 
-            <div class="work-permit">
+            <div class="work-permit hidden">
                 <h2>WORK PERMIT</h2>
                 <div class="line"></div>
                 <div class="work-info-wrapper">
@@ -76,10 +76,40 @@
                 </div>
                 <div class="line"></div>
             </div>
-            <div class="passport-opened">
 
+            <div class="study-permit hidden">
+                <h2>WORK PERMIT</h2>
+          
+                <div class="study-info-wrapper">
+          
+                    <div class="study-infos">
+                        <span>NAME:</span>
+                        <span>Some Name</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>SEX:</span>
+                        <span>Some Name</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>NATIONALITY:</span>
+                        <span>Russian</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>DOB:</span>
+                        <span>Date Month Year</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>EXP:</span>
+                        <span>Date</span>
+                    </div>
+                </div>
+                <div class="box"></div>
+            </div>
+
+            <div class="passport-near hidden">
                 <div class="passport-content">
-                    <!-- <div class="passport-close-btn"></div> -->
+                    
+                    <div class="passport-close-btn hidden"></div>
                     <div class="passport-top">
                         <h3>Russian federation</h3>
                     </div>
@@ -110,14 +140,15 @@
              
                         <div class="fourth-page">
                         
-                            <div class="accept-btn">ACCEPT</div>
-                            <div class="deny-btn">DENY</div>
+                            <div class="accept-btn" data-chosen="false">ACCEPT</div>
+                            <div class="decline-btn" data-chosen="false">DENY</div>
                             <!-- <div class="passport-decision-wrapper">
                                 
                             </div> -->
                         </div>
                  
-                    <div class="passport-bottom">
+                    <div class="passport-bottom" data-flipped='false'>
+                       
                         <div class="passport-bottom-front">
                             <div class="profile-img"></div>
 
@@ -147,36 +178,36 @@
 
                         <div class="passport-bottom-back">
 
+                            <div class="visa-profile-wrapper">
+                                <h3>VISA</h3>
+                                <div class="profile-img"></div>
+                        </div>
 
-                            <div class="profile-img"></div>
-
-
-                            <div class="passport-info-wrapper">
-                                <div class="passport-infos">
+                            <div class="visa-info-wrapper">
+                                <div class="visa-infos">
                                     <span>NAME:</span>
                                     <span>Some Name</span>
                                 </div>
-                                <div class="passport-infos">
-                                    <span>SEX:</span>
-                                    <span>Some Name</span>
-                                </div>
-                                <div class="passport-infos">
+                       
+                                <div class="visa-infos">
                                     <span>NATIONALITY:</span>
                                     <span>Russian</span>
                                 </div>
-                                <div class="passport-infos">
-                                    <span>DOB:</span>
-                                    <span>Date Month Year</span>
+                                <div class="visa-infos">
+                                    <span>Purpose:</span>
+                                    <span>Visit</span>
                                 </div>
-                                <div class="passport-infos">
+                                <div class="visa-infos">
                                     <span>EXP:</span>
-                                    <span>Date</span>
+                                    <span>Date Month Year</span>
                                 </div>
                             </div>
                         </div>
 
 
-
+                        <div class="passport-flip-btn">
+                        
+                        </div>
 
                     </div>
                 </div>
@@ -185,6 +216,7 @@
         </div>
 
     </main>
+    <script src="app.js"></script>
 </body>
 
 </html>

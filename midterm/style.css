@@ -40,8 +40,7 @@ picture {
     margin: 0;
 }
 
-:root {
-    
+:root {  
     --clr-twitter-blue: rgba(29, 155, 240);
     /* --ff-serif: "Fog",serif;
     --ff-sans: "Barlow Condensed", sans-serif; */
@@ -86,8 +85,6 @@ picture {
 .text-white {
     color: white;
 }
-
-
 
 .fs-900,
 .fs-800,

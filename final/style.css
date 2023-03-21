@@ -40,7 +40,9 @@ h1,h2,h3{
     line-height: 2rem;
 }
 .passport-infos span:nth-child(1),
-.work-infos span:nth-child(1){
+.visa-infos span:nth-child(1),
+.work-infos span:nth-child(1),
+.study-infos span:nth-child(1){
     font-family: 'PixeloidBold';
 }
 
@@ -72,7 +74,7 @@ p, ul, li, span{
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: url(./assets/images/glass.png) center center / cover no-repeat;
+    background: url(./assets/images/glass2.png) center center / cover no-repeat;
     z-index: 5;
 }
 
@@ -92,6 +94,7 @@ p, ul, li, span{
     position: relative;
     /* position: relative;
     bottom: 0; */
+    border-top: #795e51 10px solid;
     background-color: #9A7767;
     width: 100%;
     height: 20rem;
@@ -108,7 +111,7 @@ p, ul, li, span{
     /* background-color: red; */
     margin: auto;
     transition: transform 0.4s;
-    cursor: pointer;
+   
 }
 .passport-down:hover{
     transform: scale(1.2) translateY(1rem);
@@ -156,24 +159,27 @@ p, ul, li, span{
     font-weight: 600;
 }
 
-.passport-opened h3{
+.passport-near h3{
     text-align: center;
     padding-top: 2rem;
 }
 
-.passport-opened{
+.passport-near{
     color:#601515;
     position: absolute;
     top: 1rem;
-    right:4rem;
+    right:3rem;
     width: 26rem;
     height: 32rem;
     border: 3px solid #601515;
     border-radius: 15px;
     background-color: #E3C5C7;
-    z-index: 1000;
+    z-index: 10;
+    cursor:zoom-in;
+    transition: transform 0.3s;
 }
-.passport-info-wrapper{
+.passport-info-wrapper,
+.visa-info-wrapper{
     transform-style: preserve-3d;
 }
 .passport-content{
@@ -233,14 +239,24 @@ p, ul, li, span{
     align-items: center;
     gap:2rem
 }
-.accept-btn,.deny-btn{
+.accept-btn,.decline-btn{
     font-family: 'PixeloidBold';
     font-size:1.5rem;
-    background-color: whitesmoke;
+    background-color: rgb(245, 245, 245);
     border:3px solid #601515;
+    border-style: dashed;
     height: min-content;
     padding: 1rem 2rem;
     cursor: pointer;
+    opacity: 0.3;
+}
+.accept-btn[data-chosen='false']:hover,.decline-btn[data-chosen='false']:hover{
+    opacity: 0.6;
+}
+.accept-btn[data-chosen='true'],
+.decline-btn[data-chosen='true']{
+    opacity:1;
+
 }
 .passport-bottom-front{
     background-color: #E0BABD;
@@ -256,9 +272,26 @@ p, ul, li, span{
     border-top: 3px solid #601515;
     border-bottom: 3px solid #601515;
 }
-.passport-content:hover .passport-bottom{
+/* .passport-content:hover .passport-bottom{
     transform: rotateX(0.5turn);
-  }
+} */
+
+.passport-bottom[data-flipped='true']{
+    transform: rotateX(0.5turn);
+}
+.passport-flip-btn{
+    position: absolute;
+    bottom: 5%;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    border-radius: 0 0 35% 0;
+    border: 3px solid #601515;
+    cursor: pointer;
+    /* border-left: 3px solid #601515; */
+}
+
 .profile-img{
     background-color: rgb(233, 233, 233);
     width: 8rem;
@@ -270,15 +303,18 @@ p, ul, li, span{
 }
 .passport-close-btn{
     position: absolute;
-    background: url(./assets/images/close.png) center center / contain no-repeat;
-    top:0.5rem;
-    right:0.5rem;
-    width: 2rem;
-    height: 2rem;
+    background: url(./assets/images/arrow-down.png) center center / contain no-repeat;
+    bottom: -7rem;
+    left:45%;
+    width: 3rem;
+    height: 3rem;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.3s;
 }
-
+/* .passport-close-btn:hover{
+    transform: translateY(1rem);
+} */
 .tv{
     width: 20rem;
     height: 12rem;
@@ -300,23 +336,32 @@ p, ul, li, span{
     font-family: 'Pixeloid';
     color: whitesmoke;    
 }
-.work-permit{
+.work-permit,
+.study-permit{
     position: absolute;
     background-color: whitesmoke;
     top:1rem;
     right:0.5rem;
-    width: 27rem;
-    height: 40rem;
+    width: 24rem;
+    height: 34rem;
     z-index: 100;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-
-}
-.work-permit:hover{
     color: #601515;
-    z-index: 9999;
+    cursor:zoom-in;
+    transition: transform 0.4s;
+}
+
+.study-permit{
+    color: #153360;
+}
+
+.work-permit:hover,
+.study-permit:hover,
+.passport-near:hover {
+   transform:translateY(1rem);
 }
 .work-permit h2{
     margin-bottom: 2rem;
@@ -327,16 +372,32 @@ p, ul, li, span{
 .work-info-wrapper{
     margin: 1rem 0 4rem;
 }
+.box{
+    width: 100%;
+    height: 7rem;
+    background-color: #153360;
+}
 .line{
     width: 100%;
     height: 0.5rem;
     background-color: #601515;
 }
+.study-permit >.line{
+    background-color: #153360;
+}
 .current-date{
     font-family: 'Pixeloid';
     color: whitesmoke;
-    position: absolute;
+    position: fixed;
     bottom: 1rem;
     right: 1rem;
     z-index: 1000;
+}
+
+.hidden{
+    display: none;
+}
+
+.on-top{
+    z-index: 9999;
 }
