@@ -309,7 +309,7 @@ p, ul, li, span{
 .passport-close-btn{
     position: absolute;
     background: url(./assets/images/arrow-down.png) center center / contain no-repeat;
-    bottom: -7rem;
+    bottom: -4rem;
     left:45%;
     width: 3rem;
     height: 3rem;

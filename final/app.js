@@ -240,7 +240,7 @@ function openPassport(){
 
 
 const russianLastNames = ['Iranov', 'Petrov'
-// , 'Sidorov', 'Smirnoff', 'Volkov', 'Federov', 'Popov','Semenov','Mikhailov', 'Egorov','Lenkov','Vasiliev','Nikolaev','Morozov','Stepanov'
+, 'Sidorov', 'Smirnoff', 'Volkov', 'Federov', 'Popov','Semenov','Mikhailov', 'Egorov','Lenkov','Vasiliev','Nikolaev','Morozov','Stepanov'
 ];
 
 const russianFemaleFirstNames = ['Sofia','Anastasia','Maria','Alina','Inessa'];
@@ -391,23 +391,23 @@ function nameError(person){
     //array
     // namesInfos[docError]
 }
+let counter = 0
 function randomizeWrongName(person){
     let newLastNameIndex = Math.floor(Math.random()*russianLastNames.length);
 
-    if (newLastNameIndex === person.lastNameIndex ){
+    // if (newLastNameIndex === person.lastNameIndex ){
+    //    alert('fuck');
+    //     console.log(counter + 1)
+    //     return randomizeWrongName(person);
+    // }
+    // else {
+    //     return newLastNameIndex;
+    //     console.log('rerolling name');
        
-        alert('faileld')
-        randomizeWrongName(person);
-    }
-    else {
-        return newLastNameIndex;
-        console.log('rerolling name');
-       
-    }
-    console.log(person.lastNameIndex);
-    console.log(newLastNameIndex);
-  
-    // return (newLastNameIndex === person.lastNameIndex) ? randomizeWrongName(person) : newLastNameIndex
+    // }
+    // console.log(person.lastNameIndex);
+    // console.log(newLastNameIndex);
+    return (newLastNameIndex === person.lastNameIndex) ? randomizeWrongName(person) : newLastNameIndex
 }
 
 function generateRandom(min, max) {
@@ -416,28 +416,27 @@ function generateRandom(min, max) {
 }
 
 
-
 function randomizeWrongDoc(){
     let docError = Math.floor(Math.random()*4);
     console.log('before' + docError)
     if (haveWorkPermit){
         //then they don't have a study permit
         if (docError ===1){
-            docError = randomizeWrongDoc();
+            return randomizeWrongDoc();
             console.log('no study permit' + docError);
         }
     }
     else if (haveStudyPermit){
         //then they don't have a work permit
         if (docError ===0){
-            docError = randomizeWrongDoc();
+            return randomizeWrongDoc();
             console.log('no work permit' + docError);
         }
     }
     else if (!haveWorkPermit && !haveStudyPermit){
         // then they don't have a study or a work permit
         if (docError <2){
-            docError = randomizeWrongDoc();
+            return randomizeWrongDoc();
             console.log('no permit' + docError);
         }
     }
