@@ -359,28 +359,30 @@ function PersonBlueprint(){
     }
     this.errorRandomize = function(person){
         // const errorInfo = false;
-        const typeError = ``;
+        let typeError = ``;
         // 1 out of 3 chances for having an error
         const errorChance = Math.floor(Math.random()*3)
         if (errorChance <3){
         // 1 out of 4 chances for having a NAME error
             const typeErrorChance = Math.floor(Math.random()*4)
-            if (typeErrorChance <4){
-            //   const typeError = 'Incorrect Name';
+            if (typeErrorChance >=1){
+              typeError = 'Incorrect Name';
             console.log(person)
-            nameError(person);
+            updateFakeName(person);
             }
+            else if (typeErrorChance=== 0 ){
+                typeError = 'Expired Document';
+
             // else if (typeErrorChance >=2 && typeErrorChance <=3){
             //     dateError();
             // }
 
             // errorInfo = true;
         }
-        
     }
 }
 // TIE RANDOM CHANCE TO THE INDEX OF namesInfos
-function nameError(person){
+function updateFakeName(person){
     console.log(person);
     // const personVariable = person
     //REROLL IF THEY DONT HAVE CERTAIN DOCUMENTS
