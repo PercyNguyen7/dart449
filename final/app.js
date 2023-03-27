@@ -16,7 +16,9 @@ const draggableDocuments = document.querySelectorAll(`.draggable-documents`);
 
 const namesInfos = document.querySelectorAll('.names-info');
 const genderInfos = document.querySelectorAll('.gender-info');
+const passportExpInfo = document.querySelector('.passport-exp-info');
 const expInfos = document.querySelectorAll('.exp-info');
+
 const birthInfos = document.querySelectorAll(`.dob-info`);
 const purposeInfo = document.querySelector(`.purpose-info`);
 
@@ -344,18 +346,18 @@ function PersonBlueprint(){
         for (let i = 0; i< genderInfos.length; i++) {
             genderInfos[i].innerHTML = `${this.gender}`;
         }
-        for (let i = 0; i< expInfos.length; i++) {
-            expInfos[i].innerHTML = `${this.expDate}`;
-        }
+
+            passportExpInfo.innerHTML = `${this.expDate}`;
+            visaExpDate.innerHTML = `${this.visaExpDate}`;
         for (let i = 0; i< birthInfos.length; i++){
             birthInfos[i].innerHTML = `${this.birthDate}`;
         }
-            visaExpDate.innerHTML = `${this.visaExpDate}`;
+            
         for (let i = 0; i< extraExpDate.length; i++){
             extraExpDate[i].innerHTML = `${this.extraExpDate}`;
         }
         // console.log(this.expDate);
-        // console.log(expInfos[0].innerHTML);
+        // console.log(passportExpInfo[0].innerHTML);
     }
     this.errorRandomize = function(person){
         // const errorInfo = false;
@@ -368,21 +370,21 @@ function PersonBlueprint(){
             if (typeErrorChance >=1){
               typeError = 'Incorrect Name';
             console.log(person)
-            updateFakeName(person);
+            assignWrongName(person);
             }
             else if (typeErrorChance=== 0 ){
                 typeError = 'Expired Document';
-
+                assignExpiredDate(person)
             // else if (typeErrorChance >=2 && typeErrorChance <=3){
             //     dateError();
             // }
-
+            }
             // errorInfo = true;
         }
     }
 }
 // TIE RANDOM CHANCE TO THE INDEX OF namesInfos
-function updateFakeName(person){
+function assignWrongName(person){
     console.log(person);
     // const personVariable = person
     //REROLL IF THEY DONT HAVE CERTAIN DOCUMENTS
@@ -393,7 +395,7 @@ function updateFakeName(person){
     //array
     // namesInfos[docError]
 }
-let counter = 0
+
 function randomizeWrongName(person){
     let newLastNameIndex = Math.floor(Math.random()*russianLastNames.length);
 
@@ -411,12 +413,6 @@ function randomizeWrongName(person){
     // console.log(newLastNameIndex);
     return (newLastNameIndex === person.lastNameIndex) ? randomizeWrongName(person) : newLastNameIndex
 }
-
-function generateRandom(min, max) {
-    var num = Math.floor(Math.random() * (max - min + 1)) + min;
-    return (num === 2) ? generateRandom(min, max) : num;
-}
-
 
 function randomizeWrongDoc(){
     let docError = Math.floor(Math.random()*4);
@@ -443,6 +439,11 @@ function randomizeWrongDoc(){
         }
     }
     return docError
+}
+
+function assignExpiredDate(person){
+    expInfos[randomizeWrongDoc()].innerHTML = `1/1/1111`;
+
 }
     // this.name = function(){
     //     // If gender is female,
