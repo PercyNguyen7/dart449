@@ -23,7 +23,7 @@ body{
     justify-content: center;
     align-items: center;
     background-color: red;
-    /* min-height: 100vh; */
+    min-height: 100vh;
     background-color: #534037;
 
 }
@@ -32,9 +32,7 @@ main{
     width: 100%;
     /* min-height: 100vh; */
     background-color: #534037;
-   overflow: hidden;
-   padding: 2rem;
-  
+   
 }
 h1,h2,h3{
     font-family: 'm12';
@@ -60,9 +58,8 @@ p, ul, li, span{
 .game-wrapper{
     position: relative;
     background-color: #C3B6B3;
-    max-width: 75rem;
-    /* margin: auto; */
-   margin:2rem auto;
+    max-width: 68rem;
+    margin: auto;
     /* border: red 2px solid; */
 }
 
@@ -114,7 +111,7 @@ p, ul, li, span{
     /* background-color: red; */
     margin: auto;
     transition: transform 0.4s;
-   cursor: pointer;
+   
 }
 .passport-down:hover{
     transform: scale(1.2) translateY(1rem);
@@ -169,20 +166,18 @@ p, ul, li, span{
 
 .passport-near{
     color:#601515;
-    position: fixed;
+    position: absolute;
     top: 1rem;
-    /* left:0; */
     right:3rem;
     width: 26rem;
     height: 32rem;
     border: 3px solid #601515;
     border-radius: 15px;
     background-color: #E3C5C7;
-    z-index: 200;
-    cursor:grab;
-    /* transition: transform 0.3s; */
+    z-index: 10;
+    cursor:zoom-in;
+    transition: transform 0.3s;
 }
-
 .passport-info-wrapper,
 .visa-info-wrapper{
     transform-style: preserve-3d;
@@ -343,7 +338,7 @@ p, ul, li, span{
 }
 .work-permit,
 .study-permit{
-    position: fixed;
+    position: absolute;
     background-color: whitesmoke;
     top:1rem;
     right:0.5rem;
@@ -355,7 +350,7 @@ p, ul, li, span{
     flex-direction: column;
     justify-content: space-around;
     color: #601515;
-    cursor:grab;
+    cursor:zoom-in;
     transition: transform 0.4s;
 }
 
@@ -363,15 +358,17 @@ p, ul, li, span{
     color: #153360;
 }
 
-/* .work-permit:hover,
+.work-permit:hover,
 .study-permit:hover,
 .passport-near:hover {
    transform:translateY(1rem);
-} */
+}
 .work-permit h2{
     margin-bottom: 2rem;
 }
-
+.work-permit[data-focus='false']{
+    z-index: 100;
+}
 .work-info-wrapper{
     margin: 1rem 0 4rem;
 }
