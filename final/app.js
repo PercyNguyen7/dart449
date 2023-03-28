@@ -440,7 +440,7 @@ function PersonBlueprint(){
         // 1 out of 4 chances for having a NAME error
             const typeErrorChance = Math.floor(Math.random()*4)
             if (typeErrorChance ===0){
-                 alert('incorrect name')
+                //  alert('incorrect name')
               this.typeError = 'Incorrect Name';
               errorName = 'Incorrect Name';
             console.log(person);
@@ -449,7 +449,7 @@ function PersonBlueprint(){
             
             }
             else if (typeErrorChance=== 1 ){
-                 alert('expired doc')
+                //  alert('expired doc')
                 this.typeError = 'Expired Document';
                 errorName = 'Expired Document';
                 assignExpiredDate(person)
@@ -459,7 +459,7 @@ function PersonBlueprint(){
             // }
             }
             else if (typeErrorChance ===2){
-                alert('incorrect dob')
+                // alert('incorrect dob')
                 this.typeError = 'Incorrect DOB';
                 errorName = 'Incorrect DOB';
                 assignWrongDOB(person);
