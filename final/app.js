@@ -2,6 +2,7 @@ const passportFar = document.querySelector('.passport-down')
 const passportNear = document.querySelector('.passport-near');
 const passportBottom = document.querySelector('.passport-bottom');
 
+const personAvatar = document.querySelector('.person')
 
 const acceptBtn = document.querySelector(`.accept-btn`);
 const declineBtn = document.querySelector(`.decline-btn`);
@@ -28,9 +29,13 @@ const extraExpDate = document.querySelectorAll(`.exp-extra-info`);
 const gameWrapper = document.querySelector(`.game-wrapper`);
 const passportInteracts = document.querySelectorAll(`.passport-interacts`);
 const main = document.querySelector(`main`);
+
+const pleadingP = document.querySelector(`.pleading`);
+let pleadingTxt = ``;
+
 let passportOpened = false;
 let isDown = false;
-let finalStamp = ``;
+let finalStamp = ` `;
 
 let dragElement;
 let dragElement2;
@@ -43,7 +48,13 @@ let haveStudyPermit = false;
 let haveWorkPermit = false;
 let havePassport = true;
 
+let systemAnswer ='';
+let waitingNext = false;
 
+let typingSpeed = 30;
+let paused = false;
+let pauseTime = 750;
+let pleaded = false;
 
 passportNear.addEventListener('mousedown',
 function(){passportIsDown=true;
@@ -53,7 +64,8 @@ studyPermit.addEventListener('mousedown',
     function(){isDown=true;});
 
     workPermit.addEventListener('mousedown',
-    function(){isDown=true;});
+    function(){isDown=true;
+    });
 
 document.addEventListener('mouseup',
     function(){passportIsDown=false;
@@ -62,13 +74,12 @@ document.addEventListener('mouseup',
 document.addEventListener('mousemove',function(e) {
   e.preventDefault();
  
+    personPlead();
   if (passportIsDown && isDown ) {
     // console.log(e.movementX,e.movementY);
     let movementX = e.movementX;
     let movementY = e.movementY;
 
-
-   
     // else if (passportNear.offsetLeft )
     passportNear.style.left = passportNear.offsetLeft + movementX + 'px';
     passportNear.style.top  = passportNear.offsetTop + movementY + 'px';
@@ -80,10 +91,7 @@ document.addEventListener('mousemove',function(e) {
    
     workPermit.style.left = workPermit.offsetLeft + e.movementX + 'px';
     workPermit.style.top  = workPermit.offsetTop + e.movementY + 'px';
-
 }
-
-
   // Limit boundaries
 
 for (let i = 0; i<draggableDocuments.length; i++){
@@ -124,35 +132,61 @@ passportNear.addEventListener('touchmove',function(e) {
 
 });
 
-
-
+// wait Time for the person to leave and the next one to come
+let waitTime = 5000;
     passportFlipBtn.addEventListener(`click`, ()=>{
         if (passportBottom.getAttribute('data-flipped')==='false'){
             passportBottom.setAttribute('data-flipped','true');
         }
         else {
             passportBottom.setAttribute('data-flipped','false');
-
         }
         
     })
 
     closeDocsBtn.addEventListener(`click`,()=>{
-    
         // passportFar.classList.remove(`hidden`);
         // passportNear.classList.add(`hidden`);
         // passportOpened = false;
         // if(finalStamp ===`accept` || finalStamp === `decline`){
-            passportFar.classList.remove(`hidden`);
+           
+            passportFar.style.display ='block';
             passportNear.classList.add(`hidden`);
             passportOpened = true;    
-       
-
+        
             studyPermit.classList.add('hidden');
             workPermit.classList.add('hidden');
         // }
-     
+            if(finalStamp===` `){
+                alert(`you did not pick`)
+            }
+            else if(systemAnswer === finalStamp){
+                alert('You did good!');
+            }
+            else if (systemAnswer !== finalStamp){
+                penalizePlayer()
+               
+            }
+            
+            returnPassport();
+            setTimeout(()=>{
+                walkAway();
+            },1000);
+           
+            waitingNext = true;
+            pleadingP.classList.add('hidden');
+            setTimeout(()=>{
+                waitingNext = false;
+                pleaded = false;
+                receivePassport();
+            },waitTime);
     });
+let error = 0;
+function penalizePlayer(){
+
+    error +=1;
+    alert(`You messed up `);
+}
 
 acceptBtn.addEventListener(`click`,()=>{
 
@@ -160,11 +194,10 @@ acceptBtn.addEventListener(`click`,()=>{
     acceptBtn.setAttribute('data-chosen','true');
     declineBtn.setAttribute('data-chosen','false');
     closeDocsBtn.classList.remove('hidden');
-    
+    forcePlead();
 });
 
 declineBtn.addEventListener('click',()=>{
-
     // passportFar.classList.remove(`hidden`);
     // passportNear.classList.add(`hidden`);
     // passportOpened = false;
@@ -172,12 +205,15 @@ declineBtn.addEventListener('click',()=>{
     declineBtn.setAttribute('data-chosen','true');
     acceptBtn.setAttribute('data-chosen','false');
     closeDocsBtn.classList.remove('hidden')
+    forcePlead();
+    
 })
 
 passportFar.addEventListener('click',()=>{
+    if (!waitingNext){
     createPerson();
     openPassport();
-   
+}
 
     // workPermit.classList.remove(`hidden`);
     // studyPermit.classList.remove(`hidden`);
@@ -186,40 +222,63 @@ passportFar.addEventListener('click',()=>{
 
 passportNear.addEventListener('click',()=>{
 
-
-    // workPermit.classList.add(`hidden`);
-    // studyPermit.classList.add(`hidden`);
-    // console.log('click');
     passportNear.classList.add('on-top');
     workPermit.classList.remove('on-top');
     studyPermit.classList.remove('on-top');
 
 });
 workPermit.addEventListener('click',()=>{
-
-
-    // workPermit.classList.add(`hidden`);
-    // studyPermit.classList.add(`hidden`);
-    // console.log('click');
     passportNear.classList.remove('on-top');
     workPermit.classList.add('on-top');
     studyPermit.classList.remove('on-top');
-
 });
 
 studyPermit.addEventListener('click',()=>{
-    // workPermit.classList.add(`hidden`);
-    // studyPermit.classList.add(`hidden`);
-    // console.log('click');
     passportNear.classList.remove('on-top');
     workPermit.classList.remove('on-top');
     studyPermit.classList.add('on-top');
 
 });
+
+function receivePassport(){
+    passportFar.setAttribute('data-still','false');
+    setTimeout(()=>{passportFar.setAttribute('data-still','true');
+    },500)
+    passportFar.style.display ='block';
+    passportFar.classList.remove('passport-returned')
+    passportFar.classList.remove('passport-received')
+    void passportFar.offsetWidth;
+    passportFar.classList.add('passport-received');
+}
+
+function returnPassport(){
+    passportFar.classList.remove('passport-received')
+    passportFar.classList.remove('passport-returned')
+    void passportFar.offsetWidth;
+    passportFar.classList.add('passport-returned');
+    setTimeout(()=>{
+        passportFar.style.display ='none';
+    },500)
+   
+}
+
+function walkAway(){
+    personAvatar.classList.remove('walk-inside')
+    void personAvatar.offsetWidth;
+    personAvatar.classList.add('walk-inside')
+    console.log(personAvatar);
+}
 // Remove hidden from all documents
 function openPassport(){
-    
-    passportFar.classList.add(`hidden`);
+    passportBottom.setAttribute('data-flipped','false');
+    //reset choices
+    declineBtn.setAttribute('data-chosen','false');
+    acceptBtn.setAttribute('data-chosen','false');
+    finalStamp = ` `;
+
+
+
+    passportFar.style.display ='none';
     passportNear.classList.remove(`hidden`);
     passportOpened = true;
 
@@ -257,7 +316,7 @@ function PersonBlueprint(){
  
     this.randomizeGender = function(){
         const genderChance = Math.floor(Math.random() * 10);
-        if (genderChance >= 5){
+        if (genderChance >= 2){
               this.gender = 'Male';
             // return 'Male';
         }
@@ -297,13 +356,13 @@ function PersonBlueprint(){
         this.birthDate = new Date(timestamp).toLocaleDateString('en-US');
     }
     this.randomizeVisaExpDate = function(){
-        const minValue = new Date().getTime();
-        const maxValue = new Date(2022,9,1).getTime();
+        const minValue = new Date(2022,9,1).getTime();
+        const maxValue = new Date().getTime();
         const timestamp = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
         this.visaExpDate = new Date(timestamp).toLocaleDateString('en-US');
     }
     this.randomizeExtraExpDate = function(){
-        const minValue = new Date(2923,2,1).getTime();
+        const minValue = new Date(2023,2,1).getTime();
         const maxValue = new Date(2027,0,1).getTime();
         const timestamp = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
         this.extraExpDate = new Date(timestamp).toLocaleDateString('en-US');
@@ -337,7 +396,9 @@ function PersonBlueprint(){
             purposeInfo.innerHTML = 'Family Reasons';
         }
     }
-
+    // this.randomizeNationality = function(person){
+        
+    // }
     this.assignInfos = function(){
         for (let i = 0; i< namesInfos.length; i++) {
             namesInfos[i].innerHTML = `${this.firstName} ${this.lastName}`;
@@ -361,41 +422,69 @@ function PersonBlueprint(){
     }
     this.errorRandomize = function(person){
         // const errorInfo = false;
-        let typeError = ``;
+        this.typeError = `none`;
+        systemAnswer = 'accept';
         // 1 out of 3 chances for having an error
         const errorChance = Math.floor(Math.random()*3)
         if (errorChance <3){
         // 1 out of 4 chances for having a NAME error
             const typeErrorChance = Math.floor(Math.random()*4)
-            if (typeErrorChance >=1){
-              typeError = 'Incorrect Name';
-            console.log(person)
+            if (typeErrorChance ===0){
+                 alert('incorrect name')
+              this.typeError = 'Incorrect Name';
+            console.log(person);
             assignWrongName(person);
+            systemAnswer = 'decline';
+            
             }
-            else if (typeErrorChance=== 0 ){
-                typeError = 'Expired Document';
+            else if (typeErrorChance=== 1 ){
+                 alert('expired doc')
+                this.typeError = 'Expired Document';
                 assignExpiredDate(person)
+                systemAnswer = 'decline';
             // else if (typeErrorChance >=2 && typeErrorChance <=3){
             //     dateError();
             // }
             }
+            else if (typeErrorChance ===2){
+                alert('incorrect dob')
+                this.typeError = 'Incorrect DOB';
+                assignWrongDOB(person);
+                systemAnswer = 'decline';
+            }
+            // else if (typeErrorChance ===1){
+            //     systemAnswer ='Bad'
+            // }
             // errorInfo = true;
         }
     }
 }
+
+
 // TIE RANDOM CHANCE TO THE INDEX OF namesInfos
 function assignWrongName(person){
     console.log(person);
     // const personVariable = person
     //REROLL IF THEY DONT HAVE CERTAIN DOCUMENTS
-
-    person.lastName = russianLastNames[randomizeWrongName(person)];
-    namesInfos[randomizeWrongDoc()].innerHTML = `${person.firstName} ${person.lastName}`;
+    
+    let newLastName = russianLastNames[randomizeWrongName(person)];
+    namesInfos[randomizeWrongDoc()].innerHTML = `${person.firstName} ${newLastName}`;
    
     //array
     // namesInfos[docError]
 }
+function assignWrongDOB(person){
+   
+    birthInfos[randomizeWrongDoc()].innerHTML = `${randomizeWrongDOB(person)}`;
+}
 
+function randomizeWrongDOB(person){
+    const minValue = new Date(1971,0,1).getTime();
+    const maxValue = new Date(2002,0,1).getTime();
+    const timestamp = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
+    const badDOB = new Date(timestamp).toLocaleDateString('en-US');
+    return (person.birthDate === badDOB) ? randomizeWrongDOB(person) : badDOB
+}
 function randomizeWrongName(person){
     let newLastNameIndex = Math.floor(Math.random()*russianLastNames.length);
 
@@ -442,9 +531,15 @@ function randomizeWrongDoc(){
 }
 
 function assignExpiredDate(person){
-    expInfos[randomizeWrongDoc()].innerHTML = `1/1/1111`;
+    const minValue = new Date(2022,8,21).getTime();
+    const maxValue = new Date(2005,0,1).getTime();
+    const timestamp = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
 
+    const badExpDate = new Date(timestamp).toLocaleDateString('en-US');
+    expInfos[randomizeWrongDoc()].innerHTML = `${badExpDate}`;
 }
+
+
     // this.name = function(){
     //     // If gender is female,
         
@@ -487,6 +582,7 @@ window.addEventListener("keydown", (event) => {
         //pushing people into an array
         people.push(person);
         console.log(people);
+        return person;
     }
 
     function getRandomDate(startDate, endDate) {
@@ -498,6 +594,77 @@ window.addEventListener("keydown", (event) => {
 
         return new Date(timestamp); 
     }
+
+    const possiblePleadings = ['We were promised that there would be no mobilization. We feel betrayed. The Kremlin lies, all the time. They look at us like toys.','I would be a terrible soldier. It would be just one bullet to the head.','There is a huge repressive machine that is the internal riot police, 400 k people, half a million people who are trained to suppress protest.'];
+    
+    function personPlead(){
+       
+        // if not pleaded, then have a 1 out of 5000 chances of pleading when mouse move.
+        if (!pleaded){
+            const pleadChance = Math.floor(Math.random()*1000);
+            if (pleadChance <= 5){
+                pleadingP.classList.remove('hidden');
+                typeText();
+                console.log('wtf');
+                pleaded = true;
+            }
+        }
+    }
+    function forcePlead(){
+        if (!pleaded){
+            pleadingP.classList.remove('hidden');
+            typeText();
+            pleaded = true;
+        }
+    }
+
+    function setData() {
+    const randomPleadIndex = Math.floor(Math.random() * possiblePleadings.length);
+        const text = possiblePleadings[randomPleadIndex]
+        possiblePleadings.splice(randomPleadIndex,1);
+        return [text, pleadingP]
+        };
+
+    function typeText() {
+        // let typingSpeed =10;
+     
+        pleadingP.innerHTML ='';
+        // res is an array 
+        const res = setData();
+        const txt = res[0];
+        console.log(possiblePleadings)
+        // if (txt.length < 100){
+        //     typingSpeed =10;;;
+        // }
+        // else if (txt.length >= 100){
+        //     typingSpeed =5;;
+        // }
+        // console.log(res);
+        // const areaText = res[1];
+        let i = 0;
+        const timerId = setInterval(() => {
+        if (!paused){
+            pleadingP.innerHTML += txt.charAt(i);
+            i++;
+            if (txt.charAt(i)===' ' && txt.charAt(i-1)==='.'){
+                pauseInterval();           
+            }
+            if (i === txt.length) {
+            clearInterval(timerId);
+        }
+    }
+        },typingSpeed);
+    }
+
+    function pauseInterval(){
+        paused =true;
+        setTimeout(resumeInterval, pauseTime);
+    }
+     function resumeInterval(){
+         paused =false;
+    }
+
+
     // console.log(getRandomDate(new Date(2020,0,1), new Date(2020,0,6)).toLocaleDateString('en-US'));
 // const personBlueprint ={
 //     gender: function(){
@@ -599,19 +766,6 @@ window.addEventListener("keydown", (event) => {
 
 
 
-
-
-// function randomDate(start, end) {
-//     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-//   }
-  
-//   const d = randomDate(new Date(2012, 0, 1), new Date(2012,0,3));
-//   console.log(d.toLocaleDateString('en-US'));
-
-
-//   let date1 = new Date(2012, 0, 1);
-// let date2 = new Date();
-// console.log(date1.toLocaleDateString('en-US'),date2.toLocaleDateString('en-US'))
 
 // if (date1 > date2) {
 //   console.log("Date 1 is greater than Date 2");
