@@ -33,7 +33,7 @@ main{
     /* min-height: 100vh; */
     background-color: #534037;
    overflow: hidden;
-   padding: 2rem;
+   padding: 1rem;
   
 }
 h1,h2,h3{
@@ -132,7 +132,27 @@ p, ul, li, span{
     80%{   transform: translate(-28rem,0rem);}
     100% {transform: translate(0,0)}
   }
-
+  .walk-outside{
+    animation: walk-outside 3s ease-out 1s forwards;
+}
+  @keyframes walk-outside{
+    0%   {transform:translate(0,0)}
+    20%{
+        transform: translate(-28rem,2.5rem);
+    }
+    40%{
+        transform: translate(-56rem,0rem);
+    }
+    50%  {
+        transform:translate(-70rem,0);
+    }
+   
+    60%{
+        transform: translate(-56rem,2.5rem);
+    }
+    80%{   transform: translate(-28rem,0rem);}
+    100% {transform: translate(0,0)}
+  }
 
 .table{
     position: relative;
@@ -163,6 +183,8 @@ p, ul, li, span{
 .passport-returned{
     animation: passport-returned 0.6s ease-out;
 }
+
+
 @keyframes passport-returned{
     0%   {
         transform: scale(1) translateY(3rem);

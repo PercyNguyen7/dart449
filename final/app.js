@@ -49,6 +49,7 @@ let haveWorkPermit = false;
 let havePassport = true;
 
 let systemAnswer ='';
+let errorName = ` `;
 let waitingNext = false;
 
 let typingSpeed = 30;
@@ -167,7 +168,6 @@ let waitTime = 5000;
                 penalizePlayer()
                
             }
-            
             returnPassport();
             setTimeout(()=>{
                 walkAway();
@@ -182,14 +182,16 @@ let waitTime = 5000;
             },waitTime);
     });
 let error = 0;
-function penalizePlayer(){
 
+function penalizePlayer(){
     error +=1;
-    alert(`You messed up `);
+    setTimeout(()=>{
+        alert(`That was a mistake. Their document had an ${errorName}`);
+    },4500)
+    
 }
 
 acceptBtn.addEventListener(`click`,()=>{
-
     finalStamp = `accept`;
     acceptBtn.setAttribute('data-chosen','true');
     declineBtn.setAttribute('data-chosen','false');
@@ -204,13 +206,14 @@ declineBtn.addEventListener('click',()=>{
     finalStamp = `decline`;
     declineBtn.setAttribute('data-chosen','true');
     acceptBtn.setAttribute('data-chosen','false');
-    closeDocsBtn.classList.remove('hidden')
+    closeDocsBtn.classList.remove('hidden');
     forcePlead();
     
 })
 
 passportFar.addEventListener('click',()=>{
     if (!waitingNext){
+        closeDocsBtn.classList.add('hidden')    
     createPerson();
     openPassport();
 }
@@ -263,10 +266,17 @@ function returnPassport(){
 }
 
 function walkAway(){
-    personAvatar.classList.remove('walk-inside')
-    void personAvatar.offsetWidth;
-    personAvatar.classList.add('walk-inside')
+    if(finalStamp ===`accept`){
+        personAvatar.classList.remove('walk-inside')
+        void personAvatar.offsetWidth;
+        personAvatar.classList.add('walk-inside')
+    }
+    else {
+        personAvatar.classList.remove('walk-outside')
+        void personAvatar.offsetWidth;
+        personAvatar.classList.add('walk-outside')
     console.log(personAvatar);
+    }
 }
 // Remove hidden from all documents
 function openPassport(){
@@ -432,6 +442,7 @@ function PersonBlueprint(){
             if (typeErrorChance ===0){
                  alert('incorrect name')
               this.typeError = 'Incorrect Name';
+              errorName = 'Incorrect Name';
             console.log(person);
             assignWrongName(person);
             systemAnswer = 'decline';
@@ -440,6 +451,7 @@ function PersonBlueprint(){
             else if (typeErrorChance=== 1 ){
                  alert('expired doc')
                 this.typeError = 'Expired Document';
+                errorName = 'Expired Document';
                 assignExpiredDate(person)
                 systemAnswer = 'decline';
             // else if (typeErrorChance >=2 && typeErrorChance <=3){
@@ -449,6 +461,7 @@ function PersonBlueprint(){
             else if (typeErrorChance ===2){
                 alert('incorrect dob')
                 this.typeError = 'Incorrect DOB';
+                errorName = 'Incorrect DOB';
                 assignWrongDOB(person);
                 systemAnswer = 'decline';
             }
@@ -624,7 +637,19 @@ window.addEventListener("keydown", (event) => {
         possiblePleadings.splice(randomPleadIndex,1);
         return [text, pleadingP]
         };
+    
+    let entrants;
+    function checkEndGame(){
+        entrants = possiblePleadings.length;
+        // console.log(entrants);
+        if (entrants === 0){
+            console.log('game over')
+            alert('game over')
 
+        }
+    }
+
+    checkEndGame()
     function typeText() {
         // let typingSpeed =10;
      
