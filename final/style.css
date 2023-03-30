@@ -327,7 +327,6 @@ p, ul, li, span{
     
     backface-visibility: hidden;
     transform-style: preserve-3d;
-
     /* border: 1px solid red; */
     transform-origin: top center;
 }
@@ -379,6 +378,8 @@ p, ul, li, span{
     border-top: 3px solid #601515;
     border-bottom: 3px solid #601515;
 }
+
+
 /* .passport-content:hover .passport-bottom{
     transform: rotateX(0.5turn);
 } */

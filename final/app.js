@@ -23,6 +23,10 @@ const expInfos = document.querySelectorAll('.exp-info');
 const birthInfos = document.querySelectorAll(`.dob-info`);
 const purposeInfo = document.querySelector(`.purpose-info`);
 
+const visaInfoWrapper = document.querySelector(`.visa-info-wrapper`);
+const visaProfileWrapper = document.querySelector(`.visa-profile-wrapper`);
+
+
 const visaExpDate = document.querySelector(`.exp-visa-info`);
 const extraExpDate = document.querySelectorAll(`.exp-extra-info`);
 
@@ -56,6 +60,9 @@ let typingSpeed = 30;
 let paused = false;
 let pauseTime = 750;
 let pleaded = false;
+
+let acceptedRussians =0;
+
 
 passportNear.addEventListener('mousedown',
 function(){passportIsDown=true;
@@ -465,6 +472,12 @@ function PersonBlueprint(){
                 assignWrongDOB(person);
                 systemAnswer = 'decline';
             }
+            else if (typeErrorChance ===3){
+                this.typeError = 'Missing Documents';
+                errorName = 'Missing Documents';
+                removeMissingDocs(person);
+                systemAnswer = 'decline';
+            }
             // else if (typeErrorChance ===1){
             //     systemAnswer ='Bad'
             // }
@@ -472,7 +485,16 @@ function PersonBlueprint(){
         }
     }
 }
-
+function removeMissingDocs(person){
+    if (person.visaPurpose ===`Visit`|| person.visaPurpose ===`Humanitarian`|| person.visaPurpose ===`Family Reasons`){
+        // let docError = Math.floor(Math.random()*4);
+        // if (docError === 1){
+            
+        // }
+        visaInfoWrapper.classList.add('hidden');
+        visaProfileWrapper.classList.add('hidden');
+    }
+}
 
 // TIE RANDOM CHANCE TO THE INDEX OF namesInfos
 function assignWrongName(person){
