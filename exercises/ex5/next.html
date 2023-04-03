@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <div class="game-wrapper">
+
+            <div class="glass-wrapper">
+                <div class="person"> </div>
+                <div class="glass"></div>
+                <div class="tv">
+                    <div class="tv-screen">
+                        <div class="tv-subtitles">Rise in demand for flights out of Moscow after Putin announces
+                            ‘partial mobilization’</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="table">
+                <div class="ipad" data-used="false">
+                    <div class="ipad-content">
+                        <h2>ENTRY REQUIREMENT</h2>
+                        <div class="info-sect">
+                            <h4>Documents required</h4>
+                            <p>Passport</p>
+                            <h4>If non Moralis citizen:</h4>
+                            <p>VISA required on Passport</p>
+                            <h4>Valid travelling purposes:</h4>
+                            <ul>
+                                <li>Visit</li>
+                                <li>Work <span>(with permit)</span></li>
+                                <li>Study <span>(with permit)</span></li>
+                                <li>Humanitarian</li>
+                                <li>Family Reasons</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="passport-down"></div>
+            </div>
+
+            <div class="work-permit draggable-documents hidden">
+                <h2>WORK PERMIT</h2>
+                <div class="line"></div>
+                <div class="work-info-wrapper">
+
+                    <div class="work-infos">
+                        <span>NAME:</span>
+                        <span class="names-info ">Some Name</span>
+                    </div>
+                    <div class="work-infos">
+                        <span>SEX:</span>
+                        <span class="gender-info">Some Name</span>
+                    </div>
+                    <div class="work-infos">
+                        <span>NATIONALITY:</span>
+                        <span>Russian</span>
+                    </div>
+                    <div class="work-infos">
+                        <span>DOB:</span>
+                        <span class="dob-info">Date Month Year</span>
+                    </div>
+                    <div class="work-infos">
+                        <span>EXP:</span>
+                        <span class="exp-extra-info exp-info">Date</span>
+                    </div>
+                </div>
+                <div class="line"></div>
+            </div>
+
+            <div class="study-permit draggable-documents hidden">
+                <h2>STUDY PERMIT</h2>
+
+                <div class="study-info-wrapper">
+
+                    <div class="study-infos">
+                        <span>NAME:</span>
+                        <span class="names-info ">Some Name</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>SEX:</span>
+                        <span class="gender-info">Gender</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>NATIONALITY:</span>
+                        <span>Russian</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>DOB:</span>
+                        <span class="dob-info">Date Month Year</span>
+                    </div>
+                    <div class="study-infos">
+                        <span>EXP:</span>
+                        <span class="exp-extra-info exp-info">Date</span>
+                    </div>
+                </div>
+                <div class="box"></div>
+            </div>
+
+            <div class="passport-near draggable-documents hidden">
+                <div class="passport-content">
+
+                    <div class="passport-close-btn passport-interacts "></div>
+                    <div class="passport-top">
+                        <h3>Russian federation</h3>
+                    </div>
+
+
+                    <div class="fourth-page">
+
+                        <div class="accept-btn passport-interacts" data-chosen="false">ACCEPT</div>
+                        <div class="decline-btn passport-interacts" data-chosen="false">DENY</div>
+                        <!-- <div class="passport-decision-wrapper">
+                                
+                            </div> -->
+                    </div>
+
+                    <div class="passport-bottom" data-flipped='false'>
+
+                        <div class="passport-bottom-front">
+                            <div class="profile-img"></div>
+
+                            <div class="passport-info-wrapper">
+                                <div class="passport-infos">
+                                    <span>NAME:</span>
+                                    <span id="passport-name" class="names-info ">Some Name</span>
+                                </div>
+                                <div class="passport-infos">
+                                    <span>SEX:</span>
+                                    <span id="passport-gender" class="gender-info">SEX</span>
+                                </div>
+                                <div class="passport-infos">
+                                    <span>NATIONALITY:</span>
+                                    <span>Russian</span>
+                                </div>
+                                <div class="passport-infos">
+                                    <span>DOB:</span>
+                                    <span class="dob-info">Date Month Year</span>
+                                </div>
+                                <div class="passport-infos">
+                                    <span>EXP:</span>
+                                    <span class="passport-exp-info exp-info">Date</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div  class="passport-bottom-back ">
+
+                            <div class="visa-profile-wrapper">
+                                <h3>VISA</h3>
+                                <div class="profile-img"></div>
+                            </div>
+
+                            <div class="visa-info-wrapper">
+                                <div class="visa-infos">
+                                    <span>NAME:</span>
+                                    <span class="names-info ">Some Name</span>
+                                </div>
+
+                                <div class="visa-infos">
+                                    <span>NATIONALITY:</span>
+                                    <span>Russian</span>
+                                </div>
+                                <div class="visa-infos">
+                                    <span>Purpose:</span>
+                                    <span class="purpose-info">Visit</span>
+                                </div>
+                                <div class="visa-infos">
+                                    <span>DOB:</span>
+                                    <span class="dob-info">Date Month Year</span>
+                                </div>
+                                <div class="visa-infos">
+                                    <span>EXP:</span>
+                                    <span class="exp-visa-info  exp-info">Date Month Year</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="passport-flip-btn passport-interacts">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <p class="pleading hidden"> </p>
+
+
+        </div>
+        <div class="current-date">09 / 22 / 2022</div>
+        <div class="score-section">
+            <div class="good-score">       
+                <div class="">Accepted</div>
+                <div class="">0</div>
+            </div>
+            
+        </div>
+        
+
+    </main>
+    <script src="app.js"></script>
+</body>
+
+</html>
