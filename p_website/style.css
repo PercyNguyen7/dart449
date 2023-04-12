@@ -17,6 +17,7 @@
     --fs-nav-order: 0.85rem;
     --fs-h1: clamp(2.75rem,12vw,4.25rem);
     --fs-h2: clamp(1.75rem,12vw,2.25rem);
+    --fs-3: clamp(1.75rem,12vw,2.25rem);
     --fs-med: 1.125rem;
     --fw-thick: 600;
     --clr-white: rgb(225,225,225);
@@ -35,10 +36,10 @@
     header{
         z-index: 9000;
     }
-    h1,h2,h3,h4,h5{
+    h1,h2{
         font-family: 'Fog7',Serif;
     }
-    div,p,a{
+    div,p,a,h3{
       font-family: 'Fog68',Serif;
       font-size: var(--fs-med);
     }
@@ -58,6 +59,9 @@
     h2{
       font-size: var(--fs-h2);
       margin: 5rem 0 1rem 0; 
+   }
+   h3{
+    font-size: var(--fs-h3);
    }
        
     a{
@@ -389,6 +393,7 @@ li{
     --fs-nav-order: 1rem;
     --fs-h1:5rem;
     --fs-h2: 3rem;
+    --fs-h3: 2rem;
     --fs-med: 1.25rem;
     }
     h2{
