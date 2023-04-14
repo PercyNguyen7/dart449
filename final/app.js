@@ -59,7 +59,37 @@ let pauseTime = 750;
 let pleaded = false;
 
 let acceptedRussians = 0;
+let currentInput = '';
 
+const voiceTxt = document.querySelector('.player-voice')
+window.addEventListener('load', () => {
+    setInterval(function () {
+            voiceTxt.innerHTML = currentInput;
+            // console.log(currentInput);
+        }, 100);
+     startAnnyang();
+    });
+
+function startAnnyang() {
+    if (annyang) {
+        let commands = {
+            '*input': showInput,
+        };
+        annyang.addCommands(commands);
+        annyang.start();
+    }
+}
+
+function showInput(input) {
+    currentInput = input.toUpperCase();
+  
+    console.log("current input:" + currentInput);
+    if (currentInput === 'HELLO') {
+   
+        alert('youre done');
+        // close(); 
+    } 
+}
 
 passportNear.addEventListener('mousedown',
 function(){passportIsDown=true;
@@ -733,7 +763,15 @@ window.addEventListener("keydown", (event) => {
          paused =false;
     }
 
-
+    function startAnnyang() {
+        if (annyang) {
+            let commands = {
+                '*input': showInput,
+            };
+            annyang.addCommands(commands);
+            annyang.start();
+        }
+    }
     // console.log(getRandomDate(new Date(2020,0,1), new Date(2020,0,6)).toLocaleDateString('en-US'));
 // const personBlueprint ={
 //     gender: function(){

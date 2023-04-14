@@ -77,7 +77,15 @@ p, ul, li, span{
 
     /* border: red 2px solid; */
 }
-
+.player-voice{
+    position: absolute;
+    bottom:-1rem;
+    left: 0;
+    color: white;
+    text-align: center;
+    width: 100%;
+    z-index: 999;
+  }
 .glass-wrapper{
     position: relative;
     width: 100%;
