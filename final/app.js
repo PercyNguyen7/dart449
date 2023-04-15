@@ -7,6 +7,10 @@ const personAvatar = document.querySelector('.person')
 const acceptBtn = document.querySelector(`.accept-btn`);
 const declineBtn = document.querySelector(`.decline-btn`);
 
+const historyBtn = document.querySelector(`.history-btn`);
+const instructionsBtn = document.querySelector(`.instructions-btn`);
+
+
 const passportFlipBtn = document.querySelector('.passport-flip-btn');
 const closeDocsBtn = document.querySelector(`.passport-close-btn`)
 
@@ -52,14 +56,16 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`];
-const pleadArray = [`Please, my life is worth more.`, `I can't be conscripted I beg of you.`, `Please reconsider... I won't take part in a meaningless war`, `PLEASE...`, 'I have a family to live for.', `I have a daughter at home...`]
+const pleadArray = [`Please, I will die if they send me in war.`, `I can't be conscripted I beg of you.`, `Please reconsider... I won't take part in a meaningless war`, `PLEASE...`, 'I have a family to live for.', `I have a daughter at home...Please I can't fight in Ukraine.`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`]
 
 let purposeDialogue = ``;
 let durationDialogue = ``;
+let nameDialogue = ``;
 let pleadingTxt = ``;
 
 let entrantPleading = false;
+let entrantContested = false;
 
 let passportOpened = false;
 let isDown = false;
@@ -87,6 +93,7 @@ let currentInput = '';
 
 const voiceTxt = document.querySelector('.player-voice')
 window.addEventListener('load', () => {
+    createPerson();
     setInterval(function () {
         voiceTxt.innerHTML = `You: ${currentInput}`;
         // console.log(currentInput);
@@ -116,31 +123,58 @@ function showInput(input) {
         entrantChat.innerHTML = purposeDialogue;
 
 
-    } else if (currentInput === `Stay duration`) {
+    } else if (currentInput === `Name please`) {
+
+        entrantChatReset();
+        entrantChat.innerHTML = nameDialogue;
+    }else if (currentInput === `Stay duration`) {
         // voiceTxt.innerHTML = `STAY DURATION?`
         entrantChatReset();
         entrantChat.innerHTML = durationDialogue;
-    } else if (currentInput === `I'm sorry` && entrantPleading) {
-       
+    } else if (currentInput === `I'm sorry but i can't` && entrantPleading && !passportOpened) {
+        entrantChatReset();
+        entrantChat.innerHTML = `You might as well kill me.`;
+
         setTimeout(() => {
             returnPassport();
-
         }, 1000);
 
         setTimeout(() => {
             walkAway();
-        }, 3000);
+        }, 6000);
+        entrantPleading = false;
         waitingNext = true;
 
         setTimeout(() => {
             waitingNext = false;
-            entrantPleading = false;
+           
             createPerson();
             // pleaded = false;
             receivePassport();
-        }, 7000);
+        }, 10000);
     }
+    // else if (currentInput === `Rules are rules` && entrantContested && !passportOpened) {
+    //     entrantChatReset();
+    //     entrantChat.innerHTML = `I will request an appeal.`;
 
+    //     setTimeout(() => {
+    //         returnPassport();
+    //     }, 1000);
+
+    //     setTimeout(() => {
+    //         walkAway();
+    //     }, 5000);
+    //     entrantContested = false;
+    //     waitingNext = true;
+
+    //     setTimeout(() => {
+    //         waitingNext = false;
+        
+    //         createPerson();
+    //         // pleaded = false;
+    //         receivePassport();
+    //     }, 8000);
+    // }
 }
 
 function capitalizeFirstLetter(string) {
@@ -254,7 +288,7 @@ closeDocsBtn.addEventListener(`click`, () => {
 
     passportFar.style.display = 'block';
     passportNear.classList.add(`hidden`);
-    passportOpened = true;
+    passportOpened = false;
 
     studyPermit.classList.add('hidden');
     workPermit.classList.add('hidden');
@@ -282,12 +316,13 @@ closeDocsBtn.addEventListener(`click`, () => {
             // pleaded = false;
             receivePassport();
         }, 5000);
+
+        // entrantContested = false;
     }
     //THEY'RE WRONG, YOU DECLINE
     else if (systemAnswer === finalStamp && systemAnswer === `decline`) {
         alert('You did good! They were bad.');
         plead();
-
 
         entrantPleading = true;
         // setTimeout(()=>{
@@ -336,14 +371,34 @@ closeDocsBtn.addEventListener(`click`, () => {
             // pleaded = false;
             receivePassport();
         }, 5000);
-    } else if (systemAnswer === `accept` && finalStamp === `decline`) {
+    }
+    // IF THEYRE GOOD, BUT YOU DENY 
+    else if (systemAnswer === `accept` && finalStamp === `decline`) {
         alert(`That was a mistake. They were clean`);
         penalizePlayer();
       
-        entrantChatReset();
-        entrantChat.innerHTML = `There are no mistakes in my document. Please take a second look.`;
-    }
 
+        entrantChatReset();
+        entrantChat.innerHTML = `I will repeal this decision`;
+        returnPassport();
+        // entrantChatReset();
+        // entrantChat.innerHTML = `Thank You`;
+
+        setTimeout(() => {
+            walkAway();
+        }, 2000);
+
+        waitingNext = true;
+
+        setTimeout(() => {
+
+            waitingNext = false;
+            createPerson();
+            // pleaded = false;
+            receivePassport();
+        }, 5000);
+        // entrantContested = true;
+    }
     returnPassportSFX.play();
 });
 let error = 0;
@@ -360,7 +415,7 @@ function entrantChatReset() {
     void entrantChat.offsetWidth;
     entrantChat.classList.add('appear-left');
 }
-createPerson();
+
 
 
 function penalizePlayer() {
@@ -398,7 +453,6 @@ declineBtn.addEventListener('click', () => {
 passportFar.addEventListener('click', () => {
     if (!waitingNext) {
         closeDocsBtn.classList.add('hidden')
-
         openPassport();
     }
 
@@ -491,9 +545,23 @@ function openPassport() {
 //     return new Date(timestamp);
 // }
 
+const instructionsTab = document.querySelector('.instructions-tab');
+const historyTab = document.querySelector('.history-tab');
 
+historyBtn.addEventListener('click', () => {
+    instructionsBtn.classList.toggle('active');
+    historyBtn.classList.toggle('active');
 
+    instructionsTab.classList.add('hidden');
+    historyTab.classList.remove('hidden');
+})
 
+instructionsBtn.addEventListener('click',()=>{
+    instructionsBtn.classList.toggle('active');
+    historyBtn.classList.toggle('active');
+    instructionsTab.classList.remove('hidden');
+    historyTab.classList.add('hidden');
+})
 // constructor function 
 function PersonBlueprint() {
 
@@ -522,6 +590,7 @@ function PersonBlueprint() {
         // ***********************calculate last name************************
         this.lastNameIndex = Math.floor(Math.random() * russianLastNames.length);
         this.lastName = russianLastNames[this.lastNameIndex];
+        nameDialogue = `${this.firstName} ${this.lastName}`;
     }
     this.randomizeExpDate = function () {
         const minValue = new Date(2023, 2, 1).getTime();
