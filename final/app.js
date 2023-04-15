@@ -45,6 +45,7 @@ const flipPage2SFX = new Audio('assets/sounds/pageflip-2.mp3');
 const stampSFX = new Audio('assets/sounds/stamp.mp3');
 const returnPassportSFX = new Audio('assets/sounds/closePassport.mp3')
 const receivePassportSFX = new Audio('assets/sounds/receivePassport.mp3')
+const buttonSFX = new Audio('assets/sounds/button.mp3')
 
 const russianLastNames = ['Iranov', 'Petrov', 'Sidorov', 'Smirnoff', 'Volkov', 'Federov', 'Popov', 'Semenov', 'Mikhailov', 'Egorov', 'Lenkov', 'Vasiliev', 'Nikolaev', 'Morozov', 'Stepanov'];
 
@@ -56,7 +57,7 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`];
-const pleadArray = [`Please, I will die if they send me in war.`, `I can't be conscripted I beg of you.`, `Please reconsider... I won't take part in a meaningless war`, `PLEASE...`, 'I have a family to live for.', `I have a daughter at home...Please I can't fight in Ukraine.`]
+const pleadArray = [`Please, I will die if they send me in war.`, `I can't be conscripted I beg of you.`, `Please reconsider... I won't take part in a meaningless war`, `PLEASE...`, 'I have a family to live for.', `I have a daughter at home...I can't fight in Ukraine.`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`]
 
 let purposeDialogue = ``;
@@ -94,6 +95,7 @@ let currentInput = '';
 const voiceTxt = document.querySelector('.player-voice')
 window.addEventListener('load', () => {
     createPerson();
+    receivePassport();
     setInterval(function () {
         voiceTxt.innerHTML = `You: ${currentInput}`;
         // console.log(currentInput);
@@ -123,15 +125,21 @@ function showInput(input) {
         entrantChat.innerHTML = purposeDialogue;
 
 
-    } else if (currentInput === `Name please`) {
+    } else if (currentInput === 'Hello') {
+        // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
+        entrantChatReset();
+        entrantChat.innerHTML = `Hello officer`;
+
+
+    } else if (currentInput === `Name please` || currentInput === `What's your name` || currentInput === `What is your name`) {
 
         entrantChatReset();
         entrantChat.innerHTML = nameDialogue;
-    }else if (currentInput === `Stay duration`) {
+    }else if (currentInput === `Stay duration` || currentInput === `How long do you intend to stay`|| currentInput === `How long will you stay`) {
         // voiceTxt.innerHTML = `STAY DURATION?`
         entrantChatReset();
         entrantChat.innerHTML = durationDialogue;
-    } else if (currentInput === `I'm sorry but i can't` && entrantPleading && !passportOpened) {
+    } else if (currentInput === `I'm sorry` && entrantPleading && !passportOpened) {
         entrantChatReset();
         entrantChat.innerHTML = `You might as well kill me.`;
 
@@ -141,17 +149,26 @@ function showInput(input) {
 
         setTimeout(() => {
             walkAway();
-        }, 6000);
+        }, 5000);
         entrantPleading = false;
         waitingNext = true;
 
-        setTimeout(() => {
-            waitingNext = false;
+        // setTimeout(() => {
+        //     waitingNext = false;
            
-            createPerson();
-            // pleaded = false;
+        //     createPerson();
+        //     // pleaded = false;
+        //     receivePassport();
+        // }, 10000);
+    } else if (currentInput === `Next please`&& waitingNext || currentInput === `Next`&& waitingNext){
+        callNext();
+        waitingNext = false;
+        createPerson();
+        setTimeout(() => {
             receivePassport();
-        }, 10000);
+        }, 3000);
+    
+        
     }
     // else if (currentInput === `Rules are rules` && entrantContested && !passportOpened) {
     //     entrantChatReset();
@@ -176,6 +193,7 @@ function showInput(input) {
     //     }, 8000);
     // }
 }
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -310,12 +328,12 @@ closeDocsBtn.addEventListener(`click`, () => {
 
         waitingNext = true;
         // pleadingP.classList.add('hidden');
-        setTimeout(() => {
-            waitingNext = false;
-            createPerson();
-            // pleaded = false;
-            receivePassport();
-        }, 5000);
+        // setTimeout(() => {
+        //     waitingNext = false;
+        //     createPerson();
+        //     // pleaded = false;
+        //     receivePassport();
+        // }, 5000);
 
         // entrantContested = false;
     }
@@ -364,13 +382,13 @@ closeDocsBtn.addEventListener(`click`, () => {
 
         waitingNext = true;
 
-        setTimeout(() => {
+        // setTimeout(() => {
 
-            waitingNext = false;
-            createPerson();
-            // pleaded = false;
-            receivePassport();
-        }, 5000);
+        //     waitingNext = false;
+        //     createPerson();
+        //     // pleaded = false;
+        //     receivePassport();
+        // }, 5000);
     }
     // IF THEYRE GOOD, BUT YOU DENY 
     else if (systemAnswer === `accept` && finalStamp === `decline`) {
@@ -390,13 +408,13 @@ closeDocsBtn.addEventListener(`click`, () => {
 
         waitingNext = true;
 
-        setTimeout(() => {
+        // setTimeout(() => {
 
-            waitingNext = false;
-            createPerson();
-            // pleaded = false;
-            receivePassport();
-        }, 5000);
+        //     waitingNext = false;
+        //     createPerson();
+        //     // pleaded = false;
+        //     receivePassport();
+        // }, 5000);
         // entrantContested = true;
     }
     returnPassportSFX.play();
@@ -427,6 +445,7 @@ function penalizePlayer() {
 }
 
 acceptBtn.addEventListener(`click`, () => {
+   
     stampSFX.currentTime = 0;
     stampSFX.play();
     finalStamp = `accept`;
@@ -437,6 +456,7 @@ acceptBtn.addEventListener(`click`, () => {
 });
 
 declineBtn.addEventListener('click', () => {
+   
     stampSFX.currentTime = 0;
     stampSFX.play();
     // passportFar.classList.remove(`hidden`);
@@ -449,6 +469,7 @@ declineBtn.addEventListener('click', () => {
     // forcePlead();
 
 })
+
 
 passportFar.addEventListener('click', () => {
     if (!waitingNext) {
@@ -505,19 +526,7 @@ function returnPassport() {
 
 }
 
-function walkAway() {
-    if (finalStamp === `accept`) {
-        personAvatar.classList.remove('walk-outside')
-        personAvatar.classList.remove('walk-inside')
-        void personAvatar.offsetWidth;
-        personAvatar.classList.add('walk-inside')
-    } else if (finalStamp === `decline`) {
-        personAvatar.classList.remove('walk-inside')
-        personAvatar.classList.remove('walk-outside')
-        void personAvatar.offsetWidth;
-        personAvatar.classList.add('walk-outside')
-    }
-}
+
 // Remove hidden from all documents
 function openPassport() {
     passportBottom.setAttribute('data-flipped', 'false');
@@ -549,6 +558,7 @@ const instructionsTab = document.querySelector('.instructions-tab');
 const historyTab = document.querySelector('.history-tab');
 
 historyBtn.addEventListener('click', () => {
+    buttonSFX.play()
     instructionsBtn.classList.toggle('active');
     historyBtn.classList.toggle('active');
 
@@ -557,6 +567,7 @@ historyBtn.addEventListener('click', () => {
 })
 
 instructionsBtn.addEventListener('click',()=>{
+    buttonSFX.play()
     instructionsBtn.classList.toggle('active');
     historyBtn.classList.toggle('active');
     instructionsTab.classList.remove('hidden');
@@ -856,8 +867,24 @@ window.addEventListener("keydown", (event) => {
 
     // do something
 });
-
-
+function callNext(){
+    personAvatar.classList.remove('walk-outside')
+    personAvatar.classList.remove('walk-inside')
+    personAvatar.classList.remove('walk-towards')
+    void personAvatar.offsetWidth;
+    personAvatar.classList.add('walk-towards')
+}
+function walkAway() {
+    personAvatar.classList.remove('walk-outside');
+    personAvatar.classList.remove('walk-inside');
+    personAvatar.classList.remove('walk-towards');
+    void personAvatar.offsetWidth;
+    if (finalStamp === `accept`) {
+        personAvatar.classList.add('walk-inside')
+    } else if (finalStamp === `decline`) {
+        personAvatar.classList.add('walk-outside')
+    }
+}
 function createPerson() {
     const person = new PersonBlueprint()
     person.randomizeGender();
