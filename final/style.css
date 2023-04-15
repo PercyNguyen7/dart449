@@ -66,6 +66,7 @@ p, ul, li, span{
     height: auto;
     padding: 1rem;
     background-color: white;
+    opacity: 0;
     z-index: 100;
 }
 .game-wrapper{
@@ -79,9 +80,11 @@ p, ul, li, span{
 }
 .player-voice{
     position: absolute;
-    bottom:-1rem;
+    bottom:2rem;
     left: 0;
     color: white;
+
+    text-shadow: 2px 2px 2px rgb(24, 24, 24);
     text-align: center;
     width: 100%;
     z-index: 999;
@@ -117,7 +120,7 @@ p, ul, li, span{
     transform:translateX(60rem);
 } */
 .walk-inside{
-    animation: walk-inside 3s ease-out 1s forwards;
+    animation: walk-inside 3s ease-out forwards;
 }
 @keyframes walk-inside{
     0%   {
@@ -141,7 +144,7 @@ p, ul, li, span{
     100% {transform: translate(0,0)}
   }
   .walk-outside{
-    animation: walk-outside 3s ease-out 1s forwards;
+    animation: walk-outside 3s ease-out forwards;
 }
   @keyframes walk-outside{
     0%   {transform:translate(0,0)}
@@ -316,7 +319,7 @@ p, ul, li, span{
     position: relative;
     transform-origin: top center;
     transform-style: preserve-3d;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
 }
 .passport-bottom-front,
 .passport-bottom-back{
@@ -441,8 +444,10 @@ p, ul, li, span{
     top:2rem;
     left:2rem;
    padding:1rem;
+   background:url(assets/images/tv/news.jpg) center center / cover no-repeat;
 }
 .tv-screen{
+
     height: 100%;
     position: relative;
 }
@@ -450,7 +455,10 @@ p, ul, li, span{
     position: absolute;
     bottom:0;
     font-family: 'Pixeloid';
-    color: whitesmoke;    
+   
+    color: whitesmoke;   
+    text-shadow: 2px 2px 2px rgb(24, 24, 24);
+    /* background-color: black;  */
 }
 .work-permit,
 .study-permit{
@@ -514,4 +522,26 @@ p, ul, li, span{
 
 .on-top{
     z-index: 9999;
+}
+.appear-left{
+    animation: appear-left 4s ease-out 0.75s forwards;
+}
+
+@keyframes appear-left{
+ 0%{
+    opacity: 0;
+    transform: translateX(-1rem);
+ } 
+ 5%{
+    opacity:1;
+    transform: translateX(0);
+ }  
+ 95%{
+    opacity:1;
+    transform: translateX(0);
+}
+ 100%{
+    opacity:0;
+    transform: translateX(-1rem);
+}
 }
