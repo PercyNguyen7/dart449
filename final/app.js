@@ -43,6 +43,8 @@ const entrantChat = document.querySelector(`.pleading`);
 const entrantTotalStat = document.querySelector(`.total-number`)
 const entrantAcceptedStat = document.querySelector(`.accepted-number`);
 const entrantDeclinedStat = document.querySelector(`.declined-number`);
+const entrantVisitorStat = document.querySelector(`.visitor-number`);
+
 const errorStat = document.querySelector(`.error-number`);
 // AUDIO
 const flipPageSFX = new Audio('assets/sounds/pageflip-1.mp3');
@@ -68,13 +70,13 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 ];
 
 const people = [];
-const thankArray = [`Thank you`];
-const pleadArray = [`Please, I will die if they send me in war.`, `I can't be conscripted I beg of you.`, `I refuse... to take part in a meaningless war`, 'Please let me in...I have a family to live for.', `I have a daughter at home. She can't lose me.`, `What would you do if you were in my shoes...`, `If they see me come back they'll jail me for good...`]
+const thankArray = [`Thank you`,`Glory to Moralis`];
+const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs her father. I can't be conscripted.`, `...if I come back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`]
 
 const femalePleadArray = [`My husband is abroad...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
 
-const backgroundArray = [[`man.png`,`man2.png`,`man3.png`],[`woman.png`,`woman2.png`]]
+const backgroundArray = [[`man.png`,`man2.png`,`man3.png`,`man4.png`,`man5.png`],[`woman.png`,`woman2.png`]]
 
 
 let purposeDialogue = ``;
@@ -95,6 +97,9 @@ let extraIsDown = false;
 let haveVisa = false;
 let haveStudyPermit = false;
 let haveWorkPermit = false;
+let missingStudyPermit = false;
+let missingWorkPermit = false
+
 let havePassport = true;
 
 let systemAnswer = '';
@@ -109,18 +114,20 @@ let pleadedOnce = false;
 let totalRussians = 0;
 let acceptedRussians = 0;
 let declinedRussians = 0;
+let visitorRussians = 0;
 let errorMade = 0;
 
 let currentInput = '';
+let currentPurpose = ``;
 
 const voiceTxt = document.querySelector('.player-voice')
 window.addEventListener('load', () => {
     createPerson();
     receivePassport();
-    setInterval(function () {
-        voiceTxt.innerHTML = `You: ${currentInput}`;
-        // console.log(currentInput);
-    }, 100);
+    // setInterval(function () {
+    //     voiceTxt.innerHTML = `You: ${currentInput}`;
+    //     // console.log(currentInput);
+    // }, 100);
     startAnnyang();
 });
 
@@ -170,14 +177,15 @@ function showInput(input) {
 
         setTimeout(() => {
             walkAway();
+           
+            waitingNext = true;
         }, 5000);
 
-
+        entrantPleading = false;
         declinedRussians++;
         updateStats();
 
-        entrantPleading = false;
-        waitingNext = true;
+      
 
     } else if (currentInput === `Next please`&& waitingNext || currentInput === `Next`&& waitingNext){
         callNext();
@@ -187,6 +195,7 @@ function showInput(input) {
             receivePassport();
         }, 2000);
     } 
+    voiceTxt.innerHTML = `You: ${currentInput}`;
 }
 window.addEventListener("keypress", function(event) {
     // If the user presses the "Enter" key on the keyboard
@@ -211,14 +220,15 @@ window.addEventListener("keypress", function(event) {
 
         setTimeout(() => {
             walkAway();
+            
+            waitingNext = true;
         }, 5000);
 
-
+        entrantPleading = false;
         declinedRussians++;
         updateStats();
 
-        entrantPleading = false;
-        waitingNext = true;
+   
     }
   });
 
@@ -351,14 +361,18 @@ closeDocsBtn.addEventListener(`click`, () => {
 
         setTimeout(() => {
             walkAway();
+            waitingNext = true;
         }, 2000);
 
       
         acceptedRussians++;
+        if(currentPurpose ===`Visit`){
+            visitorRussians++;
+        }
         updateStats();
             
-        waitingNext = true;
-   
+    
+        
     }
     //THEY'RE WRONG SO YOU DECLINE
     else if (systemAnswer === finalStamp && systemAnswer === `decline`) {
@@ -384,14 +398,19 @@ closeDocsBtn.addEventListener(`click`, () => {
 
         errorMade++;
         acceptedRussians++;
+        if(currentPurpose ===`Visit`){
+            console.log('earjqporjwpq')
+            visitorRussians++;
+        }
         updateStats();
         returnPassport();
 
         setTimeout(() => {
             walkAway();
+            waitingNext = true;
         }, 2000);
 
-        waitingNext = true;
+     
 
     }
     // IF THEYRE GOOD, BUT YOU DENY 
@@ -403,6 +422,7 @@ closeDocsBtn.addEventListener(`click`, () => {
         returnPassport();
 
         setTimeout(() => {
+            waitingNext = true;
             walkAway();
         }, 2000);
 
@@ -410,7 +430,7 @@ closeDocsBtn.addEventListener(`click`, () => {
         declinedRussians++;
         updateStats();
 
-        waitingNext = true;
+      
     }
     returnPassportSFX.play();
 });
@@ -443,6 +463,7 @@ function updateStats(){
     entrantTotalStat.innerHTML = `Total: ${totalRussians}`;
     entrantAcceptedStat.innerHTML = `Accepted: ${acceptedRussians}`;
     entrantDeclinedStat.innerHTML = `Declined: ${declinedRussians}`;
+    entrantVisitorStat.innerHTML = `Visitors: ${visitorRussians}`;
     errorStat.innerHTML = `Errors: ${errorMade}`;
 }
 
@@ -485,14 +506,51 @@ declineBtn.addEventListener('click', () => {
 
 passportFar.addEventListener('click', () => {
     if (!waitingNext) {
-        closeDocsBtn.classList.add('hidden')
+        closeDocsBtn.classList.add('hidden');
+
         openPassport();
+        newsUpdate();
     }
 
     // workPermit.classList.remove(`hidden`);
     // studyPermit.classList.remove(`hidden`);
 
 });
+
+const tvScreen = document.querySelector('.tv-screen');
+const tvHeadline = document.querySelector('.tv-headline');
+
+
+let currentNews =0;
+newsSFX.volume = 0.6;
+function newsUpdate(){
+    if (totalRussians ===0 && currentNews ===0){
+        tvScreen.style.background=`url(assets/images/tv/flee.png) center center / cover no-repeat`
+        tvHeadline.innerHTML =`700 000 Russians fled since Putin's partial mobilization`;
+        tvHeadline.style.backgroundColor = `rgba(0, 0, 0, 0.466)`
+        currentNews++;
+        newsSFX.play();
+    } else if (totalRussians ===2 && currentNews ===1){
+        tvScreen.style.background=`url(assets/images/tv/protesterDetained.jpg) center center / cover no-repeat`
+        tvHeadline.innerHTML =`Over 1,300 arrested in Russia as military call-up ignites widespread protests`;
+        currentNews++;
+        newsSFX.play();
+    } else if (totalRussians ===4 && currentNews ===2){
+        tvScreen.style.background=`url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat`
+        tvHeadline.innerHTML =`New military draft law bans Russian conscript from leaving country`;
+        currentNews++;
+        newsSFX.play();
+
+    }
+    
+    // Over 1,300 arrested in Russia as military call-up ignites widespread protests
+    else if (totalRussians ===6 && currentNews ===5){
+        tvScreen.style.background=`url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat`
+        tvHeadline.innerHTML =`New military draft law bans Russian conscript from leaving country`;
+        currentNews++;
+        newsSFX.play();
+    }
+}
 
 passportNear.addEventListener('click', () => {
     passportNear.classList.add('on-top');
@@ -550,9 +608,9 @@ function openPassport() {
     passportNear.classList.remove(`hidden`);
     passportOpened = true;
 
-    if (haveWorkPermit) {
+    if (haveWorkPermit && !missingWorkPermit) {
         workPermit.classList.remove('hidden');
-    } else if (haveStudyPermit) {
+    } else if (haveStudyPermit && !missingStudyPermit) {
         studyPermit.classList.remove('hidden');
     }
 
@@ -613,11 +671,7 @@ function PersonBlueprint() {
             }
         }
     }
-    this.assignImg = function(){
-        if(this.gender === `Male`){
 
-        }
-    }
 
     this.randomizeName = function () {
         // **************calculate firstNameIndex**************
@@ -670,21 +724,30 @@ function PersonBlueprint() {
             this.visaPurpose = 'Visit';
             purposeInfo.innerHTML = 'Visit';
             purposeDialogue = `I'm here to visit my family.`;
+            console.log(this.visaPurpose);
         } else if (purposeChance === 4 || purposeChance === 5) {
             this.visaPurpose = 'Work';
             purposeInfo.innerHTML = 'Work';
             purposeDialogue = `I'm here for work.`;
+            console.log(this.visaPurpose);
             haveWorkPermit = true;
         } else if (purposeChance === 6 || purposeChance === 7) {
+            
             this.visaPurpose = 'Study';
             purposeInfo.innerHTML = 'Study';
             purposeDialogue = `I'm an international student studying in Moralis.`;
+            console.log(this.visaPurpose);
             haveStudyPermit = true;
         } else if (purposeChance === 8) {
+            
             this.visaPurpose = 'Humanitarian';
+            
             purposeInfo.innerHTML = 'Humanitarian';
             purposeDialogue = `I come here to seek refuge from my current regime.`;
+            console.log(this.visaPurpose);
         }
+        currentPurpose =  this.visaPurpose;
+      
         // else if (purposeChance === 9){
         //       this.visaPurpose = 'FamilyReasons';
         //     purposeInfo.innerHTML = 'Family Reasons';
@@ -724,13 +787,13 @@ function PersonBlueprint() {
         resetMissingDocs();
         this.typeError = `none`;
         systemAnswer = 'accept';
-        // 1 out of 3 chances for having an error
-        const errorChance = Math.floor(Math.random() * 4)
+        // 1 out of 6 chances for having an error
+        const errorChance = Math.floor(Math.random() * 8)
         if (errorChance < 3) {
             // 1 out of 4 chances for having a NAME error
-            const typeErrorChance = Math.floor(Math.random() * 5)
+            const typeErrorChance = Math.floor(Math.random() * 1)
             if (typeErrorChance === 0) {
-                // alert('incorrect name')
+                alert('incorrect name')
                 this.typeError = 'Incorrect Name';
                 errorName = 'Incorrect Name';
                 console.log(person);
@@ -738,7 +801,7 @@ function PersonBlueprint() {
                 systemAnswer = 'decline';
 
             } else if (typeErrorChance === 1) {
-                // alert('expired doc')
+                alert('expired doc')
                 this.typeError = 'Expired Document';
                 errorName = 'Expired Document';
                 assignExpiredDate(person)
@@ -747,19 +810,19 @@ function PersonBlueprint() {
                 //     dateError();
                 // }
             } else if (typeErrorChance === 2) {
-                // alert('incorrect dob')
+                alert('incorrect dob')
                 this.typeError = 'Incorrect DOB';
                 errorName = 'Incorrect DOB';
                 assignWrongDOB(person);
                 systemAnswer = 'decline';
             } else if (typeErrorChance === 3) {
-                // alert('missing docs')
+                alert('missing docs')
                 this.typeError = 'Missing Documents';
                 errorName = 'Missing Documents';
                 removeMissingDocs(person);
                 systemAnswer = 'decline';
             } else if (typeErrorChance ===4){
-                // alert('invalid visa')
+                alert('invalid visa')
                 this.typeError = 'Invalid Visa Purpose';
                 errorName = 'Invalid Visa Purpose';
                 this.visaPurpose = 'Refuge';
@@ -773,7 +836,7 @@ function PersonBlueprint() {
         }
         // if not, they're good!
         else if (errorChance >= 3) {
-            // alert(`they're clean!`)
+            alert(`they're clean!`)
         }
     }
 }
@@ -782,26 +845,35 @@ function resetMissingDocs() {
     if (visaInfoWrapper.classList.contains("hidden")) {
         visaInfoWrapper.classList.remove("hidden")
         visaProfileWrapper.classList.remove("hidden")
-    } else if (workPermit.classList.contains('hidden')) {
+    } 
+    else if (!workPermit.classList.contains('hidden')) {
         workPermit.classList.add('hidden')
-    } else if (studyPermit.classList.contains('hidden')) {
+    } else if (!studyPermit.classList.contains('hidden')) {
         studyPermit.classList.add('hidden')
     }
 }
 
 function removeMissingDocs(person) {
-    if (person.visaPurpose === `Visit` || person.visaPurpose === `Humanitarian` || person.visaPurpose === `Family Reasons`) {
+    missingWorkPermit = false;
+    missingStudyPermit = false;
+
+  console.log(person)
+    if (person.visaPurpose === `Visit` || person.visaPurpose === `Humanitarian`) {
         // let docError = Math.floor(Math.random()*4);
         // if (docError === 1){
-
+            console.log(`visit or humanita`)
         // }
         visaInfoWrapper.classList.add('hidden');
         visaProfileWrapper.classList.add('hidden');
     } else if (person.visaPurpose === `Work`) {
-        workPermit.classList.add('hidden');
+        console.log(`work `)
+        // workPermit.classList.add('hidden');
+        missingWorkPermit = true;
+        
     } else if (person.visaPurpose === `Study`) {
-        studyPermit.classList.add('hidden');
-
+        console.log(`study`)
+        // studyPermit.classList.add('hidden');
+        missingStudyPermit = true;
     }
 }
 
@@ -822,7 +894,7 @@ function assignWrongDOB(person) {
 
     birthInfos[randomizeWrongDoc()].innerHTML = `${randomizeWrongDOB(person)}`;
 }
-
+// RANDOM CHANCE TO HAVE DOB
 function randomizeWrongDOB(person) {
     const minValue = new Date(1971, 0, 1).getTime();
     const maxValue = new Date(2002, 0, 1).getTime();

@@ -565,27 +565,30 @@ p, ul, li, span{
     width: 22rem;
     height: 13rem;
     position: absolute;
-    background-color: #424242;
-    border:#191919 solid 6px;
+    background-color: #323a55;
+    border:#000000 solid 6px;
     border-radius: 5px;
     top:2rem;
     left:2rem;
-   padding:1rem;
-   background:url(assets/images/tv/news.jpg) center center / cover no-repeat;
+  
+   /* background:url(assets/images/tv/news.jpg) center center / cover no-repeat; */
 }
 .tv-screen{
-
     height: 100%;
     position: relative;
+    padding:1rem;
+    /* background:url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat; */
 }
-.tv-subtitles{
+.tv-headline{
     position: absolute;
-    bottom:0;
+    left:0;
+    bottom:1rem;
     font-family: 'Pixeloid';
-   
+    padding:0.5rem 1rem;
+    
     color: whitesmoke;   
-    text-shadow: 2px 2px 2px rgb(24, 24, 24);
-    /* background-color: black;  */
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    /* background-color: rgba(0, 0, 0, 0.466);  */
 }
 .work-permit,
 .study-permit{
