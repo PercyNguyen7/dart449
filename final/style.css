@@ -22,16 +22,16 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+ 
     /* min-height: 100vh; */
-    background-color: #534037;
+
 
 }
 
 main{
     width: 100%;
-    /* min-height: 100vh; */
-    background-color: #534037;
+    min-height: 100vh;
+    background-color: #1d1d1d;
    overflow: hidden;
    padding: 1rem;
   
@@ -60,18 +60,20 @@ p, ul, li, span{
 
 .pleading{
     position: absolute;
+    font-size: 1.5rem;
     top:1rem;
     right:1rem;
     width: 20rem;
     height: auto;
     padding: 1rem;
+    border-radius: 20px;
     background-color: white;
     opacity: 0;
     z-index: 100;
 }
 .game-wrapper{
     position: relative;
-    background-color: #d6cbc6;
+    background: url(assets/images/cement-texture-min.jpg.png) center center /cover no-repeat;
     max-width: 75rem;
     /* margin: auto; */
    margin:2rem auto;
@@ -105,14 +107,15 @@ p, ul, li, span{
 }
 .player-voice{
     position: absolute;
-    bottom:2rem;
+    bottom:1rem;
     left: 0;
     color: white;
-
+    font-size: 1.5rem;
     text-shadow: 2px 2px 2px rgb(24, 24, 24);
     text-align: center;
     width: 100%;
     z-index: 999;
+    background-color:rgba(24, 24, 24, 0.616) ;
   }
 .glass-wrapper{
     position: relative;
@@ -127,7 +130,7 @@ p, ul, li, span{
     width: 100%;
     height: 100%;
     opacity: 0.6;
-    background: url(./assets/images/glass2.png) center bottom / cover no-repeat;
+    background: url(./assets/images/glass.png) center bottom / cover no-repeat;
     z-index: 5;
 }
 
@@ -137,7 +140,7 @@ p, ul, li, span{
     left: 25%;
     width: 30rem;
     height: 100%;
-    background: url(./assets/images/profiles/man.png) center center / contain no-repeat;
+    /* background: url(./assets/images/profiles/man.png) center center / contain no-repeat; */
     /* background-color: red; */   
     /* transition: transform 0.5s ease-in-out; */
     z-index: 1;
@@ -258,8 +261,8 @@ p, ul, li, span{
     position: relative;
     /* position: relative;
     bottom: 0; */
-    border-top: #795e51 10px solid;
-    background-color: #9A7767;
+ 
+    background:url(./assets/images/table.png) center center /cover no-repeat;
     width: 100%;
     height: 20rem;
     z-index: 10;
@@ -415,7 +418,7 @@ p, ul, li, span{
     height: 31rem;
     border: 3px solid #601515;
     border-radius: 15px;
-    background-color: #E3C5C7;
+    background-color: #e0c5ca;
     z-index: 200;
     cursor:grab;
     /* transition: transform 0.3s; */
@@ -435,7 +438,7 @@ p, ul, li, span{
     border-radius: 15px 15px 0 0;
     width: 100%;
     height: 50%;
-    background-color: #E0BABD;
+    background-color: #e0c5ca;
     border-bottom: 3px solid #601515;
 }
 .passport-bottom{
@@ -501,7 +504,7 @@ p, ul, li, span{
 
 }
 .passport-bottom-front{
-    background-color: #E0BABD;
+    background-color: #e0c5ca;
     border-radius:0px 0px 15px 15px ;
     border-bottom: 3px solid #601515;
 }
@@ -565,13 +568,13 @@ p, ul, li, span{
     width: 22rem;
     height: 13rem;
     position: absolute;
-    background-color: #323a55;
-    border:#000000 solid 6px;
+
+    border:#292929 solid 6px;
     border-radius: 5px;
     top:2rem;
     left:2rem;
-  
-   /* background:url(assets/images/tv/news.jpg) center center / cover no-repeat; */
+   background:url(assets/images/tv/news1.png) center center / contain no-repeat;
+   background-color: #f5f4f5;
 }
 .tv-screen{
     height: 100%;

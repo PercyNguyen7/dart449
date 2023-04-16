@@ -71,12 +71,12 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`,`Glory to Moralis`];
-const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs her father. I can't be conscripted.`, `...if I come back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`]
+const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs her father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`]
 
 const femalePleadArray = [`My husband is abroad...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
 
-const backgroundArray = [[`man.png`,`man2.png`,`man3.png`,`man4.png`,`man5.png`],[`woman.png`,`woman2.png`]]
+const backgroundArray = [[`man.png`,`man2.png`,`man3.png`,`man4.png`,`man5.png`,`man6.png`,`man7.png`,`man8.png`,`man9.png`,`man10.png`,`man11.png`,`man12.png`],[`woman.png`,`woman2.png`,`woman3.png`,`woman4.png`,`woman5.png`]]
 
 
 let purposeDialogue = ``;
@@ -540,7 +540,6 @@ function newsUpdate(){
         tvHeadline.innerHTML =`New military draft law bans Russian conscript from leaving country`;
         currentNews++;
         newsSFX.play();
-
     }
     
     // Over 1,300 arrested in Russia as military call-up ignites widespread protests
@@ -656,6 +655,7 @@ function PersonBlueprint() {
            
             for (let i = 0; i < passportProfileImg.length; i++) {
                 passportProfileImg[i].style.background = `url(./assets/images/profiles/${backgroundArray[0][randomImgIndex]}) center center / cover no-repeat`;
+                passportProfileImg[i].style.backgroundColor = `white`
             }
            
             
@@ -668,6 +668,7 @@ function PersonBlueprint() {
             
             for (let i = 0; i < passportProfileImg.length; i++) {
                 passportProfileImg[i].style.background = `url(./assets/images/profiles/${backgroundArray[1][randomImgIndex]}) center center / cover no-repeat`;
+                passportProfileImg[i].style.backgroundColor = `white`
             }
         }
     }
