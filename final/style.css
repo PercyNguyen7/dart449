@@ -71,7 +71,7 @@ p, ul, li, span{
 }
 .game-wrapper{
     position: relative;
-    background-color: #98bcdd;
+    background-color: #d6cbc6;
     max-width: 75rem;
     /* margin: auto; */
    margin:2rem auto;
@@ -137,7 +137,7 @@ p, ul, li, span{
     left: 25%;
     width: 30rem;
     height: 100%;
-    background: url(./assets/images/Man.png) center center / contain no-repeat;
+    background: url(./assets/images/profiles/Man.png) center center / contain no-repeat;
     /* background-color: red; */   
     /* transition: transform 0.5s ease-in-out; */
     z-index: 1;
@@ -171,7 +171,7 @@ p, ul, li, span{
   }
 
   .walk-outside{
-    animation: walk-outside 3s ease-out forwards;
+    animation: walk-outside 1s ease-out forwards;
 }
   @keyframes walk-outside{
     0%   {transform:translate(0,0)}
@@ -194,11 +194,13 @@ p, ul, li, span{
 
 
   .walk-inside{
-    animation: walk-inside 2s ease-out forwards;
+    animation: walk-inside 1s ease-out forwards;
 }
   @keyframes walk-inside{
     0%   {
         transform:translate(0,0)
+    } 50%   {
+        transform:translate(25rem,3rem)
     }
     /* 20%{
         transform: translate(28rem,2.5rem);
@@ -207,17 +209,20 @@ p, ul, li, span{
         transform: translate(56rem,0rem);
     } */
     100%  {
-        transform:translate(70rem,0);
+        transform:translate(70rem,0rem);
     }
    
   }
 
   .walk-outside{
-    animation: walk-outside 2s ease-out forwards;
+    animation: walk-outside 1s ease-out forwards;
 }
   @keyframes walk-outside{
     0%   {
         transform:translate(0,0)
+    }
+    50%   {
+        transform:translate(-25rem,3rem)
     }
     /* 20%{
         transform: translate(28rem,2.5rem);
@@ -226,15 +231,18 @@ p, ul, li, span{
         transform: translate(56rem,0rem);
     } */
     100%  {
-        transform:translate(-70rem,0);
+        transform:translate(-70rem,0rem);
     }
 }
 .walk-towards{
-    animation: walk-towards 2s ease-out forwards;
+    animation: walk-towards 1s ease-out forwards;
 }
 @keyframes walk-towards{
     0%   {
-        transform:translate(-70rem,0)
+        transform:translate(-70rem,0rem)
+    }
+    50%   {
+        transform:translate(-25rem,3rem)
     }
     /* 20%{
         transform: translate(28rem,2.5rem);
@@ -529,9 +537,12 @@ p, ul, li, span{
 }
 
 .profile-img{
+    
+    background:url(assets/images/profiles/man.png) center center /cover no-repeat;
     background-color: rgb(233, 233, 233);
     width: 7rem;
     height: 7rem;
+  
     border: 3px solid #601515;
 }
 .passport-bottom-back .profile-img{
@@ -552,8 +563,8 @@ p, ul, li, span{
     transform: translateY(1rem);
 } */
 .tv{
-    width: 20rem;
-    height: 12rem;
+    width: 22rem;
+    height: 13rem;
     position: absolute;
     background-color: #424242;
     border:#191919 solid 6px;

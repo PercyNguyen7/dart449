@@ -40,12 +40,22 @@ const main = document.querySelector(`main`);
 
 const entrantChat = document.querySelector(`.pleading`);
 
+const entrantTotalStat = document.querySelector(`.total-number`)
+const entrantAcceptedStat = document.querySelector(`.accepted-number`);
+const entrantDeclinedStat = document.querySelector(`.accepted-number`);
+const errorStat = document.querySelector(`.error-number`);
+// AUDIO
 const flipPageSFX = new Audio('assets/sounds/pageflip-1.mp3');
 const flipPage2SFX = new Audio('assets/sounds/pageflip-2.mp3');
 const stampSFX = new Audio('assets/sounds/stamp.mp3');
-const returnPassportSFX = new Audio('assets/sounds/closePassport.mp3')
-const receivePassportSFX = new Audio('assets/sounds/receivePassport.mp3')
-const buttonSFX = new Audio('assets/sounds/button.mp3')
+const returnPassportSFX = new Audio('assets/sounds/closePassport.mp3');
+const receivePassportSFX = new Audio('assets/sounds/receivePassport.mp3');
+const buttonSFX = new Audio('assets/sounds/button.mp3');
+const footstepSFX = new Audio('assets/sounds/footstep1.mp3');
+const footstep2SFX = new Audio('assets/sounds/footstep2.mp3');
+const footstep3SFX = new Audio('assets/sounds/footstep3.mp3');
+const newsSFX = new Audio('assets/sounds/news.mp3');
+
 
 const russianLastNames = ['Iranov', 'Petrov', 'Sidorov', 'Smirnoff', 'Volkov', 'Federov', 'Popov', 'Semenov', 'Mikhailov', 'Egorov', 'Lenkov', 'Vasiliev', 'Nikolaev', 'Morozov', 'Stepanov'];
 
@@ -57,8 +67,11 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`];
-const pleadArray = [`Please, I will die if they send me in war.`, `I can't be conscripted I beg of you.`, `Please reconsider... I won't take part in a meaningless war`, `PLEASE...`, 'I have a family to live for.', `I have a daughter at home...I can't fight in Ukraine.`]
-const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`]
+const pleadArray = [`Please, I will die if they send me in war.`, `I can't be conscripted I beg of you.`, `I refuse... to take part in a meaningless war`, 'Please let me in...I have a family to live for.', `I have a daughter at home. She can't lose me.`, `What would you do if you were in my shoes...`, `If they see me come back they'll jail me for good...`]
+const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
+
+const backgroundArray = [[`assets/images/profiles/man.png`],[`assets/images/profiles/woman.png`]   ]
+
 
 let purposeDialogue = ``;
 let durationDialogue = ``;
@@ -87,9 +100,13 @@ let waitingNext = false;
 let typingSpeed = 30;
 let paused = false;
 let pauseTime = 750;
-let pleaded = false;
+let pleadedOnce = false;
 
+let totalRussians = 0;
 let acceptedRussians = 0;
+let declinedRussians = 0;
+let errorMade = 0;
+
 let currentInput = '';
 
 const voiceTxt = document.querySelector('.player-voice')
@@ -119,7 +136,7 @@ function showInput(input) {
     currentInput = `${capitalizeFirstLetter(input)}`;
 
     console.log("current input:" + currentInput);
-    if (currentInput === 'Purpose of travel') {
+    if (currentInput === 'Purpose of visit') {
         // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
         entrantChatReset();
         entrantChat.innerHTML = purposeDialogue;
@@ -135,14 +152,14 @@ function showInput(input) {
 
         entrantChatReset();
         entrantChat.innerHTML = nameDialogue;
-    }else if (currentInput === `Stay duration` || currentInput === `How long do you intend to stay`|| currentInput === `How long will you stay`) {
+    }else if (currentInput === `Visit duration` || currentInput === `How long do you intend to stay`|| currentInput === `How long will you stay`) {
         // voiceTxt.innerHTML = `STAY DURATION?`
         entrantChatReset();
         entrantChat.innerHTML = durationDialogue;
-    } else if (currentInput === `I'm sorry` && entrantPleading && !passportOpened) {
+    } else if (currentInput === `I can't` && entrantPleading && !passportOpened) {
         entrantChatReset();
         entrantChat.innerHTML = `You might as well kill me.`;
-
+        
         setTimeout(() => {
             returnPassport();
         }, 1000);
@@ -150,48 +167,23 @@ function showInput(input) {
         setTimeout(() => {
             walkAway();
         }, 5000);
+
+
+        declinedRussians++;
+        updateStats();
+
         entrantPleading = false;
         waitingNext = true;
 
-        // setTimeout(() => {
-        //     waitingNext = false;
-           
-        //     createPerson();
-        //     // pleaded = false;
-        //     receivePassport();
-        // }, 10000);
     } else if (currentInput === `Next please`&& waitingNext || currentInput === `Next`&& waitingNext){
         callNext();
-        waitingNext = false;
+  
         createPerson();
         setTimeout(() => {
             receivePassport();
-        }, 3000);
-    
-        
+        }, 2000);
+       
     }
-    // else if (currentInput === `Rules are rules` && entrantContested && !passportOpened) {
-    //     entrantChatReset();
-    //     entrantChat.innerHTML = `I will request an appeal.`;
-
-    //     setTimeout(() => {
-    //         returnPassport();
-    //     }, 1000);
-
-    //     setTimeout(() => {
-    //         walkAway();
-    //     }, 5000);
-    //     entrantContested = false;
-    //     waitingNext = true;
-
-    //     setTimeout(() => {
-    //         waitingNext = false;
-        
-    //         createPerson();
-    //         // pleaded = false;
-    //         receivePassport();
-    //     }, 8000);
-    // }
 }
 
 
@@ -265,7 +257,7 @@ passportNear.addEventListener("touchstart", () => {
     // console.log('touch downn')
 });
 
-var startX = 0,
+let startX = 0,
     startY = 0;
 passportNear.addEventListener('touchstart', function (e) {
     startX = e.changedTouches[0].pageX;
@@ -314,7 +306,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     // if(finalStamp===` `){
     //     alert(`you did not pick`)
     // }
-    // THEY'RE GOOD, YOU ACCEPTED
+    // THEY'RE GOOD SO YOU ACCEPTED
     if (systemAnswer === finalStamp && systemAnswer === `accept`) {
         alert('You did good! They were good.');
         returnPassport();
@@ -326,39 +318,26 @@ closeDocsBtn.addEventListener(`click`, () => {
             walkAway();
         }, 2000);
 
+      
+        acceptedRussians++;
+        updateStats();
+            
         waitingNext = true;
-        // pleadingP.classList.add('hidden');
-        // setTimeout(() => {
-        //     waitingNext = false;
-        //     createPerson();
-        //     // pleaded = false;
-        //     receivePassport();
-        // }, 5000);
-
-        // entrantContested = false;
+   
     }
-    //THEY'RE WRONG, YOU DECLINE
+    //THEY'RE WRONG SO YOU DECLINE
     else if (systemAnswer === finalStamp && systemAnswer === `decline`) {
         alert('You did good! They were bad.');
         plead();
 
         entrantPleading = true;
-        // setTimeout(()=>{
-        //     walkAway();
-        // },1000);
-
-        // waitingNext = true;
-
-        // setTimeout(()=>{
-        //     waitingNext = false;
-        //     // pleaded = false;
-        //     receivePassport();
-        // },4000);
+     
     } 
-    // They're wrong, but you accept
+    // They're BAD, but you ACCEPT
     else if (systemAnswer === `decline` && finalStamp === `accept`) {
         alert(`That was a mistake. Their document had an ${errorName}`);
-        penalizePlayer();
+        
+
 
         if (entrantPleading){
             entrantChatReset();
@@ -370,11 +349,10 @@ closeDocsBtn.addEventListener(`click`, () => {
             entrantChat.innerHTML = `Thank You`;
         }
 
+        errorMade++;
+        acceptedRussians++;
+        updateStats();
         returnPassport();
-
-       
-        // entrantChatReset();
-        // entrantChat.innerHTML = `Thank You`;
 
         setTimeout(() => {
             walkAway();
@@ -382,50 +360,42 @@ closeDocsBtn.addEventListener(`click`, () => {
 
         waitingNext = true;
 
-        // setTimeout(() => {
-
-        //     waitingNext = false;
-        //     createPerson();
-        //     // pleaded = false;
-        //     receivePassport();
-        // }, 5000);
     }
     // IF THEYRE GOOD, BUT YOU DENY 
     else if (systemAnswer === `accept` && finalStamp === `decline`) {
         alert(`That was a mistake. They were clean`);
-        penalizePlayer();
-      
-
+       
         entrantChatReset();
-        entrantChat.innerHTML = `I will repeal this decision`;
+        entrantChat.innerHTML = `I will appeal this decision`;
         returnPassport();
-        // entrantChatReset();
-        // entrantChat.innerHTML = `Thank You`;
 
         setTimeout(() => {
             walkAway();
         }, 2000);
 
+        errorMade++;
+        declinedRussians++;
+        updateStats();
+
         waitingNext = true;
-
-        // setTimeout(() => {
-
-        //     waitingNext = false;
-        //     createPerson();
-        //     // pleaded = false;
-        //     receivePassport();
-        // }, 5000);
-        // entrantContested = true;
     }
     returnPassportSFX.play();
 });
 let error = 0;
 
+// plead when entrance is denied
 function plead() {
     entrantChatReset();
     // entrantChat.innerHTML = `Please. I need this.`;
+
     const randomPleadIndex = Math.floor(Math.random() * pleadArray.length);
+    if (!pleadedOnce){
+        pleadedOnce = true;
     entrantChat.innerHTML = pleadArray[randomPleadIndex];
+    }
+    else if(pleadedOnce){
+        entrantChat.innerHTML = `Please...`;
+    }
 }
 
 function entrantChatReset() {
@@ -434,10 +404,18 @@ function entrantChatReset() {
     entrantChat.classList.add('appear-left');
 }
 
+function updateStats(){
+    totalRussians ++;
+    entrantTotalStat.innerHTML = `Total: ${totalRussians}`;
+    entrantAcceptedStat.innerHTML = `Accepted: ${acceptedRussians}`;
+    entrantDeclinedStat.innerHTML = `Declined: ${declinedRussians}`;
+    errorStat.innerHTML = `Errors: ${errorMade}`;
+}
 
 
-function penalizePlayer() {
-    error += 1;
+function increaseError() {
+    errorMade += 1;
+    errorStat.innerHTML = `Errors: ${errorMade}`;
     // setTimeout(()=>{
     //     alert(`That was a mistake. Their document had an ${errorName}`);
     // },4500)
@@ -483,7 +461,6 @@ passportFar.addEventListener('click', () => {
 });
 
 passportNear.addEventListener('click', () => {
-
     passportNear.classList.add('on-top');
     workPermit.classList.remove('on-top');
     studyPermit.classList.remove('on-top');
@@ -617,7 +594,7 @@ function PersonBlueprint() {
         this.birthDate = new Date(timestamp).toLocaleDateString('en-US');
     }
     this.randomizeVisaExpDate = function () {
-        const minValue = new Date(2022, 9, 1).getTime();
+        const minValue = new Date(2023, 2, 1).getTime();
         const maxValue = new Date().getTime();
         const timestamp = Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
         this.visaExpDate = new Date(timestamp).toLocaleDateString('en-US');
@@ -696,9 +673,9 @@ function PersonBlueprint() {
         const errorChance = Math.floor(Math.random() * 4)
         if (errorChance < 3) {
             // 1 out of 4 chances for having a NAME error
-            const typeErrorChance = Math.floor(Math.random() * 4)
+            const typeErrorChance = Math.floor(Math.random() * 5)
             if (typeErrorChance === 0) {
-                alert('incorrect name')
+                // alert('incorrect name')
                 this.typeError = 'Incorrect Name';
                 errorName = 'Incorrect Name';
                 console.log(person);
@@ -706,7 +683,7 @@ function PersonBlueprint() {
                 systemAnswer = 'decline';
 
             } else if (typeErrorChance === 1) {
-                alert('expired doc')
+                // alert('expired doc')
                 this.typeError = 'Expired Document';
                 errorName = 'Expired Document';
                 assignExpiredDate(person)
@@ -715,16 +692,23 @@ function PersonBlueprint() {
                 //     dateError();
                 // }
             } else if (typeErrorChance === 2) {
-                alert('incorrect dob')
+                // alert('incorrect dob')
                 this.typeError = 'Incorrect DOB';
                 errorName = 'Incorrect DOB';
                 assignWrongDOB(person);
                 systemAnswer = 'decline';
             } else if (typeErrorChance === 3) {
-                alert('missing docs')
+                // alert('missing docs')
                 this.typeError = 'Missing Documents';
                 errorName = 'Missing Documents';
                 removeMissingDocs(person);
+                systemAnswer = 'decline';
+            } else if (typeErrorChance ===4){
+                // alert('invalid visa')
+                this.typeError = 'Invalid Visa Purpose';
+                errorName = 'Invalid Visa Purpose';
+                this.visaPurpose = 'Refuge';
+                purposeInfo.innerHTML = 'Refuge';
                 systemAnswer = 'decline';
             }
             // else if (typeErrorChance ===1){
@@ -734,7 +718,7 @@ function PersonBlueprint() {
         }
         // if not, they're good!
         else if (errorChance >= 3) {
-            alert(`they're clean!`)
+            // alert(`they're clean!`)
         }
     }
 }
@@ -872,7 +856,9 @@ function callNext(){
     personAvatar.classList.remove('walk-inside')
     personAvatar.classList.remove('walk-towards')
     void personAvatar.offsetWidth;
-    personAvatar.classList.add('walk-towards')
+    personAvatar.classList.add('walk-towards');
+    footstepSFX.play();
+ 
 }
 function walkAway() {
     personAvatar.classList.remove('walk-outside');
@@ -881,11 +867,17 @@ function walkAway() {
     void personAvatar.offsetWidth;
     if (finalStamp === `accept`) {
         personAvatar.classList.add('walk-inside')
+        footstep3SFX.play();
     } else if (finalStamp === `decline`) {
-        personAvatar.classList.add('walk-outside')
+        personAvatar.classList.add('walk-outside');
+        footstep2SFX.play();
     }
+    
 }
 function createPerson() {
+    pleadedOnce = false;
+    waitingNext = false;
+
     const person = new PersonBlueprint()
     person.randomizeGender();
     person.randomizeName();
