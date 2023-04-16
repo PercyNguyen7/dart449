@@ -42,7 +42,7 @@ const entrantChat = document.querySelector(`.pleading`);
 
 const entrantTotalStat = document.querySelector(`.total-number`)
 const entrantAcceptedStat = document.querySelector(`.accepted-number`);
-const entrantDeclinedStat = document.querySelector(`.accepted-number`);
+const entrantDeclinedStat = document.querySelector(`.declined-number`);
 const errorStat = document.querySelector(`.error-number`);
 // AUDIO
 const flipPageSFX = new Audio('assets/sounds/pageflip-1.mp3');
@@ -56,6 +56,8 @@ const footstep2SFX = new Audio('assets/sounds/footstep2.mp3');
 const footstep3SFX = new Audio('assets/sounds/footstep3.mp3');
 const newsSFX = new Audio('assets/sounds/news.mp3');
 
+const passportProfileImg = document.querySelectorAll('.profile-img');
+const entrantImg = document.querySelector('.person');
 
 const russianLastNames = ['Iranov', 'Petrov', 'Sidorov', 'Smirnoff', 'Volkov', 'Federov', 'Popov', 'Semenov', 'Mikhailov', 'Egorov', 'Lenkov', 'Vasiliev', 'Nikolaev', 'Morozov', 'Stepanov'];
 
@@ -68,9 +70,11 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 const people = [];
 const thankArray = [`Thank you`];
 const pleadArray = [`Please, I will die if they send me in war.`, `I can't be conscripted I beg of you.`, `I refuse... to take part in a meaningless war`, 'Please let me in...I have a family to live for.', `I have a daughter at home. She can't lose me.`, `What would you do if you were in my shoes...`, `If they see me come back they'll jail me for good...`]
+
+const femalePleadArray = [`My husband is abroad...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
 
-const backgroundArray = [[`assets/images/profiles/man.png`],[`assets/images/profiles/woman.png`]   ]
+const backgroundArray = [[`man.png`,`man2.png`,`man3.png`],[`woman.png`,`woman2.png`]]
 
 
 let purposeDialogue = ``;
@@ -182,10 +186,41 @@ function showInput(input) {
         setTimeout(() => {
             receivePassport();
         }, 2000);
-       
-    }
+    } 
 }
+window.addEventListener("keypress", function(event) {
+    // If the user presses the "Enter" key on the keyboard
+    if (event.key === "n" && waitingNext) {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      callNext();
+  
+        createPerson();
+        setTimeout(() => {
+            receivePassport();
+        }, 2000);
+      // Trigger the button element with a click
 
+    } else if (event.key ===`Enter` &&  entrantPleading && !passportOpened){
+        entrantChatReset();
+        entrantChat.innerHTML = `You might as well kill me.`;
+        
+        setTimeout(() => {
+            returnPassport();
+        }, 1000);
+
+        setTimeout(() => {
+            walkAway();
+        }, 5000);
+
+
+        declinedRussians++;
+        updateStats();
+
+        entrantPleading = false;
+        waitingNext = true;
+    }
+  });
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -337,8 +372,6 @@ closeDocsBtn.addEventListener(`click`, () => {
     else if (systemAnswer === `decline` && finalStamp === `accept`) {
         alert(`That was a mistake. Their document had an ${errorName}`);
         
-
-
         if (entrantPleading){
             entrantChatReset();
             entrantChat.innerHTML = `I owe you my life.`;
@@ -405,6 +438,7 @@ function entrantChatReset() {
 }
 
 function updateStats(){
+
     totalRussians ++;
     entrantTotalStat.innerHTML = `Total: ${totalRussians}`;
     entrantAcceptedStat.innerHTML = `Accepted: ${acceptedRussians}`;
@@ -553,14 +587,35 @@ instructionsBtn.addEventListener('click',()=>{
 // constructor function 
 function PersonBlueprint() {
 
-    this.randomizeGender = function () {
+    this.randomizeSex = function () {
         const genderChance = Math.floor(Math.random() * 10);
         if (genderChance >= 2) {
             this.gender = 'Male';
-            // return 'Male';
+            const randomImgIndex = Math.floor(Math.random() * backgroundArray[0].length);
+            entrantImg.style.background = `url(./assets/images/profiles/${backgroundArray[0][randomImgIndex]}) center center / contain no-repeat`;
+
+        
+           
+            for (let i = 0; i < passportProfileImg.length; i++) {
+                passportProfileImg[i].style.background = `url(./assets/images/profiles/${backgroundArray[0][randomImgIndex]}) center center / cover no-repeat`;
+            }
+           
+            
         } else {
+
             this.gender = 'Female';
-            // return 'Female';
+            const randomImgIndex = Math.floor(Math.random() * backgroundArray[1].length);
+            entrantImg.style.background = `url(./assets/images/profiles/${backgroundArray[1][randomImgIndex]}) center center / contain no-repeat`;
+
+            
+            for (let i = 0; i < passportProfileImg.length; i++) {
+                passportProfileImg[i].style.background = `url(./assets/images/profiles/${backgroundArray[1][randomImgIndex]}) center center / cover no-repeat`;
+            }
+        }
+    }
+    this.assignImg = function(){
+        if(this.gender === `Male`){
+
         }
     }
 
@@ -879,7 +934,7 @@ function createPerson() {
     waitingNext = false;
 
     const person = new PersonBlueprint()
-    person.randomizeGender();
+    person.randomizeSex();
     person.randomizeName();
     person.randomizeExpDate();
     person.randomizeBirthDate();
