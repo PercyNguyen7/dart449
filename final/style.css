@@ -609,7 +609,9 @@ p, ul, li, span{
     padding:0.5rem 0.5rem;
     font-size: 0.8rem;
     color: whitesmoke;   
-    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgb(24, 24, 24);
     /* background-color: rgba(0, 0, 0, 0.466);  */
 }
 .work-permit,
@@ -676,7 +678,7 @@ p, ul, li, span{
     z-index: 9999;
 }
 .appear-left{
-    animation: appear-left 4s ease-out 0.5s forwards;
+    animation: appear-left 5s ease-out 0s forwards;
 }
 
 @keyframes appear-left{

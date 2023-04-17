@@ -58,9 +58,10 @@ const buttonSFX = new Audio('assets/sounds/button.mp3');
 const footstepSFX = new Audio('assets/sounds/footstep1.mp3');
 const footstep2SFX = new Audio('assets/sounds/footstep2.mp3');
 const footstep3SFX = new Audio('assets/sounds/footstep3.mp3');
-const newsSFX = new Audio('assets/sounds/news.mp3');
+const newsSFX = new Audio('assets/sounds/news.wav');
 const voiceSFX = new Audio('assets/sounds/voice.mp3');
 const begSFX = new Audio(`assets/sounds/beg.mp3`);
+const roomtoneSFX =new Audio(`assets/sounds/roomtone.mp3`); 
 
 const passportProfileImg = document.querySelectorAll('.profile-img');
 const entrantImg = document.querySelector('.person');
@@ -75,7 +76,7 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`,`Glory to Moralis`];
-const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs her father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`]
+const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs a father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`, `Please I waited hours in traffic just for this chance...`]
 
 const femalePleadArray = [`My husband is abroad...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
@@ -168,6 +169,12 @@ function showInput(input) {
         entrantChat.innerHTML = `I'm doing alright...`;
         voiceSFX.currentTime=0;
         voiceSFX.play();
+    } else if (currentInput === `Where are you from`) {
+        // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
+        entrantChatReset();
+        entrantChat.innerHTML = `I'm a Russia citizen.`;
+        voiceSFX.currentTime=0;
+        voiceSFX.play();
     } else if (currentInput === 'Hello') {
         // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
         entrantChatReset();
@@ -192,7 +199,7 @@ function showInput(input) {
         entrantChat.innerHTML = dobDialogue;
         voiceSFX.currentTime=0;
         voiceSFX.play();
-    } else if (currentInput === `Sorry` && entrantPleading && !passportOpened) {
+    } else if (currentInput === `Sorry I can't` && entrantPleading && !passportOpened) {
         entrantChatReset();
         entrantChat.innerHTML = `You might as well kill me.`;
         voiceSFX.currentTime=0;
@@ -201,11 +208,11 @@ function showInput(input) {
         setTimeout(() => {
             returnPassport();
         }, 1000);
-
+        waitingNext = true;
         setTimeout(() => {
             walkAway();
            
-            waitingNext = true;
+         
         }, 5000);
 
         entrantPleading = false;
@@ -246,11 +253,11 @@ window.addEventListener("keypress", function(event) {
         setTimeout(() => {
             returnPassport();
         }, 1000);
-
+        waitingNext = true;
         setTimeout(() => {
             walkAway();
             
-            waitingNext = true;
+          
         }, 5000);
 
         entrantPleading = false;
@@ -382,17 +389,17 @@ closeDocsBtn.addEventListener(`click`, () => {
     // }
     // THEY'RE GOOD SO YOU ACCEPTED
     if (systemAnswer === finalStamp && systemAnswer === `accept`) {
-        alert('You did good! They were good.');
+        alert('You did good! Their documents were up to standard.');
         returnPassport();
 
         entrantChatReset();
         entrantChat.innerHTML = `Thank You`;
         voiceSFX.currentTime=0;
         voiceSFX.play();
-
+        waitingNext = true;
         setTimeout(() => {
             walkAway();
-            waitingNext = true;
+           
         }, 2000);
 
       
@@ -407,7 +414,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     }
     //THEY'RE WRONG SO YOU DECLINE
     else if (systemAnswer === finalStamp && systemAnswer === `decline`) {
-        alert('You did good! They were bad.');
+        alert('You did good! They were unlawful.');
         plead();
 
         entrantPleading = true;
@@ -415,7 +422,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     } 
     // They're BAD, but you ACCEPT
     else if (systemAnswer === `decline` && finalStamp === `accept`) {
-        alert(`That was a mistake. Their document had an ${errorName}`);
+        alert(`That was a mistake. Their document had a ${errorName}`);
         
         if (entrantPleading){
             entrantChatReset();
@@ -438,10 +445,10 @@ closeDocsBtn.addEventListener(`click`, () => {
         }
         updateStats();
         returnPassport();
-
+        waitingNext = true;
         setTimeout(() => {
             walkAway();
-            waitingNext = true;
+        
         }, 2000);
 
      
@@ -456,9 +463,9 @@ closeDocsBtn.addEventListener(`click`, () => {
         voiceSFX.currentTime=0;
         voiceSFX.play();
         returnPassport();
-
+        waitingNext = true;
         setTimeout(() => {
-            waitingNext = true;
+           
             walkAway();
         }, 2000);
         errorMade++;
@@ -497,11 +504,11 @@ function entrantChatReset() {
 function updateStats(){
 
     totalRussians ++;
-    entrantTotalStat.innerHTML = `Total: ${totalRussians}`;
-    entrantAcceptedStat.innerHTML = `Accepted: ${acceptedRussians}`;
-    entrantDeclinedStat.innerHTML = `Declined: ${declinedRussians}`;
-    entrantVisitorStat.innerHTML = `Visitors: ${visitorRussians}`;
-    errorStat.innerHTML = `Errors: ${errorMade}`;
+    entrantTotalStat.innerHTML = `Total - ${totalRussians}`;
+    entrantAcceptedStat.innerHTML = `Accepted - ${acceptedRussians}`;
+    entrantDeclinedStat.innerHTML = `Declined - ${declinedRussians}`;
+    entrantVisitorStat.innerHTML = `Visitors - ${visitorRussians}`;
+    errorStat.innerHTML = `Errors - ${errorMade}`;
 
    
 }
@@ -542,13 +549,19 @@ declineBtn.addEventListener('click', () => {
 
 })
 
-
+roomtoneSFX.loop = true;
 passportFar.addEventListener('click', () => {
     if (!waitingNext) {
+      
+        if (roomtoneSFX.paused){
+            roomtoneSFX.play();
+        }
         closeDocsBtn.classList.add('hidden');
 
         openPassport();
+       
         newsUpdate();
+        updateTouristBan();
     }
 
     // workPermit.classList.remove(`hidden`);
@@ -561,14 +574,14 @@ const tvHeadline = document.querySelector('.tv-headline');
 
 
 let currentNews =0;
-newsSFX.volume = 0.6;
+newsSFX.volume = 0.1;
 function newsUpdate(){
     if (totalRussians ===0 && currentNews ===0){
         tvScreen.style.background=`url(assets/images/tv/flee.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`700 000 Russians fled since Putin's partial mobilization`;
+        tvHeadline.innerHTML =`700 000 Russians fled homeland since Putin's partial mobilization`;
         tvHeadline.style.backgroundColor = `rgba(0, 0, 0, 0.466)`
         currentNews++;
-        
+        russianTouristBanned = true;
         newsSFX.play();
     } else if (totalRussians ===2 && currentNews ===1){
         tvScreen.style.background=`url(assets/images/tv/protesterDetained.jpg) center center / cover no-repeat`
@@ -585,29 +598,30 @@ function newsUpdate(){
         tvHeadline.innerHTML =`EU divided on response to Russians fleeing military service`;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians ===8 && currentNews ===4){
+    } else if (totalRussians ===7 && currentNews ===4){
         tvScreen.style.background=`url(assets/images/tv/kazakh.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Russians fleeing conscription to Kazakhstan should be 'cared for', Kazakh president said.`;
+        tvHeadline.innerHTML =`Kazakh president Urges Calm and Care for Russians Fleeing Mobilization .`;
         currentNews++;
         newsSFX.play();
-    } else if (acceptedRussians >= 9 && currentNews ===5){
+    } else if (acceptedRussians >= 8 && currentNews ===5){
         tvScreen.style.background=`url(assets/images/tv/finlandBorderClose.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Influx of 90 000 russians tourists in Moralis could create political instability in the country.`;
+        tvHeadline.innerHTML =`Moralis to join European neighbours in shutting out Russian tourists.`;
         currentNews++;
         newsSFX.play();
-   
-    }   else if (acceptedRussians >= 10 && currentNews ===6){
+    
+    }   else if (acceptedRussians >= 9 && currentNews ===6){
         tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Moralis starts building fence on Russian border`;
+        tvHeadline.innerHTML =`Moralis now bans `;
         currentNews++;
         newsSFX.play();
-        russianTouristBanned = true;
-    }  else if (acceptedRussians >= 12 && currentNews ===7){
-        tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Moralis starts building fence on Russian border`;
-        currentNews++;
-        newsSFX.play();
+     
     }  
+    // else if (acceptedRussians >= 10 && currentNews ===7){
+    //     tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
+    //     tvHeadline.innerHTML =`Moralis starts building fence on Russian border`;
+    //     currentNews++;
+    //     newsSFX.play();
+    // }  
 }
 
 passportNear.addEventListener('click', () => {
@@ -656,7 +670,7 @@ function returnPassport() {
 
 // Remove hidden from all documents
 function openPassport() {
-    updateTouristBan();
+    
     passportBottom.setAttribute('data-flipped', 'false');
     //reset choices
     declineBtn.setAttribute('data-chosen', 'false');
@@ -850,10 +864,10 @@ function PersonBlueprint() {
         this.typeError = `none`;
         systemAnswer = 'accept';
         // 1 out of 6 chances for having an error
-        const errorChance = Math.floor(Math.random() * 8)
+        const errorChance = Math.floor(Math.random() * 10)
         if (errorChance < 3) {
             // 1 out of 4 chances for having a NAME error
-            const typeErrorChance = Math.floor(Math.random() * 1)
+            const typeErrorChance = Math.floor(Math.random() * 5)
             if (typeErrorChance === 0) {
                 alert('incorrect name')
                 this.typeError = 'Incorrect Name';
@@ -889,6 +903,7 @@ function PersonBlueprint() {
                 errorName = 'Invalid Visa Purpose';
                 this.visaPurpose = 'Fun';
                 purposeInfo.innerHTML = 'Fun';
+                purposeDialogue = `Um...I'm... here to visit Moralis`;
                 systemAnswer = 'decline';
             }
             // else if (typeErrorChance ===1){
@@ -900,7 +915,7 @@ function PersonBlueprint() {
         else if (errorChance >= 3) { 
            
         }
-        if (russianTouristBanned){
+        if (russianTouristBanned && this.visaPurpose === `Visit`){
             this.typeError ='Invalid Visa Purpose';
             errorName = 'Invalid Visa Purpose';
             systemAnswer = `decline`;
