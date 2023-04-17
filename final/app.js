@@ -530,22 +530,37 @@ function newsUpdate(){
         tvHeadline.style.backgroundColor = `rgba(0, 0, 0, 0.466)`
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians ===2 && currentNews ===1){
+    } else if (totalRussians ===1 && currentNews ===1){
         tvScreen.style.background=`url(assets/images/tv/protesterDetained.jpg) center center / cover no-repeat`
         tvHeadline.innerHTML =`Over 1,300 arrested in Russia as military call-up ignites widespread protests`;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians ===4 && currentNews ===2){
+    } else if (totalRussians ===2 && currentNews ===2){
         tvScreen.style.background=`url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`New military draft law bans Russian conscript from leaving country`;
+        tvHeadline.innerHTML =`Russia officials confirm 5973 soldier deaths in Ukraine `;
+        currentNews++;
+        newsSFX.play();
+    } else if (totalRussians === 3 && currentNews ===3){
+        tvScreen.style.background=`url(assets/images/tv/eu-divided.jpg) center center / cover no-repeat`
+        tvHeadline.innerHTML =`EU divided on response to Russians fleeing military service`;
+        currentNews++;
+        newsSFX.play();
+    } else if (totalRussians ===4 && currentNews ===4){
+        tvScreen.style.background=`url(assets/images/tv/kazakh.png) center center / cover no-repeat`
+        tvHeadline.innerHTML =`Kazakh President urged patience and tolerance for over 100 000 Russians refugees.`;
+        currentNews++;
+        newsSFX.play();
+    } else if (totalRussians ===5 && currentNews ===5){
+        tvScreen.style.background=`url(assets/images/tv/finlandBorderClose.jpg) center center / cover no-repeat`
+        tvHeadline.innerHTML =`Moralis closes border to Russian tourists, citing security concerns.`;
         currentNews++;
         newsSFX.play();
     }
     
-    // Over 1,300 arrested in Russia as military call-up ignites widespread protests
-    else if (totalRussians ===6 && currentNews ===5){
-        tvScreen.style.background=`url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`New military draft law bans Russian conscript from leaving country`;
+  
+    else if (totalRussians ===12 && currentNews ===6){
+        tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
+        tvHeadline.innerHTML =`Moralis starts building fence on Russian border`;
         currentNews++;
         newsSFX.play();
     }

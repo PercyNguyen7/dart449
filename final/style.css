@@ -60,7 +60,7 @@ p, ul, li, span{
 
 .pleading{
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     top:1rem;
     right:1rem;
     width: 20rem;
@@ -418,7 +418,7 @@ p, ul, li, span{
     height: 31rem;
     border: 3px solid #601515;
     border-radius: 15px;
-    background-color: #e0c5ca;
+
     z-index: 200;
     cursor:grab;
     /* transition: transform 0.3s; */
@@ -438,8 +438,10 @@ p, ul, li, span{
     border-radius: 15px 15px 0 0;
     width: 100%;
     height: 50%;
-    background-color: #e0c5ca;
     border-bottom: 3px solid #601515;
+}
+.passport-near,.passport-top, .passport-bottom-front{
+    background:url(assets/images/passport-texture.png) center center /contain repeat;
 }
 .passport-bottom{
     width: 100%;
@@ -504,7 +506,6 @@ p, ul, li, span{
 
 }
 .passport-bottom-front{
-    background-color: #e0c5ca;
     border-radius:0px 0px 15px 15px ;
     border-bottom: 3px solid #601515;
 }
@@ -512,7 +513,7 @@ p, ul, li, span{
 .passport-bottom-back{
     color: #191919;
     border-radius: 15px 15px 0px 0px;
-    background-color: rgb(231, 231, 231);
+    background:url(assets/images/visa-texture.png) center center /cover no-repeat;
     transform: rotateX(.5turn) translateY(-100%);
     border-top: 3px solid #601515;
     border-bottom: 3px solid #601515;
@@ -596,7 +597,7 @@ p, ul, li, span{
 .work-permit,
 .study-permit{
     position: fixed;
-    background-color: whitesmoke;
+    background:url(assets/images/visa-texture.png) top center /cover repeat;
     top:1rem;
     right:0.5rem;
     width: 22rem;
