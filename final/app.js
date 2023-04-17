@@ -53,6 +53,8 @@ const winScreen= document.querySelector(`.win-ending`);
 const endingPhrase = document.querySelector(`.ending-phrase`);
 const finalPhrase = document.querySelector(`.final-phrase`);
 
+const loseScreen= document.querySelector(`.lose-ending`);
+const losePhrase = document.querySelector(`.lose-phrase`);
 // AUDIO
 const flipPageSFX = new Audio('assets/sounds/pageflip-1.mp3');
 const flipPage2SFX = new Audio('assets/sounds/pageflip-2.mp3');
@@ -82,7 +84,7 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`,`Glory to Moralis`];
-const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs a father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`, `Please I waited hours in traffic just for this chance...`,`I need this, officer...`]
+const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs a father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`, `Please I waited hours in traffic just for this chance...`,`I really need this, please officer...`]
 
 const femalePleadArray = [`Please, I was a protester in Russia...`, `My husband already came through, please let me in...`,`Please, I'm fleeing the Kremlin regime...`,`They're threatning to jail me for years...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
@@ -274,7 +276,14 @@ window.addEventListener("keypress", function(event) {
         declinedRussians++;
         updateStats();
 
-   
+    } else if (event.key ===`e`){
+        winScreen.classList.remove('hidden');
+        endingPhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
+        finalPhrase.innerHTML = `You wonder if you should have accepted those ${declinedRussians} denied... `
+        newsSFX.play();
+    }else if (event.key ===`l`){
+        loseScreen.classList.remove('hidden');
+        losePhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`;
     }
   });
 
@@ -397,7 +406,7 @@ closeDocsBtn.addEventListener(`click`, () => {
         returnPassport();
 
         entrantChatReset();
-        entrantChat.innerHTML = `Thank You`;
+        entrantChat.innerHTML = `Thank you`;
         voiceSFX.currentTime=0;
         voiceSFX.play();
        
@@ -438,7 +447,7 @@ closeDocsBtn.addEventListener(`click`, () => {
         }
         else if (!entrantPleading){
             entrantChatReset();
-            entrantChat.innerHTML = `Thank You`;
+            entrantChat.innerHTML = `Thank you`;
             voiceSFX.currentTime=0;
             voiceSFX.play();
         }
@@ -529,7 +538,10 @@ function updateStats(){
     entrantVisitorStat.innerHTML = `Visitors - ${visitorRussians}`;
     errorStat.innerHTML = `Mistakes - ${errorMade}`;
 
-   
+   if (errorMade >=3){
+    loseScreen.classList.remove('hidden');
+    losePhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
+   }
 }
 
 
@@ -629,7 +641,7 @@ function newsUpdate(){
         tvHeadline.innerHTML =`Moralis has started building a 124-mile fence on its border with Russia.`;
         currentNews++;
         newsSFX.play();
-    }  else if (acceptedRussians >= 1 && currentNews ===1){
+    }  else if (acceptedRussians >= 15 && currentNews ===7){
         winScreen.classList.remove('hidden');
         endingPhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
         finalPhrase.innerHTML = `You wonder if you should have accepted those ${declinedRussians} denied... `
@@ -814,29 +826,29 @@ function PersonBlueprint() {
     }
 
     this.randomizePurpose = function () {
-        const purposeChance = Math.floor(Math.random() * 10);
+        const purposeChance = Math.floor(Math.random() * 9);
         //reset variables to false by default
         haveWorkPermit = false;
         haveStudyPermit = false;
-        if (purposeChance <= 6) {
+        if (purposeChance <= 5) {
             this.visaPurpose = 'Visit';
             purposeInfo.innerHTML = 'Visit';
             purposeDialogue = `I'm here to visit my family.`;
             console.log(this.visaPurpose);
-        } else if (purposeChance === 7 ) {
+        } else if (purposeChance === 6 ) {
             this.visaPurpose = 'Work';
             purposeInfo.innerHTML = 'Work';
             purposeDialogue = `I'm here for work.`;
             console.log(this.visaPurpose);
             haveWorkPermit = true;
-        } else if (purposeChance === 8) {
+        } else if (purposeChance === 7) {
             
             this.visaPurpose = 'Study';
             purposeInfo.innerHTML = 'Study';
             purposeDialogue = `I'm an international student studying in Moralis.`;
             console.log(this.visaPurpose);
             haveStudyPermit = true;
-        } else if (purposeChance === 9) {
+        } else if (purposeChance === 8) {
             
             this.visaPurpose = 'Humanitarian';
             
@@ -885,10 +897,10 @@ function PersonBlueprint() {
         resetMissingDocs();
         this.typeError = `none`;
         systemAnswer = 'accept';
-        // 1 out of 6 chances for having an error
-        const errorChance = Math.floor(Math.random() * 10)
+        // 3 out of 8 chances for having an error
+        const errorChance = Math.floor(Math.random() * 8)
         if (errorChance < 3) {
-            // 1 out of 4 chances for having a NAME error
+            // 1 out of 5 chances for each type of error
             const typeErrorChance = Math.floor(Math.random() * 5)
             if (typeErrorChance === 0) {
                 alert('incorrect name')
@@ -920,11 +932,11 @@ function PersonBlueprint() {
                 removeMissingDocs(person);
                 systemAnswer = 'decline';
             } else if (typeErrorChance ===4){
-                alert('invalid visa')
+                alert('invalid visa purpose')
                 this.typeError = 'Invalid Visa Purpose';
                 errorName = 'an Invalid Visa Purpose';
-                this.visaPurpose = 'Personal Reasons';
-                purposeInfo.innerHTML = 'Personal Reasons';
+                this.visaPurpose = 'Personal';
+                purposeInfo.innerHTML = 'Personal';
                 purposeDialogue = `Um...I'm... here to visit Moralis`;
                 systemAnswer = 'decline';
             }
@@ -933,11 +945,12 @@ function PersonBlueprint() {
             // }
             // errorInfo = true;
         }
-        // if not, they're good!
+        // 5 out of 8 chances of being good!
         else if (errorChance >= 3) { 
            
         }
         if (russianTouristBanned && this.visaPurpose === `Visit`){
+            alert('invalid visa purpose')
             this.typeError ='Invalid Visa Purpose';
             errorName = 'an Invalid Visa Purpose';
             systemAnswer = `decline`;

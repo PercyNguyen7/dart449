@@ -701,7 +701,7 @@ p, ul, li, span{
     justify-content: center;
     align-items: center;
 }
-.lose-screen{
+.lose-ending{
     background-color: rgb(19, 16, 16);
     position: fixed;
     width: 100%;
@@ -722,13 +722,13 @@ p, ul, li, span{
     color: #e6c59a;
     /* background-color: white; */
 }
-.win-ending h2{
+.win-ending h2, .lose-ending h2{
     margin:2rem 0;
     padding: 1rem;
     color: #e6c59a;
     /* background-color: white; */
 }
-.win-ending p{
+.win-ending p,.lose-ending p{
     font-size: 1.25rem;
     margin-bottom:1rem;
 }
