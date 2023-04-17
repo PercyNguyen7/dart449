@@ -48,6 +48,9 @@ const entrantVisitorStat = document.querySelector(`.visitor-number`);
 const errorStat = document.querySelector(`.error-number`);
 const visitVisaInstruction = document.querySelector(`.visit-visa-instruction`);
 
+
+const winScreen= document.querySelector(`.win-ending`);
+const endingPhrase = document.querySelector(`.ending-phrase`);
 // AUDIO
 const flipPageSFX = new Audio('assets/sounds/pageflip-1.mp3');
 const flipPage2SFX = new Audio('assets/sounds/pageflip-2.mp3');
@@ -916,8 +919,8 @@ function PersonBlueprint() {
                 alert('invalid visa')
                 this.typeError = 'Invalid Visa Purpose';
                 errorName = 'Invalid Visa Purpose';
-                this.visaPurpose = 'Fun';
-                purposeInfo.innerHTML = 'Fun';
+                this.visaPurpose = 'Personal Reasons';
+                purposeInfo.innerHTML = 'Personal Reasons';
                 purposeDialogue = `Um...I'm... here to visit Moralis`;
                 systemAnswer = 'decline';
             }
