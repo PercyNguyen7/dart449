@@ -187,13 +187,13 @@ function showInput(input) {
     } else if (currentInput === 'What do you think about the Kremlin regime' ) {
         // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
         entrantChatReset();
-        entrantChat.innerHTML = `We hate the war, but we're powerless against them. They oppress the people. `;
+        entrantChat.innerHTML = `We hate the war, but we're powerless against them. They oppress any oppositition. `;
         voiceSFX.currentTime=0;
         voiceSFX.play();
     } else if (currentInput === `Where are you from`) {
         // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
         entrantChatReset();
-        entrantChat.innerHTML = `I'm a Russia citizen.`;
+        entrantChat.innerHTML = `I'm a Russian citizen.`;
         voiceSFX.currentTime=0;
         voiceSFX.play();
     } else if (currentInput === 'Hello') {
