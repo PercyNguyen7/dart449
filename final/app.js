@@ -483,7 +483,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     // IF THEYRE GOOD, BUT YOU DENY 
     else if (systemAnswer === `accept` && finalStamp === `decline`) {
         errorSFX.play();
-        alert(`That was a mistake. They were unrightfully denied entry.`);
+        alert(`That was a mistake. They were wrongfully denied entry.`);
        
         entrantChatReset();
         entrantChat.innerHTML = `I will appeal this decision`;
