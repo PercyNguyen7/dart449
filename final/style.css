@@ -699,3 +699,23 @@ p, ul, li, span{
     transform: translateX(-1rem);
 }
 }
+.win-ending{
+    background-color: #601515;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    z-index: 9999;
+    color: #f5f4f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.win-ending h1{
+    margin:1rem 0;
+}
+.win-ending p{
+    font-size: 1.5rem;
+}

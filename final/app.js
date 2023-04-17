@@ -375,12 +375,8 @@ passportFlipBtn.addEventListener(`click`, () => {
 
 })
 
+// If close the document
 closeDocsBtn.addEventListener(`click`, () => {
-
-    // passportFar.classList.remove(`hidden`);
-    // passportNear.classList.add(`hidden`);
-    // passportOpened = false;
-    // if(finalStamp ===`accept` || finalStamp === `decline`){
 
     passportFar.style.display = 'block';
     passportNear.classList.add(`hidden`);
@@ -389,9 +385,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     studyPermit.classList.add('hidden');
     workPermit.classList.add('hidden');
     // }
-    // if(finalStamp===` `){
-    //     alert(`you did not pick`)
-    // }
+
     // THEY'RE GOOD SO YOU ACCEPTED
     if (systemAnswer === finalStamp && systemAnswer === `accept`) {
         alert('You did good! Their documents were up to standard.');
@@ -465,8 +459,6 @@ closeDocsBtn.addEventListener(`click`, () => {
         errorSFX.play();
         alert(`That was a mistake. They were clean`);
        
-     
-
         entrantChatReset();
         entrantChat.innerHTML = `I will appeal this decision`;
         voiceSFX.currentTime=0;
@@ -530,7 +522,7 @@ function updateStats(){
     entrantAcceptedStat.innerHTML = `Approved- ${acceptedRussians}`;
     entrantDeclinedStat.innerHTML = `Denied - ${declinedRussians}`;
     entrantVisitorStat.innerHTML = `Visitors - ${visitorRussians}`;
-    errorStat.innerHTML = `Errors - ${errorMade}`;
+    errorStat.innerHTML = `Mistakes - ${errorMade}`;
 
    
 }
@@ -539,10 +531,6 @@ function updateStats(){
 function increaseError() {
     errorMade += 1;
     errorStat.innerHTML = `Errors: ${errorMade}`;
-    // setTimeout(()=>{
-    //     alert(`That was a mistake. Their document had an ${errorName}`);
-    // },4500)
-
 }
 
 acceptBtn.addEventListener(`click`, () => {
@@ -599,11 +587,11 @@ let currentNews =0;
 newsSFX.volume = 0.1;
 function newsUpdate(){
     if (totalRussians ===0 && currentNews ===0){
-        tvScreen.style.background=`url(assets/images/tv/flee.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`700 000 Russians fled homeland since Putin's partial mobilization`;
+        tvScreen.style.background=`url(assets/images/tv/putin.png) center center / cover no-repeat`
+        tvHeadline.innerHTML =`Putin mobilizes 300,000 troops for war in Ukraine and warns he’s not bluffing with nuclear threat`;
         tvHeadline.style.backgroundColor = `rgba(0, 0, 0, 0.466)`
         currentNews++;
-        russianTouristBanned = true;
+ 
         newsSFX.play();
     } else if (totalRussians ===2 && currentNews ===1){
         tvScreen.style.background=`url(assets/images/tv/protesterDetained.jpg) center center / cover no-repeat`
@@ -611,32 +599,34 @@ function newsUpdate(){
         currentNews++;
         newsSFX.play();
     } else if (totalRussians ===4 && currentNews ===2){
+        tvScreen.style.background=`url(assets/images/tv/flee.png) center center / cover no-repeat`
+        tvHeadline.innerHTML =`As masses flee Russia to avoid conscription, European neighbours grapple with whether to let them in`;
+        currentNews++;
+        newsSFX.play();
+    } else if (totalRussians === 6 && currentNews ===3){
         tvScreen.style.background=`url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Russia officials confirm 5973 soldier deaths in Ukraine `;
+        tvHeadline.innerHTML =`Russia's mobilized soldiers speak out: 'We were thrown on to the frontline with no support'`;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians === 5 && currentNews ===3){
-        tvScreen.style.background=`url(assets/images/tv/eu-divided.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`EU divided on response to Russians fleeing military service`;
-        currentNews++;
-        newsSFX.play();
-    } else if (totalRussians ===7 && currentNews ===4){
+    } else if (totalRussians ===8 && currentNews ===4){
         tvScreen.style.background=`url(assets/images/tv/kazakh.png) center center / cover no-repeat`
         tvHeadline.innerHTML =`Kazakh president Urges Calm and Care for Russians Fleeing Mobilization .`;
         currentNews++;
         newsSFX.play();
-    } else if (acceptedRussians >= 8 && currentNews ===5){
+    } else if (acceptedRussians >= 9 && currentNews ===5){
         tvScreen.style.background=`url(assets/images/tv/finlandBorderClose.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Moralis to join European neighbours in shutting out Russian tourists.`;
+        tvHeadline.innerHTML =`Moralis to join European neighbours in shutting out Russian tourists due to security concerns.`;
         currentNews++;
         newsSFX.play();
-    
+        russianTouristBanned = true;
     }   else if (acceptedRussians >= 9 && currentNews ===6){
         tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Moralis now bans `;
+        tvHeadline.innerHTML =`Moralis has started building a 124-mile fence on its border with Russia.`;
         currentNews++;
         newsSFX.play();
-     
+    }  else if (acceptedRussians >= 20 && currentNews ===7){
+        
+        newsSFX.play();
     }  
     // else if (acceptedRussians >= 10 && currentNews ===7){
     //     tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
@@ -902,7 +892,7 @@ function PersonBlueprint() {
                 systemAnswer = 'decline';
 
             } else if (typeErrorChance === 1) {
-                alert('expired doc')
+                alert('expired doc');
                 this.typeError = 'Expired Document';
                 errorName = 'Expired Document';
                 assignExpiredDate(person)
@@ -1012,19 +1002,7 @@ function randomizeWrongDOB(person) {
 
 function randomizeWrongName(person) {
     let newLastNameIndex = Math.floor(Math.random() * russianLastNames.length);
-
-    // if (newLastNameIndex === person.lastNameIndex ){
-    //    alert('fuck');
-    //     console.log(counter + 1)
-    //     return randomizeWrongName(person);
-    // }
-    // else {
-    //     return newLastNameIndex;
-    //     console.log('rerolling name');
-
-    // }
-    // console.log(person.lastNameIndex);
-    // console.log(newLastNameIndex);
+    // randomize until its not matching
     return (newLastNameIndex === person.lastNameIndex) ? randomizeWrongName(person) : newLastNameIndex
 }
 
@@ -1232,113 +1210,4 @@ function checkEndGame() {
 // }
 //  function resumeInterval(){
 //      paused =false;
-// }
-// console.log(getRandomDate(new Date(2020,0,1), new Date(2020,0,6)).toLocaleDateString('en-US'));
-// const personBlueprint ={
-//     gender: function(){
-//         const genderChance = Math.floor(Math.random() * 10);
-//         if (genderChance >= 7){
-//             return 'Male';
-//         }
-//         else{
-//             return 'Female';
-//         }
-//     },
-//     number: function (){
-//       return 155;
-//     }
-//   }
-
-//   console.log(personBlueprint.gender());
-
 // 
-
-//   const person = new Person('Fafaf','sada',44,'female','sadmess')
-//   person.bio();
-
-
-
-
-
-// function getRandomBirthday(){
-//     if (person.age = )[
-
-
-//     ]
-
-
-// }
-
-// *************************
-// *************************
-// *************************
-
-// class Person {
-
-//     name;
-
-//     constructor(name) {
-//       this.name = name;
-//     }
-
-//     introduceSelf() {
-//       console.log(`Hi! I'm ${this.name}`);
-//     }
-
-//   }
-
-//   class Professor extends Person {
-
-//     teaches;
-
-//     constructor(name, teaches) {
-//       super(name);
-//       this.teaches = teaches;
-//     }
-
-//     introduceSelf() {
-//       console.log(`My name is ${this.name}, and I will be your ${this.teaches} professor.`);
-//     }
-
-//     grade(paper) {
-//       const grade = Math.floor(Math.random() * (5 - 1) + 1);
-//       console.log(grade);
-//     }
-//   }
-
-//   const walsh = new Professor('Walsh', 'Psychology');
-// walsh.introduceSelf();  // 'My name is Walsh, and I will be your Psychology professor'
-
-// walsh.grade('my paper'); // some random grade
-
-//   const giles = new Person('Giles');
-
-//   giles.introduceSelf(); // Hi! I'm Giles
-
-// *************************
-// *************************
-// *************************
-
-// function PrototypicalGreeting(greeting = "Hello", name = "World") {
-//     this.greeting = greeting;
-//     this.name = name;
-//     // this.greet = function(){
-//     //     return `${this.greeting}, ${this.name}!`;
-//     // }
-//   }
-
-//   PrototypicalGreeting.prototype.greet = function() {
-//     return `${this.greeting}, ${this.name}!`
-//   }
-
-
-
-
-
-// if (date1 > date2) {
-//   console.log("Date 1 is greater than Date 2");
-// } else if (date1 < date2) {
-//   console.log("Date 1 is less than Date 2");
-// } else {
-//   console.log("Both Dates are same");
-// }
