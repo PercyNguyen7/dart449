@@ -46,6 +46,8 @@ const entrantDeclinedStat = document.querySelector(`.declined-number`);
 const entrantVisitorStat = document.querySelector(`.visitor-number`);
 
 const errorStat = document.querySelector(`.error-number`);
+const visitVisaInstruction = document.querySelector(`.visit-visa-instruction`);
+
 // AUDIO
 const flipPageSFX = new Audio('assets/sounds/pageflip-1.mp3');
 const flipPage2SFX = new Audio('assets/sounds/pageflip-2.mp3');
@@ -71,7 +73,7 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`,`Glory to Moralis`];
-const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs her father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`]
+const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs her father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`]
 
 const femalePleadArray = [`My husband is abroad...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
@@ -116,6 +118,7 @@ let acceptedRussians = 0;
 let declinedRussians = 0;
 let visitorRussians = 0;
 let errorMade = 0;
+let russianTouristBanned = false;
 
 let currentInput = '';
 let currentPurpose = ``;
@@ -429,8 +432,6 @@ closeDocsBtn.addEventListener(`click`, () => {
         errorMade++;
         declinedRussians++;
         updateStats();
-
-      
     }
     returnPassportSFX.play();
 });
@@ -465,6 +466,8 @@ function updateStats(){
     entrantDeclinedStat.innerHTML = `Declined: ${declinedRussians}`;
     entrantVisitorStat.innerHTML = `Visitors: ${visitorRussians}`;
     errorStat.innerHTML = `Errors: ${errorMade}`;
+
+   
 }
 
 
@@ -529,41 +532,47 @@ function newsUpdate(){
         tvHeadline.innerHTML =`700 000 Russians fled since Putin's partial mobilization`;
         tvHeadline.style.backgroundColor = `rgba(0, 0, 0, 0.466)`
         currentNews++;
+        
         newsSFX.play();
-    } else if (totalRussians ===1 && currentNews ===1){
+    } else if (totalRussians ===2 && currentNews ===1){
         tvScreen.style.background=`url(assets/images/tv/protesterDetained.jpg) center center / cover no-repeat`
         tvHeadline.innerHTML =`Over 1,300 arrested in Russia as military call-up ignites widespread protests`;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians ===2 && currentNews ===2){
+    } else if (totalRussians ===4 && currentNews ===2){
         tvScreen.style.background=`url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat`
         tvHeadline.innerHTML =`Russia officials confirm 5973 soldier deaths in Ukraine `;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians === 3 && currentNews ===3){
+    } else if (totalRussians === 5 && currentNews ===3){
         tvScreen.style.background=`url(assets/images/tv/eu-divided.jpg) center center / cover no-repeat`
         tvHeadline.innerHTML =`EU divided on response to Russians fleeing military service`;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians ===4 && currentNews ===4){
+    } else if (totalRussians ===8 && currentNews ===4){
         tvScreen.style.background=`url(assets/images/tv/kazakh.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Kazakh President urged patience and tolerance for over 100 000 Russians refugees.`;
+        tvHeadline.innerHTML =`Russians fleeing conscription to Kazakhstan should be 'cared for', Kazakh president said.`;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians ===5 && currentNews ===5){
+    } else if (acceptedRussians >= 9 && currentNews ===5){
         tvScreen.style.background=`url(assets/images/tv/finlandBorderClose.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Moralis closes border to Russian tourists, citing security concerns.`;
+        tvHeadline.innerHTML =`Influx of 90 000 russians tourists in Moralis could create political instability in the country.`;
         currentNews++;
         newsSFX.play();
-    }
-    
-  
-    else if (totalRussians ===12 && currentNews ===6){
+   
+    }   else if (acceptedRussians >= 10 && currentNews ===6){
         tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
         tvHeadline.innerHTML =`Moralis starts building fence on Russian border`;
         currentNews++;
         newsSFX.play();
-    }
+        russianTouristBanned = true;
+    }  else if (acceptedRussians >= 12 && currentNews ===7){
+        tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
+        tvHeadline.innerHTML =`Moralis starts building fence on Russian border`;
+        currentNews++;
+        newsSFX.play();
+     
+    }  
 }
 
 passportNear.addEventListener('click', () => {
@@ -612,6 +621,7 @@ function returnPassport() {
 
 // Remove hidden from all documents
 function openPassport() {
+    updateTouristBan();
     passportBottom.setAttribute('data-flipped', 'false');
     //reset choices
     declineBtn.setAttribute('data-chosen', 'false');
@@ -732,7 +742,7 @@ function PersonBlueprint() {
     }
 
     this.randomizePurpose = function () {
-        const purposeChance = Math.floor(Math.random() * 9);
+        const purposeChance = Math.floor(Math.random() * 7);
         //reset variables to false by default
         haveWorkPermit = false;
         haveStudyPermit = false;
@@ -741,25 +751,25 @@ function PersonBlueprint() {
             purposeInfo.innerHTML = 'Visit';
             purposeDialogue = `I'm here to visit my family.`;
             console.log(this.visaPurpose);
-        } else if (purposeChance === 4 || purposeChance === 5) {
+        } else if (purposeChance === 4 ) {
             this.visaPurpose = 'Work';
             purposeInfo.innerHTML = 'Work';
             purposeDialogue = `I'm here for work.`;
             console.log(this.visaPurpose);
             haveWorkPermit = true;
-        } else if (purposeChance === 6 || purposeChance === 7) {
+        } else if (purposeChance === 5) {
             
             this.visaPurpose = 'Study';
             purposeInfo.innerHTML = 'Study';
             purposeDialogue = `I'm an international student studying in Moralis.`;
             console.log(this.visaPurpose);
             haveStudyPermit = true;
-        } else if (purposeChance === 8) {
+        } else if (purposeChance === 6) {
             
             this.visaPurpose = 'Humanitarian';
             
             purposeInfo.innerHTML = 'Humanitarian';
-            purposeDialogue = `I come here to seek refuge from my current regime.`;
+            purposeDialogue = `I come here to seek refuge from the Kremlin.`;
             console.log(this.visaPurpose);
         }
         currentPurpose =  this.visaPurpose;
@@ -841,8 +851,8 @@ function PersonBlueprint() {
                 alert('invalid visa')
                 this.typeError = 'Invalid Visa Purpose';
                 errorName = 'Invalid Visa Purpose';
-                this.visaPurpose = 'Refuge';
-                purposeInfo.innerHTML = 'Refuge';
+                this.visaPurpose = 'Fun';
+                purposeInfo.innerHTML = 'Fun';
                 systemAnswer = 'decline';
             }
             // else if (typeErrorChance ===1){
@@ -851,8 +861,13 @@ function PersonBlueprint() {
             // errorInfo = true;
         }
         // if not, they're good!
-        else if (errorChance >= 3) {
-            alert(`they're clean!`)
+        else if (errorChance >= 3) { 
+           
+        }
+        if (russianTouristBanned){
+            this.typeError ='Invalid Visa Purpose';
+            errorName = 'Invalid Visa Purpose';
+            systemAnswer = `decline`;
         }
     }
 }
@@ -1018,6 +1033,7 @@ function walkAway() {
     
 }
 function createPerson() {
+  
     pleadedOnce = false;
     waitingNext = false;
 
@@ -1041,6 +1057,14 @@ function createPerson() {
     console.log(people);
     return person;
 }
+
+function updateTouristBan(){
+    if (russianTouristBanned){
+        visitVisaInstruction.innerHTML = `VISITOR NO LONGER ACCEPTED`
+        visitVisaInstruction.classList.add(`visit-banned`);
+    }
+}
+
 
 function getRandomDate(startDate, endDate) {
     const minValue = startDate.getTime();
