@@ -84,7 +84,7 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`,`Glory to Moralis`];
-const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs a father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`, `Please I waited hours in traffic just for this chance...`,`I really need this, please officer...`]
+const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war. Please reconsider`, '...I have a family to live for.', `my daughter needs a father. I can't be conscripted. I have to hide`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`, `Please. I waited hours in traffic just for this chance...`,`I'm too young to die for this stupid war`]
 
 const femalePleadArray = [`Please, I was a protester in Russia...`, `My husband already came through, please let me in...`,`Please, I'm fleeing the Kremlin regime...`,`They're threatning to jail me for years...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
@@ -178,6 +178,18 @@ function showInput(input) {
         entrantChat.innerHTML = `I'm doing alright...`;
         voiceSFX.currentTime=0;
         voiceSFX.play();
+    } else if (currentInput === 'How long did it take you to get to this border' ) {
+        // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
+        entrantChatReset();
+        entrantChat.innerHTML = `10 hours of traffic or more.`;
+        voiceSFX.currentTime=0;
+        voiceSFX.play();
+    } else if (currentInput === 'What do you think about the Kremlin regime' ) {
+        // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
+        entrantChatReset();
+        entrantChat.innerHTML = `We hate the war, but we're powerless against them. They oppress the people. `;
+        voiceSFX.currentTime=0;
+        voiceSFX.play();
     } else if (currentInput === `Where are you from`) {
         // voiceTxt.innerHTML = `PURPOSE OF YOUR TRIP?`
         entrantChatReset();
@@ -223,7 +235,7 @@ function showInput(input) {
             walkAway();
             waitingNext = true;
          
-        }, 5000);
+        }, 4000);
 
         entrantPleading = false;
         declinedRussians++;
@@ -270,7 +282,7 @@ window.addEventListener("keypress", function(event) {
             walkAway();
             
             waitingNext = true;
-        }, 4500);
+        }, 4000);
 
         entrantPleading = false;
         declinedRussians++;
@@ -625,23 +637,23 @@ function newsUpdate(){
         tvHeadline.innerHTML =`Russia's mobilized soldiers speak out: 'We were thrown on to the frontline with no support'`;
         currentNews++;
         newsSFX.play();
-    } else if (totalRussians ===8 && currentNews ===4){
+    } else if (totalRussians ===7 && currentNews ===4){
         tvScreen.style.background=`url(assets/images/tv/kazakh.png) center center / cover no-repeat`
         tvHeadline.innerHTML =`Kazakh president Urges Calm and Care for Russians Fleeing Mobilization .`;
         currentNews++;
         newsSFX.play();
-    } else if (acceptedRussians >= 9 && currentNews ===5){
+    } else if (totalRussians >= 8 && currentNews ===5){
         tvScreen.style.background=`url(assets/images/tv/finlandBorderClose.jpg) center center / cover no-repeat`
         tvHeadline.innerHTML =`Moralis to join European neighbours in shutting out Russian tourists due to security concerns.`;
         currentNews++;
         newsSFX.play();
         russianTouristBanned = true;
-    }   else if (acceptedRussians >= 9 && currentNews ===6){
+    }   else if (acceptedRussians >= 8 && currentNews ===6){
         tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
         tvHeadline.innerHTML =`Moralis has started building a 124-mile fence on its border with Russia.`;
         currentNews++;
         newsSFX.play();
-    }  else if (acceptedRussians >= 15 && currentNews ===7){
+    }  else if (acceptedRussians >= 14 && currentNews ===7){
         winScreen.classList.remove('hidden');
         endingPhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
         finalPhrase.innerHTML = `You wonder if you should have accepted those ${declinedRussians} denied... `
@@ -897,8 +909,8 @@ function PersonBlueprint() {
         resetMissingDocs();
         this.typeError = `none`;
         systemAnswer = 'accept';
-        // 3 out of 8 chances for having an error
-        const errorChance = Math.floor(Math.random() * 8)
+        // 3 out of 9 chances for having an error
+        const errorChance = Math.floor(Math.random() * 9)
         if (errorChance < 3) {
             // 1 out of 5 chances for each type of error
             const typeErrorChance = Math.floor(Math.random() * 5)
