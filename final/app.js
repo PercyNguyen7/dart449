@@ -51,6 +51,8 @@ const visitVisaInstruction = document.querySelector(`.visit-visa-instruction`);
 
 const winScreen= document.querySelector(`.win-ending`);
 const endingPhrase = document.querySelector(`.ending-phrase`);
+const finalPhrase = document.querySelector(`.final-phrase`);
+
 // AUDIO
 const flipPageSFX = new Audio('assets/sounds/pageflip-1.mp3');
 const flipPage2SFX = new Audio('assets/sounds/pageflip-2.mp3');
@@ -391,7 +393,7 @@ closeDocsBtn.addEventListener(`click`, () => {
 
     // THEY'RE GOOD SO YOU ACCEPTED
     if (systemAnswer === finalStamp && systemAnswer === `accept`) {
-        alert('You did good! Their documents were up to standard.');
+        // alert('Good. Their documents were up to standard.');
         returnPassport();
 
         entrantChatReset();
@@ -416,7 +418,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     }
     //THEY'RE WRONG SO YOU DECLINE
     else if (systemAnswer === finalStamp && systemAnswer === `decline`) {
-        alert(`You did good! Their document had a ${errorName}.`);
+        // alert(`Rightful rejection! Their document had a ${errorName}.`);
         plead();
 
         entrantPleading = true;
@@ -425,7 +427,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     // They're BAD, but you ACCEPT
     else if (systemAnswer === `decline` && finalStamp === `accept`) {
         errorSFX.play();
-        alert(`That was a mistake. Their document had a ${errorName}`);
+        alert(`That was a mistake. Their document had ${errorName}`);
         
         if (entrantPleading){
             entrantChatReset();
@@ -460,7 +462,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     // IF THEYRE GOOD, BUT YOU DENY 
     else if (systemAnswer === `accept` && finalStamp === `decline`) {
         errorSFX.play();
-        alert(`That was a mistake. They were clean`);
+        alert(`That was a mistake. They were unrightfully denied entry.`);
        
         entrantChatReset();
         entrantChat.innerHTML = `I will appeal this decision`;
@@ -627,8 +629,10 @@ function newsUpdate(){
         tvHeadline.innerHTML =`Moralis has started building a 124-mile fence on its border with Russia.`;
         currentNews++;
         newsSFX.play();
-    }  else if (acceptedRussians >= 20 && currentNews ===7){
-        
+    }  else if (acceptedRussians >= 1 && currentNews ===1){
+        winScreen.classList.remove('hidden');
+        endingPhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
+        finalPhrase.innerHTML = `You wonder if you should have accepted those ${declinedRussians} denied... `
         newsSFX.play();
     }  
     // else if (acceptedRussians >= 10 && currentNews ===7){
@@ -889,7 +893,7 @@ function PersonBlueprint() {
             if (typeErrorChance === 0) {
                 alert('incorrect name')
                 this.typeError = 'Incorrect Name';
-                errorName = 'Incorrect Name';
+                errorName = 'an Incorrect Name';
                 console.log(person);
                 assignWrongName(person);
                 systemAnswer = 'decline';
@@ -897,7 +901,7 @@ function PersonBlueprint() {
             } else if (typeErrorChance === 1) {
                 alert('expired doc');
                 this.typeError = 'Expired Document';
-                errorName = 'Expired Document';
+                errorName = 'an Expired Document';
                 assignExpiredDate(person)
                 systemAnswer = 'decline';
                 // else if (typeErrorChance >=2 && typeErrorChance <=3){
@@ -906,19 +910,19 @@ function PersonBlueprint() {
             } else if (typeErrorChance === 2) {
                 alert('incorrect dob')
                 this.typeError = 'Incorrect DOB';
-                errorName = 'Incorrect DOB';
+                errorName = 'an Incorrect DOB';
                 assignWrongDOB(person);
                 systemAnswer = 'decline';
             } else if (typeErrorChance === 3) {
                 alert('missing docs')
                 this.typeError = 'Missing Documents';
-                errorName = 'Missing Documents';
+                errorName = 'a Missing Documents';
                 removeMissingDocs(person);
                 systemAnswer = 'decline';
             } else if (typeErrorChance ===4){
                 alert('invalid visa')
                 this.typeError = 'Invalid Visa Purpose';
-                errorName = 'Invalid Visa Purpose';
+                errorName = 'an Invalid Visa Purpose';
                 this.visaPurpose = 'Personal Reasons';
                 purposeInfo.innerHTML = 'Personal Reasons';
                 purposeDialogue = `Um...I'm... here to visit Moralis`;
@@ -935,7 +939,7 @@ function PersonBlueprint() {
         }
         if (russianTouristBanned && this.visaPurpose === `Visit`){
             this.typeError ='Invalid Visa Purpose';
-            errorName = 'Invalid Visa Purpose';
+            errorName = 'an Invalid Visa Purpose';
             systemAnswer = `decline`;
         }
     }

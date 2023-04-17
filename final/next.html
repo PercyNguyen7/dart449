@@ -12,15 +12,21 @@
 
 <body>
     <main>
-        <div class="win-ending">
+        <div class="win-ending hidden">
             <h1>Trusty Inspector ENDING</h1>
             <p>You continue working as a Moralis' border officer</p>
             <p>Despite their pleads, you enforce the law and refuse entries to all Russian refugees.</p>
-        
-            <p class="ending-phrase hidden" ></p>
-            <p>You wonder if they're still alive or not.</p>
+            <p class="law-phrase">On April 12, Putin signs a tough new military draft law, banning conscripts from fleeing Russia</p>
+            <div class="img-wrapper">
+                <img src="assets/images/tv/winEnding.png" alt="">
+            </div>
+            <p class="ending-phrase" ></p>
+            <p class="final-phrase">You wonder if you should have let them in before they lost their chance.</p>
         </div>
 
+        <div class="lose-screen">
+
+        </div>
 
         <div class="game-wrapper">
 
@@ -67,14 +73,14 @@
 
                                 <h4>Possible inquiries</h4>
                                 <ul>
-                                   
-                                    <li>What's your name?</li>
-                                    <li>How long will you stay? </li>
-                                    <li>What is the purpose of your visit?</li>
+                                    <li>"Next"</li>
+                                    <li>"What's your name?"</li>
+                                    <li>"How long will you stay?" </li>
+                                    <li>"What is the purpose of your visit?"</li>
                                     <!-- <li>Family Reasons</li> -->
                                 </ul>
                                 <h4>If entrant persists,</h4>
-                                <p>Say "Sorry" until they leave</p>
+                                <p>Say "Nothing I can do"</p>
 
                                 <h4>Possible Discrepancies</h4>
                                 <ul>
@@ -83,9 +89,10 @@
                                     <li>Expired Documents </li>
                                     <li>Missing Documents </li>
                                     <li>Invalid Visa Purpose </li>
-                                    <li class="visit-visa-instruction visit-banned hidden">VISITOR NO LONGER ACCEPTED</li>
+                                    <li class="visit-visa-instruction visit-banned hidden">RUSSIAN VISITOR NO LONGER ACCEPTED</li>
                                 </ul>
                   
+                                <h4 class="mistake-instruction">Make no more than 2 mistakes.</h4>
 
                             </div>
                         </div>
