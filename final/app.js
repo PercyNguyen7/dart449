@@ -62,6 +62,7 @@ const newsSFX = new Audio('assets/sounds/news.wav');
 const voiceSFX = new Audio('assets/sounds/voice.mp3');
 const begSFX = new Audio(`assets/sounds/beg.mp3`);
 const roomtoneSFX =new Audio(`assets/sounds/roomtone.mp3`); 
+const errorSFX = new Audio(`assets/sounds/wrong.mp3`)
 
 const passportProfileImg = document.querySelectorAll('.profile-img');
 const entrantImg = document.querySelector('.person');
@@ -76,9 +77,9 @@ const russianMaleFirstNames = ['Aleksandr', 'Boris', 'Alexei', 'Daniiil', 'Leoni
 
 const people = [];
 const thankArray = [`Thank you`,`Glory to Moralis`];
-const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs a father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`, `Please I waited hours in traffic just for this chance...`]
+const pleadArray = [`It will be one bullet in the head if I get conscripted.`, `You've seen the news right... I hope you understand my position`, `I refuse to take part in this meaningless war`, '...I have a family to live for.', `my daughter needs a father. I can't be conscripted.`, `please...if I go back I will be drafted...`,`I resigned from the army...they promised to put me in prison for traitor and deserter`, `Please I waited hours in traffic just for this chance...`,`I need this, officer...`]
 
-const femalePleadArray = [`My husband is abroad...`]
+const femalePleadArray = [`Please, I was a protester in Russia...`, `My husband already came through, please let me in...`,`Please, I'm fleeing the Kremlin regime...`,`They're threatning to jail me for years...`]
 const durationArray = [`1 day`, `2 days`, `3 days`, `4 days`, `5 days`, `6 days`, `7 days`, `8 days`, `9 days`, `10 days`, `11 days`, `12 days`, `12 days`, `13 days`, `14 days`, `15 days`, `16 days`, `17 days`, `18 days`, `19 days`, `20 days`, `21 days`, `22 days`, `23 days`, `24 days`, `25 days`, `26 days`, `27 days`, `28 days`, `about a month`, `2 months`, `3 months`];
 
 const backgroundArray = [[`man.png`,`man2.png`,`man3.png`,`man4.png`,`man5.png`,`man6.png`,`man7.png`,`man8.png`,`man9.png`,`man10.png`,`man11.png`,`man12.png`],[`woman.png`,`woman2.png`,`woman3.png`,`woman4.png`,`woman5.png`]]
@@ -126,6 +127,7 @@ let russianTouristBanned = false;
 
 let currentInput = '';
 let currentPurpose = ``;
+let currentGender = ``;
 
 const voiceTxt = document.querySelector('.player-voice')
 window.addEventListener('load', () => {
@@ -199,7 +201,7 @@ function showInput(input) {
         entrantChat.innerHTML = dobDialogue;
         voiceSFX.currentTime=0;
         voiceSFX.play();
-    } else if (currentInput === `Sorry I can't` && entrantPleading && !passportOpened) {
+    } else if (currentInput === `Nothing I can do` && entrantPleading && !passportOpened) {
         entrantChatReset();
         entrantChat.innerHTML = `You might as well kill me.`;
         voiceSFX.currentTime=0;
@@ -207,11 +209,12 @@ function showInput(input) {
         
         setTimeout(() => {
             returnPassport();
+          
         }, 1000);
-        waitingNext = true;
+        
         setTimeout(() => {
             walkAway();
-           
+            waitingNext = true;
          
         }, 5000);
 
@@ -247,18 +250,20 @@ window.addEventListener("keypress", function(event) {
     } else if (event.key ===`Enter` &&  entrantPleading && !passportOpened){
         entrantChatReset();
         entrantChat.innerHTML = `You might as well kill me.`;
+        
         voiceSFX.currentTime=0;
         voiceSFX.play();
         
         setTimeout(() => {
             returnPassport();
+           
         }, 1000);
-        waitingNext = true;
+     
         setTimeout(() => {
             walkAway();
             
-          
-        }, 5000);
+            waitingNext = true;
+        }, 4500);
 
         entrantPleading = false;
         declinedRussians++;
@@ -396,10 +401,10 @@ closeDocsBtn.addEventListener(`click`, () => {
         entrantChat.innerHTML = `Thank You`;
         voiceSFX.currentTime=0;
         voiceSFX.play();
-        waitingNext = true;
+       
         setTimeout(() => {
             walkAway();
-           
+            waitingNext = true;
         }, 2000);
 
       
@@ -414,7 +419,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     }
     //THEY'RE WRONG SO YOU DECLINE
     else if (systemAnswer === finalStamp && systemAnswer === `decline`) {
-        alert('You did good! They were unlawful.');
+        alert(`You did good! Their document had a ${errorName}.`);
         plead();
 
         entrantPleading = true;
@@ -422,6 +427,7 @@ closeDocsBtn.addEventListener(`click`, () => {
     } 
     // They're BAD, but you ACCEPT
     else if (systemAnswer === `decline` && finalStamp === `accept`) {
+        errorSFX.play();
         alert(`That was a mistake. Their document had a ${errorName}`);
         
         if (entrantPleading){
@@ -445,10 +451,10 @@ closeDocsBtn.addEventListener(`click`, () => {
         }
         updateStats();
         returnPassport();
-        waitingNext = true;
+       
         setTimeout(() => {
             walkAway();
-        
+            waitingNext = true;
         }, 2000);
 
      
@@ -456,16 +462,19 @@ closeDocsBtn.addEventListener(`click`, () => {
     }
     // IF THEYRE GOOD, BUT YOU DENY 
     else if (systemAnswer === `accept` && finalStamp === `decline`) {
+        errorSFX.play();
         alert(`That was a mistake. They were clean`);
        
+     
+
         entrantChatReset();
         entrantChat.innerHTML = `I will appeal this decision`;
         voiceSFX.currentTime=0;
         voiceSFX.play();
         returnPassport();
-        waitingNext = true;
+       
         setTimeout(() => {
-           
+            waitingNext = true;
             walkAway();
         }, 2000);
         errorMade++;
@@ -479,20 +488,33 @@ let error = 0;
 // plead when entrance is denied
 function plead() {
     entrantChatReset();
+    let arrayLength =0;
     // entrantChat.innerHTML = `Please. I need this.`;
-
-    const randomPleadIndex = Math.floor(Math.random() * pleadArray.length);
-    if (!pleadedOnce){
-        pleadedOnce = true;
-    entrantChat.innerHTML = pleadArray[randomPleadIndex];
-    begSFX.currentTime=0;
-    begSFX.play();
+    if (currentGender === `Male`){
+        arrayLength = pleadArray.length;
     }
-    else if(pleadedOnce){
-        entrantChat.innerHTML = `Please...`;
+    else if(currentGender === `Female`){
+        arrayLength = femalePleadArray.length;
+    }
+        const randomPleadIndex = Math.floor(Math.random() * arrayLength);
+        if (!pleadedOnce){
+            pleadedOnce = true;
+            if (currentGender === `Male`){
+                entrantChat.innerHTML = pleadArray[randomPleadIndex];
+            }
+            else if(currentGender === `Female`){
+                entrantChat.innerHTML = femalePleadArray[randomPleadIndex];
+            }
+
         begSFX.currentTime=0;
         begSFX.play();
-    }
+        }
+        else if(pleadedOnce){
+            entrantChat.innerHTML = `Please...`;
+            begSFX.currentTime=0;
+            begSFX.play();
+        }
+   
 }
 
 function entrantChatReset() {
@@ -505,8 +527,8 @@ function updateStats(){
 
     totalRussians ++;
     entrantTotalStat.innerHTML = `Total - ${totalRussians}`;
-    entrantAcceptedStat.innerHTML = `Accepted - ${acceptedRussians}`;
-    entrantDeclinedStat.innerHTML = `Declined - ${declinedRussians}`;
+    entrantAcceptedStat.innerHTML = `Approved- ${acceptedRussians}`;
+    entrantDeclinedStat.innerHTML = `Denied - ${declinedRussians}`;
     entrantVisitorStat.innerHTML = `Visitors - ${visitorRussians}`;
     errorStat.innerHTML = `Errors - ${errorMade}`;
 
@@ -720,8 +742,9 @@ function PersonBlueprint() {
 
     this.randomizeSex = function () {
         const genderChance = Math.floor(Math.random() * 10);
-        if (genderChance >= 2) {
+        if (genderChance >= 5) {
             this.gender = 'Male';
+            
             const randomImgIndex = Math.floor(Math.random() * backgroundArray[0].length);
             entrantImg.style.background = `url(./assets/images/profiles/${backgroundArray[0][randomImgIndex]}) center center / contain no-repeat`;
 
@@ -736,6 +759,7 @@ function PersonBlueprint() {
         } else {
 
             this.gender = 'Female';
+            
             const randomImgIndex = Math.floor(Math.random() * backgroundArray[1].length);
             entrantImg.style.background = `url(./assets/images/profiles/${backgroundArray[1][randomImgIndex]}) center center / contain no-repeat`;
 
@@ -745,6 +769,7 @@ function PersonBlueprint() {
                 passportProfileImg[i].style.backgroundColor = `white`
             }
         }
+        currentGender = this.gender;
     }
 
 

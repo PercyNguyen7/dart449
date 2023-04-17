@@ -494,7 +494,7 @@ p, ul, li, span{
 }
 .accept-btn,.decline-btn{
     font-family: 'PixeloidBold';
-    font-size:1.5rem;
+    font-size:1.4rem;
     background-color: rgb(245, 245, 245);
     border:3px solid #601515;
     border-style: dashed;
