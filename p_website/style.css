@@ -329,7 +329,7 @@ li{
   background-color: rgba(0, 255, 255, 0.418);
 } */
 .footer-wrapper{
-  padding-right: 1rem;
+  padding: 0 1rem;
 
 }
 .footer-tabs{
@@ -389,8 +389,7 @@ li{
   }
   @media (min-width: 45em) {
     :root{
-    --fs-nav: 1.75rem;
-    --fs-nav-order: 1rem;
+
     --fs-h1:5rem;
     --fs-h2: 3rem;
     --fs-h3: 2rem;
@@ -452,7 +451,12 @@ li{
 }
 @media (min-width: 55em) {
     :root{
+      --fs-nav: 1.75rem;
+      --fs-nav-order: 1rem;
       --fs-nav: 2rem;
+  }
+  section,footer{
+    margin-right: clamp(13rem,27vw,28rem);
   }
   .primary-navigation{
     position: fixed;
@@ -475,9 +479,9 @@ li{
     left:0.8rem
   }
 
-  /* .menu-btn{
+  .menu-btn{
         display: none;
-  } */
+  }
   .tabs-orders{
     position: relative;
     height: 100%;
@@ -502,7 +506,7 @@ li{
     display: none;
   }
 
-
+ 
   /* .tabs-orders::after{
     content: '';
     position: absolute;

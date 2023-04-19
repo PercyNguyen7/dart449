@@ -49,7 +49,7 @@ const errorStat = document.querySelector(`.error-number`);
 const visitVisaInstruction = document.querySelector(`.visit-visa-instruction`);
 
 
-const winScreen= document.querySelector(`.win-ending`);
+const winScreen= document.querySelector(`.loyal-ending`);
 const endingPhrase = document.querySelector(`.ending-phrase`);
 const finalPhrase = document.querySelector(`.final-phrase`);
 
@@ -97,6 +97,9 @@ let durationDialogue = ``;
 let nameDialogue = ``;
 let dobDialogue =``;
 let pleadingTxt = ``;
+
+let goodMistakes = 0;
+let badMistakes = 0;
 
 let entrantPleading = false;
 let entrantContested = false;
@@ -463,7 +466,7 @@ closeDocsBtn.addEventListener(`click`, () => {
             voiceSFX.currentTime=0;
             voiceSFX.play();
         }
-
+        goodMistakes++;
         errorMade++;
         acceptedRussians++;
         if(currentPurpose ===`Visit`){
@@ -495,6 +498,7 @@ closeDocsBtn.addEventListener(`click`, () => {
             waitingNext = true;
             walkAway();
         }, 2000);
+        badMistakes++;
         errorMade++;
         declinedRussians++;
         updateStats();
@@ -596,18 +600,20 @@ passportFar.addEventListener('click', () => {
             roomtoneSFX.play();
         }
         closeDocsBtn.classList.add('hidden');
-
         openPassport();
-       
-        newsUpdate();
+
+        // before news update, so that when
         updateTouristBan();
+
+        newsUpdate();
+        
     }
 
     // workPermit.classList.remove(`hidden`);
     // studyPermit.classList.remove(`hidden`);
 
 });
-
+const tvWrapper = document.querySelector('.tv')
 const tvScreen = document.querySelector('.tv-screen');
 const tvHeadline = document.querySelector('.tv-headline');
 
@@ -618,39 +624,49 @@ function newsUpdate(){
     if (totalRussians ===0 && currentNews ===0){
         tvScreen.style.background=`url(assets/images/tv/putin.png) center center / cover no-repeat`
         tvHeadline.innerHTML =`Putin mobilizes 300,000 troops for war in Ukraine and warns he’s not bluffing with nuclear threat`;
-        tvHeadline.style.backgroundColor = `rgba(0, 0, 0, 0.466)`
+        tvHeadline.style.backgroundColor = `rgba(0, 0, 0, 0.466)`;
+        tvWrapper.href = `https://www.cnbc.com/2022/09/21/russia-ukraine-war-putin-announces-partial-military-mobilization.html`;
         currentNews++;
- 
+        tvWrapper.setAttribute('target', '_blank');
+        russianTouristBanned = true;
         newsSFX.play();
     } else if (totalRussians ===2 && currentNews ===1){
         tvScreen.style.background=`url(assets/images/tv/protesterDetained.jpg) center center / cover no-repeat`
         tvHeadline.innerHTML =`Over 1,300 arrested in Russia as military call-up ignites widespread protests`;
         currentNews++;
+        tvWrapper.href = `https://www.theguardian.com/world/2022/sep/22/russia-protests-more-than-1300-arrested-at-anti-war-demonstrations-ukraine`;
         newsSFX.play();
     } else if (totalRussians ===4 && currentNews ===2){
         tvScreen.style.background=`url(assets/images/tv/flee.png) center center / cover no-repeat`
         tvHeadline.innerHTML =`As masses flee Russia to avoid conscription, European neighbours grapple with whether to let them in`;
+        tvWrapper.href = `https://www.cbc.ca/news/world/russia-draft-flee-border-1.6597416`;
         currentNews++;
         newsSFX.play();
     } else if (totalRussians === 6 && currentNews ===3){
         tvScreen.style.background=`url(assets/images/tv/russianDeath.jpg) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Russia's mobilized soldiers speak out: 'We were thrown on to the frontline with no support'`;
+        tvHeadline.innerHTML =`Russia's mobilized soldiers speak out: 'We were thrown on to the frontline with no support`;
+        tvWrapper.href = `https://www.lemonde.fr/en/international/article/2022/11/10/russia-s-mobilized-soldiers-speak-we-were-thrown-onto-the-frontline-with-no-support_6003764_4.html`
         currentNews++;
         newsSFX.play();
     } else if (totalRussians ===7 && currentNews ===4){
         tvScreen.style.background=`url(assets/images/tv/kazakh.png) center center / cover no-repeat`
-        tvHeadline.innerHTML =`Kazakh president Urges Calm and Care for Russians Fleeing Mobilization .`;
+        tvHeadline.innerHTML =`Kazakh president Urges Calm and Care for Russians Fleeing Mobilization.`;
+        tvWrapper.href = `https://thediplomat.com/2022/09/kazakh-president-urges-calm-and-care-for-russians-fleeing-mobilization/`;
         currentNews++;
         newsSFX.play();
     } else if (totalRussians >= 8 && currentNews ===5){
         tvScreen.style.background=`url(assets/images/tv/finlandBorderClose.jpg) center center / cover no-repeat`
         tvHeadline.innerHTML =`Moralis to join European neighbours in shutting out Russian tourists due to security concerns.`;
+        tvWrapper.href = `https://www.reuters.com/world/europe/finland-will-shut-border-russian-tourists-midnight-2022-09-29/`;
         currentNews++;
         newsSFX.play();
-        russianTouristBanned = true;
+    
     }   else if (acceptedRussians >= 8 && currentNews ===6){
         tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
         tvHeadline.innerHTML =`Moralis has started building a 124-mile fence on its border with Russia.`;
+        tvWrapper.href = `https://www.insider.com/finland-build-fence-russian-border-barbed-wire-2023-3`;
+
+
         currentNews++;
         newsSFX.play();
     }  else if (acceptedRussians >= 14 && currentNews ===7){
@@ -910,7 +926,8 @@ function PersonBlueprint() {
         this.typeError = `none`;
         systemAnswer = 'accept';
         // 3 out of 9 chances for having an error
-        const errorChance = Math.floor(Math.random() * 9)
+        const errorChance = Math.floor(Math.random() * 10)
+        //0,1, 2 means error
         if (errorChance < 3) {
             // 1 out of 5 chances for each type of error
             const typeErrorChance = Math.floor(Math.random() * 5)
@@ -957,7 +974,7 @@ function PersonBlueprint() {
             // }
             // errorInfo = true;
         }
-        // 5 out of 8 chances of being good!
+        // 6 out of 9 chances of being good!
         else if (errorChance >= 3) { 
            
         }
