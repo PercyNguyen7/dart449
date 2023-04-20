@@ -1217,7 +1217,6 @@ function checkEndGame() {
     if (entrants === 0) {
         console.log('game over')
         alert('game over')
-
     }
 }
 

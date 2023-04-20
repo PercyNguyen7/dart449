@@ -54,7 +54,6 @@ section{
     flex-direction: column;
     justify-content: center;
     align-items: center;
- 
     min-height: 100vh;
 }
 
@@ -72,25 +71,35 @@ h1,h2,h3,h4,h5{
     opacity:1;
     margin-bottom:2rem;
 }
-
-h1{
-font-size:calc(4rem + ((2.5vw - 0.48rem) * 1.3889));
-letter-spacing: 1rem;
-mix-blend-mode: difference;
-text-align: center;
-z-index: 10;
+h2,h3{
+    color: rgb(110, 28, 28);
 }
 
+
 h2{
+    font-size:calc(4rem + ((2.5vw - 0.48rem) * 1.3889));
+    letter-spacing: 1rem;
+    mix-blend-mode: difference;
+    text-align: center;
+    z-index: 10;
+}
+h3{
     font-size:calc(2rem + ((1.75vw - 0.48rem) * 1.3889)); 
     letter-spacing: 1rem; 
     margin: 6rem 0;
 }
-
-p{
+p, a{
     font-size:calc(1rem + ((0.75vw - 0.48rem) * 1.3889)); 
+    margin: 1rem 0;
 }
 
+figure{
+    max-width: 60rem;
+    margin: 2rem 0;
+}
+img{
+    width: 100%;
+}
 
 h4{
     color: rgb(239, 242, 252);
@@ -98,8 +107,11 @@ h4{
     letter-spacing: 0.75rem;
     line-height: calc(2rem + ((1.5vw - 0.48rem) * 1.3889));
 }
-h1,h2{
-    color: rgb(110, 28, 28);
+
+h5{
+
+    font-size:calc(1.25rem + ((1vw - 0.48rem) * 1.3889));
+    letter-spacing: 0.25rem;
 }
 .mini-wrapper{
     width: 100%;
@@ -135,11 +147,15 @@ h1,h2{
     align-items: center;
 
     background-size: 100rem;
-
+}
+.white-wrapper{
+    background-color: white;
+    border: 2px solid grey;
 }
 .container{
     margin: auto;
     width: 80%;
+    /* border: red 1px solid; */
 }
 .phrase-wrapper:before{
     position: absolute;
@@ -164,10 +180,9 @@ h1,h2{
     justify-content: space-between;
     margin: 1rem 0;
 }
-h5{
-
-    font-size:calc(1.25rem + ((1vw - 0.48rem) * 1.3889));
-    letter-spacing: 0.25rem;
+.phrase-wrapper:not(:first-child):hover{
+    color: white;
+    background-color: black;
 }
 
 .title{
@@ -183,8 +198,16 @@ p, ul, li, span, div{
 }
 .play-sect{
     background-color: black;
+    min-height: min-content;
+    padding: 2rem 0;
+    background: url(assets/images/bg.jpg) center center /cover no-repeat;
+    background-attachment: fixed;
+}
+.play-sect h2{
+    mix-blend-mode: normal;
 }
 .play-button{
+    text-decoration: none;
     font-family: 'm12';
     font-size:calc(2rem + ((0.75vw - 0.48rem) * 1.3889));
     margin: 0 auto;
@@ -192,10 +215,26 @@ p, ul, li, span, div{
     padding: 1rem;
     color: white;
     background-color: rgb(110, 28, 28);
+    transition: all 0.25s;
+    margin: 3rem 0;
+}
+.play-button:hover{
+    background-color: rgb(245, 245, 245);
+    color:rgb(110, 28, 28);
+}
+.intro-sect{
+    background: url(assets/images/table.jpg) center center/ cover no-repeat;
+    padding: 10rem 0;
+}
+.about-sect h3{
+    text-align: center;
 }
 .about-sect{
-    background: url(assets/images/table.jpg) center center/ cover no-repeat;
- 
+    background-color: rgb(15, 15, 15);
 }
-
-
+.about-sect p{
+    color: white;
+}
+a{
+    color: rgb(110, 28, 28);
+}
