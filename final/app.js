@@ -217,7 +217,7 @@ function showInput(input) {
         entrantChat.innerHTML = durationDialogue;
         voiceSFX.currentTime=0;
         voiceSFX.play();
-    } else if (currentInput === `What's your date of birth`|| currentInput === `When's your birthday`) {
+    } else if (currentInput === `What's your date of birth`|| currentInput === `Date of birth please`) {
 
         entrantChatReset();
         entrantChat.innerHTML = dobDialogue;
