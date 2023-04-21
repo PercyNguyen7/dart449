@@ -68,12 +68,12 @@ p, ul, li, span{
     border-radius: 20px;
     background-color: white;
     opacity: 0;
-    z-index: 100;
+    z-index: 9999;
 }
 .game-wrapper{
     position: relative;
     background: url(assets/images/cement-texture-min.jpg.png) center center /cover no-repeat;
-    /* max-width: 75rem; */
+
     /* margin: auto; */
    margin:2rem auto;
 
@@ -107,20 +107,20 @@ p, ul, li, span{
 }
 .player-voice{
     position: absolute;
-    bottom:1rem;
+    bottom:-2rem;
     left: 0;
     color: white;
     font-size: 1.5rem;
     text-shadow: 2px 2px 2px rgb(24, 24, 24);
     text-align: center;
     width: 100%;
-    z-index: 999;
-    background-color:rgba(24, 24, 24, 0.616) ;
+    z-index: 9000;
+    background-color:rgba(24, 24, 24, 0.308) ;
   }
 .glass-wrapper{
     position: relative;
     width: 100%;
-    height: 30rem;
+    height: 28rem;
     overflow: hidden;
    
     /* background: url(./assets/images/glass.png) center center / cover no-repeat; */
@@ -198,11 +198,10 @@ p, ul, li, span{
     80%{   transform: translate(-28rem,0rem);}
     100% {transform: translate(0,0)}
   } */
-
-
   .walk-inside{
     animation: walk-inside 1s ease-out forwards;
-}
+    }
+    
   @keyframes walk-inside{
     0%   {
         transform:translate(0,0)
@@ -268,7 +267,7 @@ p, ul, li, span{
  
     background:url(./assets/images/table.jpg) center center /cover no-repeat;
     width: 100%;
-    height: 20rem;
+    height: 18rem;
     z-index: 10;
 }
 
@@ -324,8 +323,8 @@ p, ul, li, span{
 
 .ipad{
     position: absolute;
-    bottom:0rem;
-    left: -1rem;
+    bottom:-2rem;
+    left: 5vw;
     width: clamp(16rem,50vw,27rem);
     height: 35rem;
     background-color: white;
@@ -369,6 +368,7 @@ p, ul, li, span{
 .ipad li{
     /* list-style */
     margin-left:1rem;
+    list-style-type: square;
 }
 .visit-visa-instruction.visit-banned{
     color: red;
@@ -584,7 +584,7 @@ p, ul, li, span{
     border:#292929 solid 6px;
     border-radius: 5px;
     top:2rem;
-    left:2rem;
+    left:3vw;
     box-shadow: 0 0 20px 5px rgba(235, 155, 130, 0.459); 
    background:url(assets/images/tv/news1.png) center center / contain no-repeat;
    background-color: #f5f4f5;
@@ -666,16 +666,21 @@ p, ul, li, span{
 .study-permit >.line{
     background-color: #153360;
 }
+.important{
+    background-color: black;
+    color: white;
+    padding: 1rem;
+}
 .current-date{
     font-family: 'Pixeloid';
     color: whitesmoke;
     font-size: 1.5rem;
-    position: fixed;
-    top: 0rem;
-    right: 1rem;
+    position: absolute;
+    top: -3rem;
+    right:0;
     z-index: 9000;
     mix-blend-mode:difference;
-    border: 2px solid white;
+  
     padding:0.5rem;
 }
 .about-btn{
@@ -683,14 +688,18 @@ p, ul, li, span{
     color: whitesmoke;
     font-size: 1.5rem;
     position: fixed;
-     top: 0rem;
-    left: 1rem;
+     top: 0;
+    left:45%;
     z-index: 9000;
     mix-blend-mode:difference;
     text-transform: uppercase;
     text-decoration: none;
     border: 2px solid white;
     padding:0.5rem;
+}
+.about-btn:hover{
+    background-color: white;
+    color: black;
 }
 .mistake-instruction{
     text-transform:uppercase;
@@ -728,7 +737,7 @@ p, ul, li, span{
     align-items: center;
 }
 .lose-ending{
-    background-color: rgb(19, 16, 16);
+    background-color: rgb(243, 243, 243);
     position: fixed;
     width: 100%;
     height: 100%;
@@ -745,16 +754,17 @@ p, ul, li, span{
 .lose-ending h2{
     margin:2rem 0;
     padding: 1rem;
-    color: #e6c59a;
+    color: #6015;
     /* background-color: white; */
 }
 .loyal-ending h2, .lose-ending h2{
     margin:2rem 0;
     padding: 1rem;
-    color: #e6c59a;
+    color: #601515;
     /* background-color: white; */
 }
 .loyal-ending p,.lose-ending p{
+    color: black;
     font-size: 1.25rem;
     margin-bottom:1rem;
 }
@@ -766,6 +776,7 @@ p, ul, li, span{
 .lose-phrase{
     font-size:1.25rem;
     text-transform: uppercase;
+    color: #601515 !important;
 }
 .final-phrase{
     color:#e6c59a;;

@@ -3,6 +3,7 @@ const passportNear = document.querySelector('.passport-near');
 const passportBottom = document.querySelector('.passport-bottom');
 
 const personAvatar = document.querySelector('.person')
+const loseEndingPhrase = document.querySelector('.lose-sadad')
 
 const acceptBtn = document.querySelector(`.accept-btn`);
 const declineBtn = document.querySelector(`.decline-btn`);
@@ -258,7 +259,7 @@ function showInput(input) {
 }
 window.addEventListener("keypress", function(event) {
     // If the user presses the "Enter" key on the keyboard
-    if (event.key === "n" && waitingNext) {
+    if (event.key === "Enter" && waitingNext) {
       // Cancel the default action, if needed
       event.preventDefault();
       callNext();
@@ -269,29 +270,7 @@ window.addEventListener("keypress", function(event) {
         }, 2000);
       // Trigger the button element with a click
 
-    } else if (event.key ===`Enter` &&  entrantPleading && !passportOpened){
-        entrantChatReset();
-        entrantChat.innerHTML = `You might as well kill me.`;
-        
-        voiceSFX.currentTime=0;
-        voiceSFX.play();
-        
-        setTimeout(() => {
-            returnPassport();
-           
-        }, 1000);
-     
-        setTimeout(() => {
-            walkAway();
-            
-            waitingNext = true;
-        }, 4000);
-
-        entrantPleading = false;
-        declinedRussians++;
-        updateStats();
-
-    } else if (event.key ===`e`){
+    }  else if (event.key ===`e`){
         winScreen.classList.remove('hidden');
         endingPhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
         finalPhrase.innerHTML = `You wonder if you should have accepted those ${declinedRussians} denied... `
@@ -299,7 +278,58 @@ window.addEventListener("keypress", function(event) {
     }else if (event.key ===`l`){
         loseScreen.classList.remove('hidden');
         losePhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`;
-    }
+    }  
+    if(!waitingNext){
+        if (event.key ===`1`){
+            entrantChatReset();
+            entrantChat.innerHTML = `Hello officer`;
+            voiceSFX.currentTime=0;
+            voiceSFX.play();
+        }else if (event.key ===`2`){
+            entrantChatReset();
+            entrantChat.innerHTML = `I'm doing alright...`;
+            voiceSFX.currentTime=0;
+            voiceSFX.play();
+        }  else if (event.key ===`3`){
+            entrantChatReset();
+            entrantChat.innerHTML = nameDialogue;
+            voiceSFX.currentTime=0;
+            voiceSFX.play();
+        }  else if (event.key ===`4`){
+            entrantChatReset();
+            entrantChat.innerHTML = durationDialogue;
+            voiceSFX.currentTime=0;
+            voiceSFX.play();
+        } else if (event.key ===`5`){
+            entrantChatReset();
+            entrantChat.innerHTML = `We hate the war, but we're powerless against them. They oppress any oppositition. `;
+            voiceSFX.currentTime=0;
+            voiceSFX.play();
+        } 
+        else if (event.key ==="0" &&  entrantPleading && !passportOpened){
+            entrantChatReset();
+            entrantChat.innerHTML = `You might as well kill me.`;
+            
+            voiceSFX.currentTime=0;
+            voiceSFX.play();
+            
+            setTimeout(() => {
+                returnPassport();
+               
+            }, 1000);
+         
+            setTimeout(() => {
+                walkAway();
+                
+                waitingNext = true;
+            }, 4000);
+    
+            entrantPleading = false;
+            declinedRussians++;
+            updateStats();
+    
+        }
+     } 
   });
 
 function capitalizeFirstLetter(string) {
@@ -628,7 +658,7 @@ function newsUpdate(){
         tvWrapper.href = `https://www.cnbc.com/2022/09/21/russia-ukraine-war-putin-announces-partial-military-mobilization.html`;
         currentNews++;
         tvWrapper.setAttribute('target', '_blank');
-        russianTouristBanned = true;
+    
         newsSFX.play();
     } else if (totalRussians ===2 && currentNews ===1){
         tvScreen.style.background=`url(assets/images/tv/protesterDetained.jpg) center center / cover no-repeat`
@@ -672,8 +702,9 @@ function newsUpdate(){
     }  else if (acceptedRussians >= 14 && currentNews ===7){
         winScreen.classList.remove('hidden');
         endingPhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
-        finalPhrase.innerHTML = `You wonder if you should have accepted those ${declinedRussians} denied... `
+        finalPhrase.innerHTML = `You wonder if you should have accepted those ${declinedRussians} denied... Could they be conscripted for war in this moment?`
         newsSFX.play();
+        russianTouristBanned = true;
     }  
     // else if (acceptedRussians >= 10 && currentNews ===7){
     //     tvScreen.style.background=`url(assets/images/tv/border.png) center center / cover no-repeat`
