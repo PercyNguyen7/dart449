@@ -722,7 +722,7 @@ p, ul, li, span{
     height: 100%;
 }
 .loyal-ending{
-    background-color: #601515;
+    background-color: #1d1d1d;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -751,22 +751,26 @@ p, ul, li, span{
     justify-content: center;
     align-items: center;
 }
+
+.loyal-ending h2{
+    margin:2rem 0;
+    padding: 1rem;
+    color: #7a1f1f;
+    /* background-color: white; */
+}
 .lose-ending h2{
     margin:2rem 0;
     padding: 1rem;
     color: #6015;
     /* background-color: white; */
 }
-.loyal-ending h2, .lose-ending h2{
-    margin:2rem 0;
-    padding: 1rem;
-    color: #601515;
-    /* background-color: white; */
-}
 .loyal-ending p,.lose-ending p{
     color: black;
     font-size: 1.25rem;
     margin-bottom:1rem;
+}
+.loyal-ending p{
+    color: rgb(218, 218, 218);
 }
 
 .ending-phrase,.final-phrase{
@@ -775,7 +779,7 @@ p, ul, li, span{
 }
 .lose-phrase{
     font-size:1.25rem;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #601515 !important;
 }
 .final-phrase{

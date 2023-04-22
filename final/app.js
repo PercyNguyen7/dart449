@@ -3,7 +3,7 @@ const passportNear = document.querySelector('.passport-near');
 const passportBottom = document.querySelector('.passport-bottom');
 
 const personAvatar = document.querySelector('.person')
-const loseEndingPhrase = document.querySelector('.lose-sadad')
+
 
 const acceptBtn = document.querySelector(`.accept-btn`);
 const declineBtn = document.querySelector(`.decline-btn`);
@@ -278,6 +278,25 @@ window.addEventListener("keypress", function(event) {
     }else if (event.key ===`l`){
         loseScreen.classList.remove('hidden');
         losePhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`;
+       
+            if (badMistakes >0){
+                const para = document.createElement("p");
+                para.innerHTML = `You mistakenly denied entry to ${badMistakes}, who have filed complains to the government of Moralis.`;
+                loseScreen.appendChild(para);
+            }
+        
+            if (goodMistakes>0){
+                const para = document.createElement("p");
+                
+                para.innerHTML = `You slipped ${goodMistakes} illegal russians into our country, who perhaps would have lived a very different life in Russian.`;
+                if (goodMistakes === 3){
+                    para.innerHTML = `You slipped in exactly ${goodMistakes} illegal russians. Was it a mistake, or were you trying to save them from conscription and the oppression of their own government?`;
+                }
+                loseScreen.appendChild(para);
+                
+               
+            }
+         
     }  
     if(!waitingNext){
         if (event.key ===`1`){
@@ -587,6 +606,23 @@ function updateStats(){
    if (errorMade >=3){
     loseScreen.classList.remove('hidden');
     losePhrase.innerHTML = `Throughout your career, you greeted a total of ${totalRussians} russian entrants. You approved ${acceptedRussians} and denied ${declinedRussians} citizens.`
+    if (badMistakes >0){
+        const para = document.createElement("p");
+        para.innerHTML = `You mistakenly denied entry to ${badMistakes} person, who have filed a complain to the government of Moralis.`;
+        loseScreen.appendChild(para);
+    }
+
+    if (goodMistakes>0){
+        const para = document.createElement("p");
+        
+        para.innerHTML = `You slipped ${goodMistakes} illegal russians into our country, who perhaps would have lived a very different life in Russia.`;
+        if (goodMistakes === 3){
+            para.innerHTML = `You slipped in ${goodMistakes} illegal russians. This seems one too many to be mistakes. Were you trying to sparing them from conscription and jail time from their motherland?`;
+        }
+        loseScreen.appendChild(para);
+        
+       
+    }
    }
 }
 
