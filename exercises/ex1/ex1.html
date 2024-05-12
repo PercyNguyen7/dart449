@@ -5,47 +5,69 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diner Ball</title>
+    <title>Magic Stress Ball</title>
     <link rel="stylesheet" href="./css/ex1.css">
+    <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
 </head>
 
 <body>
-    <section class="">
+    <section class="all-wrapper">
+        <section class="themes-section">   
+            <div class="themes">
+             <div class="eat-icon "></div>
+            </div>
+
+            <div class="themes ">
+             <div class="wear-icon"></div>
+            </div>
+
+            <div class="themes ">
+             <div class="watch-icon"></div>
+            </div>
+
+            <div class="themes ">
+                <div class="listen-icon">
+            </div>
+          
+
+        </section>
+        <section class="ball-section">
 
         <!-- <h1>Roll the dice</h1> -->
         <!-- <button id="button">ROll THE DICE!</button> -->
         <!-- <h1>Yes you! Wanna see a magic trick?</h1> -->
-        <div class="title">
-            <h1>"What's for dinner?" Magic Ball</h1>
-
-        </div>
+      
+            <h1 class="title">Daily Food Magic Ball</h1>
+      
 
         <div class="grid-half">
+            <div class="left">
             <div class="instruction-area">
-                <h2>Customize your favorite cuisines, then Click on the Magic 8 Ball or Tap Enter</h2>
-                <div class="buttons-area">
-                    <div class="all-cuisines-btn">All</div>
-                    <div class="cuisines-button">Murican</div>
-                    <div class="cuisines-button">Mexican</div>
-                    <div class="cuisines-button">Thai</div>
-                    <div class="cuisines-button">Greek</div>
-                    <div class="cuisines-button">Indian</div>
-                    <div class="cuisines-button">Japanese</div>
-                    <div class="cuisines-button">Spanish</div>
-                    <div class="cuisines-button">French</div>
-                    <div class="cuisines-button">Chinese</div>
-                    <div class="cuisines-button">Italian</div>
-                    <div class="cuisines-button">Vietnamese</div>
-                    <div class="cuisines-button">Turkish</div>
-                    <div class="cuisines-button">Pakistani</div>
-                    <div class="cuisines-button">Irish</div>
-                    <div class="cuisines-button">Korean</div>
-                    <div class="cuisines-button">Mediterranean</div>
-                    <div class="cuisines-button">British</div>
-                    <div class="cuisines-button">Filipino</div>
-                    <div class="cuisines-button">German</div>
+                <h2>Customize your decisions below, sit back and let the Magic Ball decide for you!</h2>
+                
+                
+                <div class="btn-area">
+                    <div class="all-cuisines-btn">Select All</div>          
+                  
                 </div>
+
+             
+                <div class="edit-btns">
+                    <form class="input-cuisine">
+                        <input type="text" class="new-cuisine-text" name="fname" placeholder="Cuisine Name" maxlength="20 "><br><br>
+                        <input type="button" value="Add" class="new-cuisine-btn clickable">
+                    </form>
+
+                        <div class="remove-btn clickable">Remove</div>
+                        <div class="remove-all-btn clickable hidden">Remove All</div>
+                    
+                </div>
+                
             </div>
+            <div class="reset-btn">Default</div>
+        </div>
+
+
             <div id="ball" class=" animations">
                 <div class="result-wrapper animations">
                     <div class="result">
@@ -61,6 +83,8 @@
         </div>
 
     </section>
+</section>
+    
     <script src="./js/ex1.js"></script>
 </body>
 
