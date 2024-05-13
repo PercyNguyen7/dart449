@@ -28,11 +28,11 @@ const resetBtn = document.querySelector(".reset-btn");
 // let activeChoices= [];
 eatPreset = ['American','Mexican','Thai','Greek','Indian','Japanese','Spanish','French','Chinese','Italian','Vietnamese', 'Pakistani','Irish',`Korean`, `Mediterranean`, `British`,`Filipino`,`German`];
 
-wearPreset = ['Casual','Classic','Chic','Bohemian','Streetwear','Preppy','Sporty'];
+wearPreset = ['Artsy','Athleisure','Casual','Classic','Bohemian', 'Elegant','Exotic','Formal','Gothic','Minimalist','Preppy','Streetwear','Sportswear','Vintage'];
 
 watchPreset = ['Action', 'Adventure','Animated','Comedy','Drama','Fantasy','Historical','Horror','Musical', 'Noir', 'Romance', 'Science Fiction',  'Thriller','Western'];
 
-listenPreset = ['Classical', 'Avant-garde','Blues','Easy-Listening','Country','Electronic','Folk','Hip Hop','Jazz','Pop','R&B & Soul','Rock','Metal','Punk'];
+listenPreset = ['Classical', 'Avant-garde','Blues','Easy Listening','Country','Electronic','Folk','Hip Hop','Jazz','Pop','R&B & Soul','Rock','Metal','Punk'];
 
 themes.forEach((element) => addIconListener(element));
 
@@ -137,7 +137,8 @@ function removeAllChoices(){
 window.addEventListener("load", () => {
    
     if (localStorage.getItem('last_category') == null){
-        localStorage.setItem('last_category') == 'eat';
+        localStorage.setItem('last_category','eat') ;
+        eatIcon.classList.add('active'); 
     } else if (localStorage.getItem('last_category') == 'eat'){
         eatIcon.classList.add('active');
     } else if (localStorage.getItem('last_category') == 'wear'){
@@ -147,7 +148,6 @@ window.addEventListener("load", () => {
     } else if (localStorage.getItem('last_category') == 'listen'){
         listenIcon.classList.add('active');
     }
-
 
      // make all buttons active
      for (let n = 0; n < buttons.length; n++){
@@ -165,10 +165,20 @@ window.addEventListener("load", () => {
 
 // update TO CURRENT CATEGORY
 function updateDataSet(){
-    if (localStorage.getItem(currentData())== null){
-        localStorage.setItem(currentData(),'[]');
-    }
-    else {
+    if (localStorage.getItem('eat_data') == null){
+        // localStorage.setItem(currentData(),'[]');
+        localStorage.setItem('eat_data',JSON.stringify(eatPreset));    
+    } else if (localStorage.getItem('wear_data') == null){
+        // localStorage.setItem(currentData(),'[]');
+        localStorage.setItem('wear_data',JSON.stringify(wearPreset)); 
+    } else if (localStorage.getItem('watch_data') == null){
+        // localStorage.setItem(currentData(),'[]');
+        localStorage.setItem('watch_data',JSON.stringify(watchPreset));    
+    }  else if (localStorage.getItem('listen_data') == null){
+        // localStorage.setItem(currentData(),'[]');
+        localStorage.setItem('listen_data',JSON.stringify(listenPreset));    
+    } 
+
         const old_data = JSON.parse(localStorage.getItem(currentData()));
 
         for (let n = 0; n < old_data.length; n++){
@@ -181,7 +191,7 @@ function updateDataSet(){
             addButtonListener(newCuisine);
         }
         activeChoices = old_data;
-    } 
+    
 }
 
 const currentData=()=>{
@@ -215,7 +225,6 @@ removeBtn.addEventListener("click", ()=>{
 
    // if REMOVING MODE,
    if (removeBtn.classList.contains("active")){
-
     if (!allBtn.classList.contains('disabled')){
         allBtn.classList.add("disabled");
     }
